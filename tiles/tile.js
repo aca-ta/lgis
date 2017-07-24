@@ -1,45 +1,35 @@
-var url = require('url');
+#!/usr/bin/env node
+const mapnik = require('mapnik');
+const mercator = require('./sphericalmercator');
 
-module.exports.parseXYZ = function(req, TMS_SCHEME, callback) {
 
-    var matches = req.url.match(/(\d+)/g);
-    if (matches && matches.length == 3) {
-        try {
-            var x = parseInt(matches[1], 10);
-            var y = parseInt(matches[2], 10);
-            var z = parseInt(matches[0], 10);
-            if (TMS_SCHEME)
-                y = (Math.pow(2, z) - 1) - y;
-            callback(null,
-               { z: z,
-                 x: x,
-                 y: y
-               });
-        } catch (err) {
-            callback(err, null);
-        }
-    } else {
-          try {
-              var query = url.parse(req.url, true).query;
-              if (query &&
-                  query.x !== undefined &&
-                  query.y !== undefined &&
-                  query.z !== undefined) {
-                  try {
-                      callback(null,
-                          { z: parseInt(query.z, 10),
-                          x: parseInt(query.x, 10),
-                          y: parseInt(query.y, 10)
-                          }
-                      );
-                  } catch (err) {
-                      callback(err, null);
-                  }
-              } else {
-                  callback(new Error('no x,y,z provided'), null);
-              }
-          } catch (err) {
-              callback(err, null);
-          }
-    }
+// register postgis plugin
+if (mapnik.register_default_input_plugins) mapnik.register_default_input_plugins();
+
+// change this to fit your db connection and settings
+const postgisSettings = {
+  dbname: 'test',
+  table: 'cultural_property',
+  user: 'postgres',
+  type: 'postgis',
+  extent: '-20005048.4188,-9039211.13765,19907487.2779,17096598.5401',
 };
+
+module.exports.createMvt = (req, res, params) => {
+  const map = new mapnik.Map(256, 256, mercator.proj4);
+  const vt = new mapnik.VectorTile(params.x, params.y, params.z);
+  const layer = new mapnik.Layer('tile', mercator.proj4);
+  const postgis = new mapnik.Datasource(postgisSettings);
+  const bbox = mercator.xyz_to_envelope(parseInt(params.x, 10),
+                                        parseInt(params.y, 10),
+                                        parseInt(params.z, 10), false);
+
+  layer.datasource = postgis;
+  layer.styles = ['point'];
+
+  map.bufferSize = 64;
+
+  map.extent = bbox;
+  return map.render(vt, func);
+};
+

@@ -16,6 +16,9 @@ sources:
         url_params:
             api_key: mapzen-tDHBHDp
         max_zoom: 16
+    mvt:
+        type: MVT
+        url: https://localhost:3000/{z}/{x}/{y}.mvt
 
 layers:
     earth:

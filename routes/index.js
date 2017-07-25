@@ -9,9 +9,8 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/tiles', (req, res) => {
-  console.log('hoge');
-  tile.createQuery(req, (res) => {
+router.get('/tiles/:Z/:X/:Y/', (req) => {
+  tile.createMvt(req, (res) => {
     res.status(200).set({ 'Content-Type': 'application/x-protobuf' });
     res.end();
   });

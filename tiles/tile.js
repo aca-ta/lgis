@@ -15,14 +15,16 @@ const postgisSettings = {
   extent: '-20005048.4188,-9039211.13765,19907487.2779,17096598.5401',
 };
 
-module.exports.createMvt = (res, func) => {
+module.exports.createMvt = (req, func) => {
+  const x = parseInt(req.params.X, 10);
+  const y = parseInt(req.params.Y, 10);
+  const z = parseInt(req.params.Z, 10);
+
   const map = new mapnik.Map(256, 256, mercator.proj4);
-  const vt = new mapnik.VectorTile(res.x, res.y, res.z);
+  const vt = new mapnik.VectorTile(x, y, z);
   const layer = new mapnik.Layer('tile', mercator.proj4);
   const postgis = new mapnik.Datasource(postgisSettings);
-  const bbox = mercator.xyz_to_envelope(parseInt(res.x, 10),
-                                        parseInt(res.y, 10),
-                                        parseInt(res.z, 10), false);
+  const bbox = mercator.xyz_to_envelope(x, y, z, false);
 
   layer.datasource = postgis;
   layer.styles = ['point'];

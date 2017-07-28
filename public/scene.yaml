@@ -18,7 +18,7 @@ sources:
         max_zoom: 16
     mvt:
         type: MVT
-        url: https://localhost:3000/{z}/{x}/{y}.mvt
+        url: http://localhost:3000/tiles/{z}/{x}/{y}.mvt
 
 layers:
     earth:
@@ -89,3 +89,10 @@ layers:
             draw:
                 polygons:
                     extrude: function () { return feature.height > 20 || $zoom >= 16; }
+
+    tile:
+        data: { source: mvt }
+        draw:
+            points:
+                size: 8px
+                color: '#000000'

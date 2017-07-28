@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 router.get('/tiles/:Z/:X/:Y/', (req, res) => {
   tile.createMvt(req, (err, data) => {
     res.status(200).set({ 'Content-Type': 'application/x-protobuf' });
-    res.end();
+    res.end(data.get());
   });
 });
 

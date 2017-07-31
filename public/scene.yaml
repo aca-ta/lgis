@@ -1,6 +1,5 @@
 camera:
-    camera1:
-        type: perspective
+    type: perspective
 
 lights:
     light1:

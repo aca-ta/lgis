@@ -1,4 +1,5 @@
-function addGUI(scene) {
+function addGUI(layer) {
+  let scene = layer.scene;
 
   // Create dat GUI
   const gui = new dat.GUI({ autoPlace: true });
@@ -6,53 +7,50 @@ function addGUI(scene) {
   window.gui = gui;
 
   // Camera
-  var camera_types = {
-      'Flat': 'flat',
-      'Perspective': 'perspective',
-      'Isometric': 'isometric'
+  const cameraTypes = {
+    Flat: 'flat',
+    Perspective: 'perspective',
+    Isometric: 'isometric',
   };
   gui.camera = scene.config.camera.type;
-  gui.add(gui, 'camera', camera_types).onChange(function(value) {
-      scene.config.camera.type = value;
-      scene.updateConfig();
+  gui.add(gui, 'camera', cameraTypes).onChange((value) => {
+    scene.config.camera.type = value;
+    scene.updateConfig();
   });
 
   // Layers
-  var layer_gui = gui.addFolder('Layers');
-  var layer_colors = {};
-  var layer_controls = {};
-  Object.keys(layer.scene.config.layers).forEach(function(l) {
-      if (!layer.scene.config.layers[l]) {
-          return;
-      }
+  const layerGui = gui.addFolder('Layers');
+  const layerColors = {};
+  const layerControls = {};
+  Object.keys(layer.scene.config.layers).forEach((l) => {
+    if (!layer.scene.config.layers[l]) {
+      return;
+    }
 
-      layer_controls[l] = !(layer.scene.config.layers[l].visible == false);
-      layer_gui.
-          add(layer_controls, l).
-          onChange(function(value) {
-              layer.scene.config.layers[l].visible = value;
-              layer.scene.rebuildGeometry();
-          });
-      try {
-          var c = layer.scene.config.layers[l].draw.polygons.color;
-      }
-      catch(e) {
-          var c = layer.scene.config.layers[l].draw.lines.color;
-      }
-      layer_colors[l] = [c[0]*255, c[1]*255, c[2]*255];
-      layer_gui.
-          addColor(layer_colors, l).
-          onChange(function(value) {
-              try {
-                  layer.scene.config.layers[l].draw.polygons.color = [value[0]/255, value[1]/255, value[2]/255];
-              }
-              catch(e) {
-                  layer.scene.config.layers[l].draw.lines.color = [value[0]/255, value[1]/255, value[2]/255];
-              }
-              layer.scene.rebuildGeometry();
-              });
+    layerControls[l] = !(layer.scene.config.layers[l].visible === false);
+    layerGui.add(layerControls, l)
+        .onChange((value) => {
+          layer.scene.config.layers[l].visible = value;
+          layer.scene.rebuildGeometry();
+        });
+    try {
+      const c = layer.scene.config.layers[l].draw.polygons.color;
+    } catch(e) {
+        const c = layer.scene.config.layers[l].draw.lines.color;
+    }
+    layerColors[l] = [c[0]*255, c[1]*255, c[2]*255];
+    layerGui
+        .addColor(layerColors, l)
+        .onChange((value) => {
+          try {
+                layer.scene.config.layers[l].draw.polygons.color = [value[0]/255, value[1]/255, value[2]/255];
+          } catch(e) {
+                layer.scene.config.layers[l].draw.lines.color = [value[0]/255, value[1]/255, value[2]/255];
+          }
+          layer.scene.rebuildGeometry();
+        });
   });
-  layer_gui.open();
+  layerGui.open();
 
   // Lighting
   var light_gui = gui.addFolder('Light');

@@ -6,7 +6,7 @@ function init(){
   });
   layer.addTo(map);
   layer.on('init', () => {
-    addGUI(layer.scene);
+    addGUI(layer);
     resizeMap();
   });
   layer.addTo(map);

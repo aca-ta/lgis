@@ -31,20 +31,18 @@ function addGUI(scene) {
           scene.config.layers[l].visible = value;
           scene.rebuild();
         });
-    let c;
     if (scene.config.layers[l].draw.polygons) {
-      c = scene.config.layers[l].draw.polygons.color;
+      layerColors[l] = scene.config.layers[l].draw.polygons.color;
     } else {
-      c = scene.config.layers[l].draw.lines.color;
+      layerColors[l] = scene.config.layers[l].draw.lines.color;
     }
-    layerColors[l] = c;
     layerGui
         .addColor(layerColors, l)
         .onChange((value) => {
           if (scene.config.layers[l].draw.polygons.color) {
-            scene.config.layers[l].draw.polygons.color = [value[0] / 255, value[1] / 255, value[2] / 255];
+            scene.config.layers[l].draw.polygons.color = value;
           } else {
-            scene.config.layers[l].draw.lines.color = [value[0] / 255, value[1] / 255, value[2] / 255];
+            scene.config.layers[l].draw.lines.color = value;
           }
           scene.rebuild();
         });

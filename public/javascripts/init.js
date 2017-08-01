@@ -1,4 +1,4 @@
-function init() {
+window.addEventListener('load', () => {
   const map = L.map('map');
   const layer = Tangram.leafletLayer({
     scene: 'scene.yaml',
@@ -10,4 +10,4 @@ function init() {
   });
   layer.addTo(map);
   map.setView([35.681167, 139.767052], 15);
-}
+}, false);

@@ -94,22 +94,19 @@ layers:
             source: mvt
             layer: tile
         draw:
+            tile_points:
+                style: points
+                size: 8px
+                color: '#000000'
+                collide: true
             tile_text:
                 style: text
                 text_source: name
+                anchor: right
+                collide: false
                 font:
                     weight: 100
                     size: 18px
                     family: Helvetica
                     fill: white
                     stroke: { color: black, width: 3 }
-
-#    tile_points:
-#        data:
-#            source: mvt
-#            layer: tile
-#        draw:
-#            tile_point:
-#                style: points
-#                size: 8px
-#                color: '#000000'

@@ -1,6 +1,4 @@
-function addGUI(layer) {
-  let scene = layer.scene;
-
+function addGUI(scene) {
   // Create dat GUI
   const gui = new dat.GUI({ autoPlace: true });
   gui.domElement.parentNode.style.zIndex = 500;
@@ -22,82 +20,75 @@ function addGUI(layer) {
   const layerGui = gui.addFolder('Layers');
   const layerColors = {};
   const layerControls = {};
-  Object.keys(layer.scene.config.layers).forEach((l) => {
-    if (!layer.scene.config.layers[l]) {
+  Object.keys(scene.config.layers).forEach((l) => {
+    if (!scene.config.layers[l]) {
       return;
     }
 
-    layerControls[l] = !(layer.scene.config.layers[l].visible === false);
+    layerControls[l] = !(scene.config.layers[l].visible === false);
     layerGui.add(layerControls, l)
         .onChange((value) => {
-          layer.scene.config.layers[l].visible = value;
-          layer.scene.rebuildGeometry();
+          scene.config.layers[l].visible = value;
+          scene.rebuild();
         });
-    try {
-      const c = layer.scene.config.layers[l].draw.polygons.color;
-    } catch(e) {
-        const c = layer.scene.config.layers[l].draw.lines.color;
+    let c;
+    if (scene.config.layers[l].draw.polygons) {
+      c = scene.config.layers[l].draw.polygons.color;
+    } else {
+      c = scene.config.layers[l].draw.lines.color;
     }
-    layerColors[l] = [c[0]*255, c[1]*255, c[2]*255];
+    layerColors[l] = c;
     layerGui
         .addColor(layerColors, l)
         .onChange((value) => {
-          try {
-                layer.scene.config.layers[l].draw.polygons.color = [value[0]/255, value[1]/255, value[2]/255];
-          } catch(e) {
-                layer.scene.config.layers[l].draw.lines.color = [value[0]/255, value[1]/255, value[2]/255];
+          if (scene.config.layers[l].draw.polygons.color) {
+            scene.config.layers[l].draw.polygons.color = [value[0] / 255, value[1] / 255, value[2] / 255];
+          } else {
+            scene.config.layers[l].draw.lines.color = [value[0] / 255, value[1] / 255, value[2] / 255];
           }
-          layer.scene.rebuildGeometry();
+          scene.rebuild();
         });
   });
   layerGui.open();
 
   // Lighting
-  var light_gui = gui.addFolder('Light');
-  var light_controls = {
-      "x position": .3,
-      "y position": .5,
-      "z position": .5,
-      "diffuse": 1,
-      "ambient": .5
+  const lightGui = gui.addFolder('Light');
+  const lightControls = {
+    'x position': 0.3,
+    'y position': 0.5,
+    'z position': 0.5,
+    diffuse: 1,
+    ambient: 0.5,
   };
-  light_gui.
-      add(light_controls, "x position", -1, 1).
-      onChange(function(value) {
-          scene.lights.light1.direction[0] = -value;
-          scene.render();
+  lightGui
+      .add(lightControls, 'x position', -1, 1)
+      .onChange((value) => {
+        scene.lights.light1.direction[0] = -value;
+        scene.render();
       });
-  light_gui.
-      add(light_controls, "y position", -1, 1).
-      onChange(function(value) {
-          scene.lights.light1.direction[1] = -value;
-          scene.render();
-     });
-  light_gui.
-      add(light_controls, "z position", 0, 1).
-      onChange(function(value) {
-          scene.lights.light1.direction[2] = -value;
-          scene.render();
-     });
-  light_gui.
-      add(light_controls, "diffuse", 0, 2).
-      onChange(function(value) {
-          scene.lights.light1.diffuse = [value, value, value, 1];
-          scene.render();
+  lightGui
+      .add(lightControls, 'y position', -1, 1)
+      .onChange((value) => {
+        scene.lights.light1.direction[1] = -value;
+        scene.render();
       });
-  light_gui.
-      add(light_controls, "ambient", 0, 1).
-      onChange(function(value) {
-          scene.lights.light1.ambient = [value, value, value, 1];
-          scene.render();
+  lightGui
+      .add(lightControls, 'z position', 0, 1)
+      .onChange((value) => {
+        scene.lights.light1.direction[2] = -value;
+        scene.render();
       });
-  light_gui.open();
-}
-
-
-// Resize map to window
-function resizeMap() {
-  document.getElementById('map').style.width = window.innerWidth + 'px';
-  document.getElementById('map').style.height = window.innerHeight + 'px';
-  map.invalidateSize(false);
+  lightGui
+      .add(lightControls, 'diffuse', 0, 2)
+      .onChange((value) => {
+        scene.lights.light1.diffuse = [value, value, value, 1];
+        scene.render();
+      });
+  lightGui
+      .add(lightControls, 'ambient', 0, 1)
+      .onChange((value) => {
+        scene.lights.light1.ambient = [value, value, value, 1];
+        scene.render();
+      });
+  lightGui.open();
 }

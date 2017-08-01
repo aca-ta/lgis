@@ -1,5 +1,5 @@
 camera:
-    type: perspective
+    type: flat
 
 lights:
     light1:

@@ -96,8 +96,9 @@ layers:
         draw:
             tile_points:
                 style: points
-                size: 8px
+                size: 15px
                 color: '#000000'
+                interactive: true
                 collide: true
             tile_text:
                 style: text

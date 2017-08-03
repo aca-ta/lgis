@@ -101,7 +101,13 @@ layers:
             tile_points:
                 style: points
                 size: 15px
-                color: '#000000'
+                color: function() {
+                         let color = 'black';
+                         if (feature.id === global.selected){
+                           color = 'red';
+                         };
+                         return color;
+                       }
                 interactive: true
                 collide: true
             tile_text:

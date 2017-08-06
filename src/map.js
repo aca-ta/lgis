@@ -10,7 +10,7 @@ function setOnFeatureClick(scene) {
 }
 
 
-function createMap() {
+export default function createMap() {
   const map = L.map('map');
   const layer = Tangram.leafletLayer({
     scene: 'scene.yaml',

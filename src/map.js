@@ -1,3 +1,5 @@
+import addGUI from './dat';
+
 function setOnFeatureClick(scene) {
   const func = (selection) => {
     if (!selection.feature) return;

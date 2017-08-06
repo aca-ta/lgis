@@ -1,4 +1,6 @@
-function addGUI(scene) {
+import * as dat from './vendor/dat.gui.min';
+
+export default function addGUI(scene) {
   // Create dat GUI
   const gui = new dat.GUI({ autoPlace: true });
   gui.domElement.parentNode.style.zIndex = 500;

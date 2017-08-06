@@ -19,6 +19,12 @@ sources:
         type: MVT
         url: http://localhost:3000/tiles/{z}/{x}/{y}.mvt
 
+settings:
+    db: null
+    schema: null
+    table: null
+
+
 global:
     selected: null
 

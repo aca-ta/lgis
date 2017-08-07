@@ -1,5 +1,5 @@
 const express = require('express');
-const tile = require('../tiles/tile');
+const tile = require('../app/tile');
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/tiles/:Z/:X/:Y/', (req, res) => {
+router.get('/tiles/:table/:Z/:X/:Y/', (req, res) => {
   tile.createMvt(req, (err, data) => {
     res.status(200).set({ 'Content-Type': 'application/x-protobuf' });
     res.end(data.getData());

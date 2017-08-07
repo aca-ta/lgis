@@ -4,7 +4,7 @@ module.exports = {
     './src/index.js',
   ],
   output: {
-    path: __dirname + '/public/javascripts',
+    path: `${__dirname}/public/javascripts`,
     filename: 'lgis.js',
   },
   module: {

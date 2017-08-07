@@ -6,17 +6,6 @@ const mercator = require('./sphericalmercator');
 // register postgis plugin
 if (mapnik.register_default_input_plugins) mapnik.register_default_input_plugins();
 
-// change this to fit your db connection and settings
-const postgisSettings = {
-  dbname: 'test',
-  table: 'cultural_property',
-  user: 'postgres',
-  type: 'postgis',
-  geometry_field: 'geom',
-  extent: '-20005048.4188,-9039211.13765,19907487.2779,17096598.5401',
-};
-
-
 function sridToProj4(srid) {
   switch (srid) {
     case '4326':
@@ -32,6 +21,14 @@ function sridToProj4(srid) {
 
 
 module.exports.createMvt = (req, func) => {
+  const postgisSettings = {
+    dbname: 'test',
+    table: req.params.table,
+    user: 'postgres',
+    type: 'postgis',
+    geometry_field: 'geom',
+    extent: '-20005048.4188,-9039211.13765,19907487.2779,17096598.5401',
+  };
   const x = parseInt(req.params.X, 10);
   const y = parseInt(req.params.Y, 10);
   const z = parseInt(req.params.Z, 10);

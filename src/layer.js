@@ -1,4 +1,4 @@
-import { map } from './map';
+import Tangram from 'tangram';
 
 function setOnFeatureClick(scene) {
   const func = (selection) => {
@@ -12,19 +12,21 @@ function setOnFeatureClick(scene) {
 }
 
 
-export default function createLayer(settings) {
-  const layer = Tangram.leafletLayer({
-    scene: 'scene.yaml',
-  });
-  layer.on('init', () => {
-    layer.scene.setDataSource('mvt', {
-      type: 'MVT',
-      url: `http://localhost:3000/tiles/${settings.table}/{z}/{x}/{y}`,
+export default class Layer {
+  constructor(map, settings) {
+    const layer = Tangram.leafletLayer({
+      scene: 'scene.yaml',
     });
-    layer.setSelectionEvents({
-      click: setOnFeatureClick(layer.scene),
+    layer.on('init', () => {
+      layer.scene.setDataSource('mvt', {
+        type: 'MVT',
+        url: `http://localhost:3000/tiles/${settings.table}/{z}/{x}/{y}`,
+      });
+      layer.setSelectionEvents({
+        click: setOnFeatureClick(layer.scene),
+      });
+      layer.scene.updateConfig();
     });
-    layer.scene.updateConfig();
-  });
-  layer.addTo(map);
+    layer.addTo(map);
+  }
 }

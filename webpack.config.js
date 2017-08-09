@@ -8,6 +8,7 @@ module.exports = {
     filename: 'lgis.js',
   },
   module: {
+    noParse: /tangram\/dist\/tangram/,
     loaders: [
       {
         test: /\.js$/,
@@ -19,4 +20,5 @@ module.exports = {
       },
     ],
   },
+  devtool: 'source-map',
 };

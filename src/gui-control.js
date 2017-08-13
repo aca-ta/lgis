@@ -9,6 +9,7 @@ class GuiControler {
   }
 
   addCamera(scene) {
+    this.scene = scene;
     // Camera
     const cameraTypes = {
       Flat: 'flat',
@@ -17,7 +18,7 @@ class GuiControler {
     };
     this.gui.camera = scene.config.camera.type;
     this.gui.add(this.gui, 'camera', cameraTypes).onChange((value) => {
-      scene.config.camera.type = value;
+      this.scene.config.camera.type = value;
       scene.updateConfig();
     });
   }
@@ -34,8 +35,8 @@ class GuiControler {
       layerControls[l] = !(scene.config.layers[l].visible === false);
       layerGui.add(layerControls, l)
           .onChange((value) => {
-            scene.config.layers[l].visible = value;
-            scene.rebuild();
+            this.scene.config.layers[l].visible = value;
+            this.scene.rebuild();
           });
       if (scene.config.layers[l].draw.polygons) {
         layerColors[l] = scene.config.layers[l].draw.polygons.color;
@@ -46,9 +47,9 @@ class GuiControler {
           .addColor(layerColors, l)
           .onChange((value) => {
             if (scene.config.layers[l].draw.polygons.color) {
-              scene.config.layers[l].draw.polygons.color = value;
+              this.scene.config.layers[l].draw.polygons.color = value;
             } else {
-              scene.config.layers[l].draw.lines.color = value;
+              this.scene.config.layers[l].draw.lines.color = value;
             }
             scene.rebuild();
           });
@@ -68,31 +69,31 @@ class GuiControler {
     lightGui
         .add(lightControls, 'x position', -1, 1)
         .onChange((value) => {
-          scene.lights.light1.direction[0] = -value;
+          this.scene.lights.light1.direction[0] = -value;
           scene.render();
         });
     lightGui
         .add(lightControls, 'y position', -1, 1)
         .onChange((value) => {
-          scene.lights.light1.direction[1] = -value;
+          this.scene.lights.light1.direction[1] = -value;
           scene.render();
         });
     lightGui
         .add(lightControls, 'z position', 0, 1)
         .onChange((value) => {
-          scene.lights.light1.direction[2] = -value;
+          this.scene.lights.light1.direction[2] = -value;
           scene.render();
         });
     lightGui
         .add(lightControls, 'diffuse', 0, 2)
         .onChange((value) => {
-          scene.lights.light1.diffuse = [value, value, value, 1];
+          this.scene.lights.light1.diffuse = [value, value, value, 1];
           scene.render();
         });
     lightGui
         .add(lightControls, 'ambient', 0, 1)
         .onChange((value) => {
-          scene.lights.light1.ambient = [value, value, value, 1];
+          this.scene.lights.light1.ambient = [value, value, value, 1];
           scene.render();
         });
     lightGui.open();

@@ -1,32 +1,31 @@
 import Tangram from 'tangram';
 
-function setOnFeatureClick(scene) {
-  const func = (selection) => {
-    if (!selection.feature) return;
-    scene.config.global.selected = selection.feature.properties.id;
-    alert(selection.feature.properties.name);
-    scene.rebuild();
-  };
-
-  return func;
-}
-
 
 export default class Layer {
   constructor(map, settings) {
-    const layer = Tangram.leafletLayer({
+    this.layer = Tangram.leafletLayer({
       scene: 'scene.yaml',
-    });
-    layer.on('init', () => {
-      layer.scene.setDataSource('mvt', {
+    }).on('init', () => {
+      this.layer.scene.setDataSource('mvt', {
         type: 'MVT',
-        url: `http://localhost:3000/tiles/${settings.table}/{z}/{x}/{y}`,
+        url: `http://localhost:3000/tiles/${settings.host}/${settings.db}/${settings.table}/{z}/{x}/{y}`,
       });
-      layer.setSelectionEvents({
-        click: setOnFeatureClick(layer.scene),
+      this.layer.setSelectionEvents({
+        click: this.setOnFeatureClick(),
       });
-      layer.scene.updateConfig();
-    });
-    layer.addTo(map);
+      this.layer.scene.updateConfig();
+    }).addTo(map);
+  }
+
+  setOnFeatureClick() {
+    const scene = this.layer.scene;
+    const func = (selection) => {
+      if (!selection.feature) return;
+
+      scene.config.global.selected = selection.feature.properties.id;
+      alert(selection.feature.properties.name);
+      scene.rebuild();
+    };
+    return func;
   }
 }

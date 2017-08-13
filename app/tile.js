@@ -22,13 +22,17 @@ function sridToProj4(srid) {
 
 module.exports.createMvt = (req, func) => {
   const postgisSettings = {
-    dbname: 'test',
+    host: req.params.host,
+    dbname: req.params.db,
     table: req.params.table,
     user: 'postgres',
     type: 'postgis',
     geometry_field: 'geom',
     extent: '-20005048.4188,-9039211.13765,19907487.2779,17096598.5401',
   };
+  console.log(req.params.host);
+  console.log(req.params.db);
+  console.log(req.params.table);
   const x = parseInt(req.params.X, 10);
   const y = parseInt(req.params.Y, 10);
   const z = parseInt(req.params.Z, 10);

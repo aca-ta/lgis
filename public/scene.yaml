@@ -1,7 +1,7 @@
 sources:
     mvt:
-        type:
-        url:
+        type: null
+        url: null
 
 settings:
     db: null

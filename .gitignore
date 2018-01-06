@@ -1,3 +1,8 @@
+# JavaScript
+package-lock.json
 node_modules/
 .eslintrc.js
 public/javascripts/*
+
+# Python
+.python-version

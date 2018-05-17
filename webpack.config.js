@@ -1,7 +1,7 @@
 module.exports = {
   entry: [
     'babel-polyfill',
-    './src/index.js',
+    './src/js/index.js',
   ],
   output: {
     path: `${__dirname}/public/javascripts`,
@@ -9,14 +9,18 @@ module.exports = {
   },
   module: {
     noParse: /tangram\/dist\/tangram/,
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015'],
+          presets: ['env'],
         },
+      },
+      {
+        test: /\.css$/,
+        loader: ['style-loader', 'css-loader']
       },
     ],
   },

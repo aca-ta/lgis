@@ -2,6 +2,7 @@ import map from './map';
 import BaseLayer from './layer-base';
 import Layer from './layer';
 import GuiControler from './gui-control';
+import css from '../css/style.css';
 
 window.addEventListener('load', () => {
   new BaseLayer(map, GuiControler);

@@ -4,11 +4,10 @@ sources:
         url: 	https://a.tile.openstreetmap.org/{z}/{x}/{y}.png 
 
 layers:
-    _terrainLayer:
+    BaseLayer:
         data:
             source: osm
-            # But this time since raster data is loaded as an image, no need to declare a 'layer' parameter
         draw:
-            _terainStyle:
-                style: raster # Remember Tangram comes with a prebuilt set of styles for different data types: points, polygons, lines, text, and raster. For raster sources we need to use the 'raster' keyword
-                order: 0 # draw on bottom
+            BaseStyle:
+                style: raster
+                order: 0

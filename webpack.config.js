@@ -20,6 +20,10 @@ const javascripts = {
       },
     ],
   },
+  externals: {
+    jQuery: 'jQuery',
+    foundation: 'Foundation'
+  },
   devtool: 'source-map',
 };
 
@@ -43,7 +47,11 @@ const css = {
           {
             loader: 'sass-loader',
             options: {
-              includePaths: [`${__dirname}/node_modules/leaflet/dist`],
+              includePaths: [
+                `${__dirname}/node_modules/leaflet/dist`,
+                `${__dirname}/node_modules/foundation-sites/scss`,
+                `${__dirname}/node_modules/motion-ui/src`,
+              ],
             },
           },
         ]),

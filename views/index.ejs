@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Lgis</title>
     <link rel='stylesheet' href="./stylesheets/lgis.css" />
   </head>
   <body>
@@ -12,17 +12,32 @@
           <span aria-hidden="true">&times;</span>
         </button>
 
-        <input type="text" id="lgis-host">
-        <input type="text" id="lgis-db">
-        <input type="text" id="lgis-table">
-        <button id="lgis-show-table">Show table</button>
+        <div class="sidebar-menu">
+          <dl>
+            <dt>host</dt>
+            <dd>
+              <input type="text" id="lgis-host" placeholder="127.0.0.1">
+            </dd>
+            <dt>Database</dt>
+            <dd>
+              <input type="text" id="lgis-db" placeholder="my_database">
+            </dd>
+            <dt>table</dt>
+            <dd>
+              <textarea id="lgis-table">my_schema.my_table</textarea>
+            </dd>
+          </dl>
+          <div class="show-table">
+            <button type="button" id="lgis-show-table" class="button">Show table</button>
+          </div>
+        </div>
       </div>
 
       <div class="off-canvas-content" data-off-canvas-content>
         <div class="title-bar">
           <div class="title-bar-left">
             <button class="menu-icon" type="button" data-open="offCanvasLeft" data-toggle="offCanvas"></button>
-            <span class="title-bar-title">Foundation</span>
+            <span class="title-bar-title">Lgis</span>
           </div>
         </div>
         <div id="map" class="map"></div>

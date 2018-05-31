@@ -2,6 +2,7 @@
 node_modules/
 .eslintrc.js
 public/javascripts/*
+public/stylesheets/*
 
 # Python
 .python-version

@@ -26,6 +26,7 @@ module.exports.createMvt = (req, func) => {
     dbname: req.params.db,
     table: req.params.table,
     user: 'postgres',
+    password: 'postgres',
     type: 'postgis',
     geometry_field: 'geom',
     extent: '-20005048.4188,-9039211.13765,19907487.2779,17096598.5401',

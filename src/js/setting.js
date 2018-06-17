@@ -1,5 +1,10 @@
 export default class Setting {
-  constructor(elm) {}
+  constructor(id) {
+    this.data = this.load(id);
+  }
 
-  load() {}
+  load(id) {
+    const elm = document.querySelector(id);
+    return JSON.parse(elm.value);
+  }
 }

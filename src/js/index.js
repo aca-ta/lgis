@@ -7,6 +7,8 @@ import Setting from './setting';
 
 window.$ = $;
 
+let setting = window.setting;
+
 $(document).ready(() => {
   $(document).foundation();
 });
@@ -14,9 +16,10 @@ $(document).ready(() => {
 window.addEventListener(
   'load',
   () => {
+    setting = new Setting('#lgis-setting');
     new BaseLayer(map);
   },
-  false,
+  false
 );
 
 /* add button events */
@@ -27,4 +30,8 @@ document.querySelector('#lgis-show-table').addEventListener('click', () => {
     db: document.getElementById('lgis-db').value,
   };
   new Layer(map, settings);
+});
+
+document.querySelector('#lgis-load-setting').addEventListener('click', () => {
+  alert(setting.data.host);
 });

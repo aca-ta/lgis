@@ -2,6 +2,9 @@
   "env": {
     "es6": true
   },
+  "parsetOptions": {
+    sourceType: "module"
+  }
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended"

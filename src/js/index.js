@@ -3,6 +3,7 @@ import map from './map';
 import BaseLayer from './layer-base';
 import Layer from './layer';
 import Foundation from './libs/foundation-setup';
+import Setting from './setting';
 
 window.$ = $;
 

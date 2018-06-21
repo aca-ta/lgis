@@ -3,11 +3,9 @@ import map from './map';
 import BaseLayer from './layer-base';
 import Layer from './layer';
 import Foundation from './libs/foundation-setup';
-import Setting from './setting';
+import load_settings from './setting';
 
 window.$ = $;
-
-let setting = window.setting;
 
 $(document).ready(() => {
   $(document).foundation();
@@ -16,7 +14,6 @@ $(document).ready(() => {
 window.addEventListener(
   'load',
   () => {
-    setting = new Setting('#lgis-setting');
     new BaseLayer(map);
   },
   false
@@ -24,14 +21,11 @@ window.addEventListener(
 
 /* add button events */
 document.querySelector('#lgis-show-table').addEventListener('click', () => {
-  const settings = {
-    host: setting.data.host,
-    db: setting.data.db,
+  const settings = load_settings('#lgis-settings');
+  const tableInfo = {
+    host: settings.host,
+    db: settings.db,
     table: document.getElementById('lgis-table').value,
   };
-  new Layer(map, settings);
-});
-
-document.querySelector('#lgis-load-setting').addEventListener('click', () => {
-  alert(setting.data.host);
+  new Layer(map, tableInfo);
 });

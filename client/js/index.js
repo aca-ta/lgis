@@ -25,9 +25,9 @@ window.addEventListener(
 /* add button events */
 document.querySelector('#lgis-show-table').addEventListener('click', () => {
   const settings = {
-    host: document.getElementById('lgis-host').value,
+    host: setting.data.host,
+    db: setting.data.db,
     table: document.getElementById('lgis-table').value,
-    db: document.getElementById('lgis-db').value,
   };
   new Layer(map, settings);
 });

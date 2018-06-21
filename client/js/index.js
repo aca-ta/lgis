@@ -3,6 +3,7 @@ import map from './map';
 import BaseLayer from './layer-base';
 import Layer from './layer';
 import Foundation from './libs/foundation-setup';
+import load_settings from './setting';
 
 window.$ = $;
 
@@ -15,15 +16,16 @@ window.addEventListener(
   () => {
     new BaseLayer(map);
   },
-  false,
+  false
 );
 
 /* add button events */
 document.querySelector('#lgis-show-table').addEventListener('click', () => {
-  const settings = {
-    host: document.getElementById('lgis-host').value,
+  const settings = load_settings('#lgis-settings');
+  const tableInfo = {
+    host: settings.host,
+    db: settings.db,
     table: document.getElementById('lgis-table').value,
-    db: document.getElementById('lgis-db').value,
   };
-  new Layer(map, settings);
+  new Layer(map, tableInfo);
 });

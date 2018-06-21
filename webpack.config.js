@@ -2,7 +2,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const javascripts = {
   mode: 'development',
-  entry: ['babel-polyfill', './src/js/index.js'],
+  entry: ['babel-polyfill', './client/js/index.js'],
   output: {
     path: `${__dirname}/public/javascripts`,
     filename: 'lgis.js',
@@ -22,14 +22,14 @@ const javascripts = {
   },
   externals: {
     jQuery: 'jQuery',
-    foundation: 'Foundation'
+    foundation: 'Foundation',
   },
   devtool: 'source-map',
 };
 
 const css = {
   mode: 'development',
-  entry: './src/css/style.scss',
+  entry: './client/css/style.scss',
   output: {
     path: `${__dirname}/public/stylesheets`,
     filename: 'lgis.css',

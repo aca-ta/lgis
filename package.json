@@ -19,8 +19,8 @@
     "mapnik": "^3.6.2",
     "morgan": "^1.8.1",
     "motion-ui": "^1.2.3",
-    "serve-favicon": "^2.4.2",
-    "tangram": "^0.15.1"
+    "react-map-gl": "^3.2.10",
+    "serve-favicon": "^2.4.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

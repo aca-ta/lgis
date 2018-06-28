@@ -1,7 +1,9 @@
 import $ from 'jquery';
-import map from './map';
-import BaseLayer from './layer-base';
-import Layer from './layer';
+import React from 'react';
+import ReactDOM from 'react-dom';
+//import BaseLayer from './layer-base';
+//import Layer from './layer';
+import Map from './map';
 import Foundation from './libs/foundation-setup';
 import load_settings from './setting';
 
@@ -14,18 +16,18 @@ $(document).ready(() => {
 window.addEventListener(
   'load',
   () => {
-    new BaseLayer(map);
+    ReactDOM.render(<Map />, document.querySelector('#map'));
   },
-  false
+  false,
 );
 
 /* add button events */
-document.querySelector('#lgis-show-table').addEventListener('click', () => {
-  const settings = load_settings('#lgis-settings');
-  const tableInfo = {
-    host: settings.host,
-    db: settings.db,
-    table: document.getElementById('lgis-table').value,
-  };
-  new Layer(map, tableInfo);
-});
+//document.querySelector('#lgis-show-table').addEventListener('click', () => {
+//  const settings = load_settings('#lgis-settings');
+//  const tableInfo = {
+//    host: settings.host,
+//    db: settings.db,
+//    table: document.querySelector('#lgis-table').value,
+//  };
+//  new Layer(map, tableInfo);
+//});

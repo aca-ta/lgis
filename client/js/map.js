@@ -1,11 +1,25 @@
-import L from 'leaflet';
+import React, {Component} from 'react';
+import ReactMapGL from 'react-map-gl';
 
-class Map {
+export default class Map extends Component {
   constructor() {
-    this.map = L.map('map');
-    this.map.setView([35.681167, 139.767052], 15);
+    super();
+    this.state = {
+      viewport: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        latitude: 35.681167,
+        longitude: 139.767052,
+        zoom: 15,
+      },
+    };
+  }
+  render() {
+    return (
+      <ReactMapGL
+        {...this.state.viewport}
+        onViewportChange={viewport => this.setState({viewport})}
+      />
+    );
   }
 }
-
-
-export default new Map().map;

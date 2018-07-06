@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import ReactMapGL from 'react-map-gl';
-import mapStyle from './map-style.js';
+import MapGL from 'react-map-gl';
+import {fromJS} from 'immutable';
+import {getLayer, getDefaultLayer} from './map-style.js';
 
 export default class Map extends Component {
   constructor() {
     super();
     this.state = {
+      mapstyle: '',
       viewport: {
-        mapStyle: mapStyle,
         width: window.innerWidth,
         height: window.innerHeight,
         latitude: 35.681167,
@@ -16,9 +17,24 @@ export default class Map extends Component {
       },
     };
   }
+
+  componentDidMount() {
+    const defaultLayer = getDefaultLayer();
+    const layer = getLayer();
+    this.loadData(defaultLayer, layer);
+  }
+
+  loadData(defaultLayer, layer) {
+    const mapStyle = defaultLayer
+      .setIn(['sources', 'incomeByState'], fromJS({type: 'vector', layer}))
+      .set('layers', defaultLayer.get('layers').push(layer));
+
+    this.setState({layer, mapStyle});
+  };
+
   render() {
     return (
-      <ReactMapGL
+      <MapGL
         {...this.state.viewport}
         onViewportChange={viewport => this.setState({viewport})}
       />

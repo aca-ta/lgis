@@ -1,18 +1,29 @@
 import {fromJS} from 'immutable';
+import MAP_STYLE from './map-style-basic-v8.json';
 
-export const dataLayer = fromJS({
-  id: 'data',
-  source: {
-    type: 'vector',
-    url: 'mapbox://mapbox.mapbox-terrain-v',
-  },
-  'source-layer': 'contour',
-  layout: {
-    'line-join': 'round',
-    'line-cap': 'round',
-  },
-  paint: {
-    'line-color': '#ff69b4',
-    'line-width': 1,
-  },
-});
+export function getLayer() {
+  return {
+    id: 'data',
+    type: 'circle',
+    source: {
+      type: 'vector',
+      tiles:
+        '[http://localhost:3000/tiles/127.0.0.1/postgres/lgis_sample.busstop_chiba/{z}/{x}/{y}]',
+    },
+    paint: {
+      'circle-color': [
+        'step',
+        ['get', 'point_count'],
+        '#51bbd6',
+        100,
+        '#f1f075',
+        750,
+        '#f28cb1',
+      ],
+    },
+  };
+}
+
+export function getDefaultLayer() {
+  return fromJS(MAP_STYLE);
+}

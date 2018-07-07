@@ -6,8 +6,12 @@ import {getLayer, getDefaultLayer} from './map-style.js';
 export default class Map extends Component {
   constructor() {
     super();
+    const defaultLayer = getDefaultLayer();
+    const layerData = getLayer();
+    const mapStyle = this.loadData(defaultLayer, layerData);
+
     this.state = {
-      mapstyle: '',
+      mapStyle: mapStyle,
       viewport: {
         width: window.innerWidth,
         height: window.innerHeight,
@@ -18,24 +22,22 @@ export default class Map extends Component {
     };
   }
 
-  componentDidMount() {
-    const defaultLayer = getDefaultLayer();
-    const layer = getLayer();
-    this.loadData(defaultLayer, layer);
-  }
+  loadData(defaultLayer, layerData) {
+    const {source, layer} = layerData;
 
-  loadData(defaultLayer, layer) {
     const mapStyle = defaultLayer
-      .setIn(['sources', 'incomeByState'], fromJS({type: 'vector', layer}))
+      .setIn(['sources', 'mapillary'], fromJS(source))
       .set('layers', defaultLayer.get('layers').push(layer));
 
-    this.setState({layer, mapStyle});
-  };
+    return mapStyle;
+  }
 
   render() {
+    const {viewport, mapStyle} = this.state;
     return (
       <MapGL
-        {...this.state.viewport}
+        {...viewport}
+        mapStyle={mapStyle}
         onViewportChange={viewport => this.setState({viewport})}
       />
     );

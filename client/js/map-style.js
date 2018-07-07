@@ -2,26 +2,24 @@ import {fromJS} from 'immutable';
 import MAP_STYLE from './map-style-basic-v8.json';
 
 export function getLayer() {
-  return {
+  const source = fromJS({
+    type: 'vector',
+    tiles: [
+      'http://localhost:3000/tiles/127.0.0.1/postgres/lgis_sample.busstop_chiba/{z}/{x}/{y}',
+    ],
+  });
+  const layer = fromJS({
     id: 'data',
     type: 'circle',
-    source: {
-      type: 'vector',
-      tiles:
-        '[http://localhost:3000/tiles/127.0.0.1/postgres/lgis_sample.busstop_chiba/{z}/{x}/{y}]',
-    },
+    source: 'mapillary',
+    'source-layer': 'dataLayer',
+    interactive: true,
     paint: {
-      'circle-color': [
-        'step',
-        ['get', 'point_count'],
-        '#51bbd6',
-        100,
-        '#f1f075',
-        750,
-        '#f28cb1',
-      ],
+      'circle-color': '#000000',
     },
-  };
+  });
+
+  return {source, layer};
 }
 
 export function getDefaultLayer() {

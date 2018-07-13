@@ -11,7 +11,7 @@ export function getLayer() {
   const layer = fromJS({
     id: 'data',
     type: 'circle',
-    source: 'mapillary',
+    source: 'lgis',
     'source-layer': 'tile',
     interactive: true,
   });

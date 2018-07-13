@@ -26,7 +26,7 @@ export default class Map extends Component {
     const {source, layer} = layerData;
 
     const mapStyle = defaultLayer
-      .setIn(['sources', 'mapillary'], fromJS(source))
+      .setIn(['sources', 'lgis'], fromJS(source))
       .set('layers', defaultLayer.get('layers').push(layer));
 
     return mapStyle;

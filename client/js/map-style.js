@@ -12,11 +12,8 @@ export function getLayer() {
     id: 'data',
     type: 'circle',
     source: 'mapillary',
-    'source-layer': 'dataLayer',
+    'source-layer': 'tile',
     interactive: true,
-    paint: {
-      'circle-color': '#000000',
-    },
   });
 
   return {source, layer};

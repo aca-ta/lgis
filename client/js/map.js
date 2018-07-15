@@ -2,16 +2,15 @@ import React, {Component} from 'react';
 import MapGL from 'react-map-gl';
 import {fromJS} from 'immutable';
 import {getLayer, getDefaultLayer} from './map-style.js';
+import load_settings from './setting';
 
 export default class Map extends Component {
   constructor() {
     super();
-    const defaultLayer = getDefaultLayer();
-    const layerData = getLayer();
-    const mapStyle = this.loadData(defaultLayer, layerData);
+    this.defaultLayer = getDefaultLayer();
 
     this.state = {
-      mapStyle: mapStyle,
+      mapStyle: this.defaultLayer,
       viewport: {
         width: window.innerWidth,
         height: window.innerHeight,
@@ -22,12 +21,23 @@ export default class Map extends Component {
     };
   }
 
-  loadData(defaultLayer, layerData) {
+  componentDidMount() {
+    document.querySelector('#lgis-show-table').addEventListener('click', () => {
+      const settings = load_settings('#lgis-settings');
+      const table = document.querySelector('#lgis-table').value;
+
+      const layerData = getLayer(settings.host, settings.db, table);
+      const mapStyle = this.loadData(layerData);
+      this.setState({mapStyle: mapStyle})
+    });
+  }
+
+  loadData(layerData) {
     const {source, layer} = layerData;
 
-    const mapStyle = defaultLayer
+    const mapStyle = this.defaultLayer
       .setIn(['sources', 'lgis'], fromJS(source))
-      .set('layers', defaultLayer.get('layers').push(layer));
+      .set('layers', this.defaultLayer.get('layers').push(layer));
 
     return mapStyle;
   }

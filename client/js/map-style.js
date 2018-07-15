@@ -1,12 +1,10 @@
 import {fromJS} from 'immutable';
 import MAP_STYLE from './map-style-basic-v8.json';
 
-export function getLayer() {
+export function getLayer(host, db, table) {
   const source = fromJS({
     type: 'vector',
-    tiles: [
-      'http://localhost:3000/tiles/127.0.0.1/postgres/lgis_sample.busstop_chiba/{z}/{x}/{y}',
-    ],
+    tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`],
   });
   const layer = fromJS({
     id: 'data',

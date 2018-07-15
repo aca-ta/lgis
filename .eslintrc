@@ -10,6 +10,10 @@
     "eslint:recommended",
     "plugin:prettier/recommended"
   ],
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"]
   "rules": {
     "prettier/prettier": [
       "error",

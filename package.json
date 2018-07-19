@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "build": "webpack",
-    "test": "NODE_ENV=test tape -r babel-register -r ./client/js/test/",
+    "test": "NODE_ENV=test tape -r babel-register -r ./client/js/test/setup-browser-env.js ./src/test/",
     "cover": "nyc --reporter html --reporter cobertura --reporter json-summary npm test"
   },
   "dependencies": {
@@ -36,7 +36,7 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-15": "^1.0.6",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",

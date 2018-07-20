@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "build": "webpack",
-    "test": "NODE_ENV=test tape -r babel-register -r ./client/js/test/setup-browser-env.js ./src/test/",
+    "test": "NODE_ENV=test tape -r babel-register -r ./client/js/test/setup-browser-env.js ./client/js/test/",
     "cover": "nyc --reporter html --reporter cobertura --reporter json-summary npm test"
   },
   "dependencies": {

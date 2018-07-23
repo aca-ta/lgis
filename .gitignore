@@ -5,3 +5,5 @@ public/stylesheets/*
 
 coverage/
 .nyc_output
+
+.tern-project

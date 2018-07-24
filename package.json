@@ -19,6 +19,7 @@
     "immutable": "^3.8.2",
     "jquery": "^3.3.1",
     "leaflet": "^1.2.0",
+    "lodash": "^4.17.10",
     "mapnik": "^3.6.2",
     "morgan": "^1.8.1",
     "motion-ui": "^1.2.3",

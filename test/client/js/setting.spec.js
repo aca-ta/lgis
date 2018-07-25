@@ -1,7 +1,7 @@
 import test from 'tape-catch';
 import _ from 'lodash';
 import sinon from 'sinon';
-import setting from '../setting';
+import setting from '../../../client/js/setting';
 
 test('fetch JSON from setting', assert => {
   document.body.innerHTML = `<textarea>{"test": "test"}</textarea>`;

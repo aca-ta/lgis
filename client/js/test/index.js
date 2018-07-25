@@ -1,2 +1,2 @@
 import "./smoke-test";
-import "./components";
+import "./map.spec";

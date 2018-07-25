@@ -23,6 +23,9 @@ const javascripts = {
     jQuery: 'jQuery',
     foundation: 'Foundation',
   },
+  node: {
+    fs: 'empty',
+  },
   devtool: 'source-map',
 };
 

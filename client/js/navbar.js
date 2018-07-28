@@ -71,6 +71,9 @@ const styles = theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+  'content-left': {
+    marginLeft: -drawerWidth,
+  },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
@@ -142,6 +145,7 @@ class Navbar extends React.Component {
           <main
             className={classNames(
               classes.content,
+              classes['content-left'],
               {
                 [classes.contentShift]: open,
               },

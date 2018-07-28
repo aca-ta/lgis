@@ -5,40 +5,7 @@
     <link rel='stylesheet' href="./stylesheets/lgis.css" />
   </head>
   <body>
-    <div class="off-canvas-wrapper">
-      <div class="off-canvas position-left" id="offCanvas" data-off-canvas data-transition="overlap">
-
-        <button class="close-button" aria-label="Close menu" type="button" data-close>
-          <span aria-hidden="true">&times;</span>
-        </button>
-
-        <div class="sidebar-menu">
-          <dl>
-            <dt>Settings</dt>
-            <dd>
-              <textarea id="lgis-settings">{ "host": "127.0.0.1", "db": "myDatabase"}</textarea>
-            </dd>
-            <dt>table</dt>
-            <dd>
-              <textarea id="lgis-table">my_schema.my_table</textarea>
-            </dd>
-          </dl>
-          <div class="show-table">
-            <button type="button" id="lgis-show-table" class="button">Show table</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="off-canvas-content" data-off-canvas-content>
-        <div class="title-bar">
-          <div class="title-bar-left">
-            <button class="menu-icon" type="button" data-open="offCanvasLeft" data-toggle="offCanvas"></button>
-            <span class="title-bar-title">Lgis</span>
-          </div>
-        </div>
-        <div id="map" class="map"></div>
-      </div>
-    </div>
+    <div id="navbar" class="navbar"></div>
     <script src="./javascripts/lgis.js"></script>
   </body>
 </html>

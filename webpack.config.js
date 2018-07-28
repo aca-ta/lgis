@@ -13,9 +13,6 @@ const javascripts = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
-          presets: ['env'],
-        },
       },
     ],
   },
@@ -48,12 +45,6 @@ const css = {
           },
           {
             loader: 'sass-loader',
-            options: {
-              includePaths: [
-                `${__dirname}/node_modules/foundation-sites/scss`,
-                `${__dirname}/node_modules/motion-ui/src`,
-              ],
-            },
           },
         ]),
       },

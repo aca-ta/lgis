@@ -22,6 +22,7 @@ export default class Map extends Component {
   }
 
   componentDidMount() {
+    /*
     document.querySelector('#lgis-show-table').addEventListener('click', () => {
       const settings = load_settings('#lgis-settings');
       const table = document.querySelector('#lgis-table').value;
@@ -30,6 +31,7 @@ export default class Map extends Component {
       const mapStyle = this.loadData(layerData);
       this.setState({mapStyle: mapStyle})
     });
+    */
   }
 
   loadData(layerData) {

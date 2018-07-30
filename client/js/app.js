@@ -82,7 +82,7 @@ const styles = theme => ({
   },
 });
 
-class Navbar extends React.Component {
+class App extends React.Component {
   state = {
     open: false,
   };
@@ -159,9 +159,9 @@ class Navbar extends React.Component {
   }
 }
 
-Navbar.propTypes = {
+App.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, {withTheme: true})(Navbar);
+export default withStyles(styles, {withTheme: true})(App);

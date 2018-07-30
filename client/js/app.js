@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -110,7 +110,21 @@ class App extends React.Component {
             <ChevronLeftIcon />
           </IconButton>
         </div>
-        <Divider />
+        <TextField 
+          id='lgis-settings'
+          label='settings'
+          multiline
+          rows='4'
+        />
+        <TextField 
+          id='lgis-table'
+          label='table'
+          multiline
+          rows='4'
+        />
+        <Button variant="contained">
+          Show
+        </Button>
       </Drawer>
     );
 

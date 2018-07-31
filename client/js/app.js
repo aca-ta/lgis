@@ -16,7 +16,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Map from './map';
 
-const drawerWidth = 240;
+const drawerWidth = 480;
 
 const styles = theme => ({
   root: {
@@ -147,14 +147,14 @@ class App extends React.Component {
               className={classes.textfield}
               label="settings"
               multiline
-              rows="4"
+              rows="10"
             />
             <TextField
               id="lgis-table"
               className={classes.textfield}
               label="table"
               multiline
-              rows="4"
+              rows="8"
             />
             <Button 
               variant="contained"

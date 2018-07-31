@@ -79,6 +79,12 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  textfield: {
+    padding: 10,
+  },
+  button: {
+    margin: theme.spacing.unit * 3,
+  }
 });
 
 class App extends React.Component {
@@ -112,17 +118,20 @@ class App extends React.Component {
         </div>
         <TextField 
           id='lgis-settings'
+          className={classes.textfield}
           label='settings'
           multiline
           rows='4'
         />
         <TextField 
+          className={classes.textfield}
+          label='settings'
           id='lgis-table'
           label='table'
           multiline
           rows='4'
         />
-        <Button variant="contained">
+        <Button variant="contained" className={classes.button}>
           Show
         </Button>
       </Drawer>

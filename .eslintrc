@@ -13,7 +13,7 @@
   "plugins": [
     "react",
     "jsx-a11y",
-    "import"]
+    "import"],
   "rules": {
     "prettier/prettier": [
       "error",

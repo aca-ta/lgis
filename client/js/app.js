@@ -84,7 +84,7 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit * 3,
-  }
+  },
 });
 
 class App extends React.Component {
@@ -99,46 +99,14 @@ class App extends React.Component {
   handleDrawerClose = () => {
     this.setState({open: false});
   };
+  
+  handleButtonClick = () => {
+    alert('button clicked');
+  };
 
   render() {
     const {classes, theme} = this.props;
     const {open} = this.state;
-
-    const drawer = (
-      <Drawer
-        variant="persistent"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}>
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={this.handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <TextField 
-          id='lgis-settings'
-          className={classes.textfield}
-          label='settings'
-          multiline
-          rows='4'
-        />
-        <TextField 
-          className={classes.textfield}
-          label='settings'
-          id='lgis-table'
-          label='table'
-          multiline
-          rows='4'
-        />
-        <Button variant="contained" className={classes.button}>
-          Show
-        </Button>
-      </Drawer>
-    );
-
-    let before = null;
-    let after = null;
 
     return (
       <div className={classes.root}>
@@ -163,17 +131,45 @@ class App extends React.Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          {drawer}
+          <Drawer
+            variant="persistent"
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}>
+            <div className={classes.drawerHeader}>
+              <IconButton onClick={this.handleDrawerClose}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <TextField
+              id="lgis-settings"
+              className={classes.textfield}
+              label="settings"
+              multiline
+              rows="4"
+            />
+            <TextField
+              id="lgis-table"
+              className={classes.textfield}
+              label="table"
+              multiline
+              rows="4"
+            />
+            <Button 
+              variant="contained"
+              className={classes.button}
+              onClick={this.handleButtonClick}
+            >
+              Show
+            </Button>
+          </Drawer>
           <main
-            className={classNames(
-              classes.content,
-              classes['content-left'],
-              {
-                [classes.contentShift]: open,
-              },
-            )}>
+            className={classNames(classes.content, classes['content-left'], {
+              [classes.contentShift]: open,
+            })}>
             <div className={classes.drawerHeader} />
-            <Map/>
+            <Map />
           </main>
         </div>
       </div>

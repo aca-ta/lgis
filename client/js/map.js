@@ -18,6 +18,7 @@ export default class Map extends Component {
         longitude: 139.767052,
         zoom: 15,
       },
+      hasLayer: false,
     };
   }
 
@@ -31,6 +32,15 @@ export default class Map extends Component {
       const mapStyle = this.loadData(layerData);
       this.setState({mapStyle: mapStyle})
     });
+    */
+  }
+
+  componentWillReceiveProps(props) {
+    /*
+    const settings = this.props.settings;
+    const layerData = getLayer(settings.host, settings.db, props.table);
+    const mapStyle = loadData(layerData);
+    this.setState({mapStyle: mapStyle});
     */
   }
 

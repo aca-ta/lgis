@@ -90,6 +90,8 @@ const styles = theme => ({
 class App extends React.Component {
   state = {
     open: false,
+    setting: '',
+    table: '',
   };
 
   handleDrawerOpen = () => {
@@ -99,9 +101,17 @@ class App extends React.Component {
   handleDrawerClose = () => {
     this.setState({open: false});
   };
-  
+
+  handleSettingFieldChange = e => {
+    this.setState({setting: e.target.value});
+  };
+
+  handleTableFieldChange = e => {
+    this.setState({table: e.target.value});
+  };
+
   handleButtonClick = () => {
-    alert('button clicked');
+    alert(this.state.setting);
   };
 
   render() {
@@ -148,6 +158,7 @@ class App extends React.Component {
               label="settings"
               multiline
               rows="10"
+              onChange={this.handleSettingFieldChange}
             />
             <TextField
               id="lgis-table"
@@ -155,12 +166,12 @@ class App extends React.Component {
               label="table"
               multiline
               rows="8"
+              onChange={this.handleTableFieldChange}
             />
-            <Button 
+            <Button
               variant="contained"
               className={classes.button}
-              onClick={this.handleButtonClick}
-            >
+              onClick={this.handleButtonClick}>
               Show
             </Button>
           </Drawer>
@@ -183,3 +194,4 @@ App.propTypes = {
 };
 
 export default withStyles(styles, {withTheme: true})(App);
+

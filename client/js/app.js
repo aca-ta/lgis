@@ -90,29 +90,26 @@ const styles = theme => ({
 class App extends React.Component {
   state = {
     open: false,
-    setting: '',
+  };
+
+  mapProps = {
+    settings: '',
     table: '',
   };
 
-  handleDrawerOpen = () => {
-    this.setState({open: true});
-  };
+  handleDrawerOpen = () => this.setState({ open: true });
 
-  handleDrawerClose = () => {
-    this.setState({open: false});
-  };
+  handleDrawerClose = () => this.setState({ open: false });
 
-  handleSettingFieldChange = e => {
-    this.setState({setting: e.target.value});
-  };
+  handleSettingFieldChange = e => this.mapProps.settings = e.target.value;
 
-  handleTableFieldChange = e => {
-    this.setState({table: e.target.value});
-  };
+  handleTableFieldChange = e => this.mapProps.table = e.target.value;
 
-  handleButtonClick = () => {
-    alert(this.state.setting);
-  };
+  handleButtonClick = () => this.loadData(this.mapProps.settings, this.mapProps.table);
+
+  componentDidMount() {
+    this.loadData = this.refs.map.loadData;
+  }
 
   render() {
     const {classes, theme} = this.props;
@@ -156,6 +153,7 @@ class App extends React.Component {
               id="lgis-settings"
               className={classes.textfield}
               label="settings"
+              defaultValue='{"host": "127.0.0.1", "db": "mydatabase"}'
               multiline
               rows="10"
               onChange={this.handleSettingFieldChange}
@@ -164,6 +162,7 @@ class App extends React.Component {
               id="lgis-table"
               className={classes.textfield}
               label="table"
+              defaultValue="my_schema.my_table"
               multiline
               rows="8"
               onChange={this.handleTableFieldChange}
@@ -178,9 +177,15 @@ class App extends React.Component {
           <main
             className={classNames(classes.content, classes['content-left'], {
               [classes.contentShift]: open,
-            })}>
+            })}
+          >
             <div className={classes.drawerHeader} />
-            <Map />
+            <Map
+              settings={this.mapProps.settings}
+              table={this.mapProps.table}
+              is_clicked={this.state.is_clicked}
+              ref="map"
+            />
           </main>
         </div>
       </div>
@@ -194,4 +199,3 @@ App.propTypes = {
 };
 
 export default withStyles(styles, {withTheme: true})(App);
-

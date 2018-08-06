@@ -1,7 +1,7 @@
-import {fromJS} from 'immutable';
+import { fromJS } from 'immutable';
 import MAP_STYLE from './map-style-basic-v8.json';
 
-export function getLayer(host, db, table) {
+export const getLayer = (host, db, table) => {
   const source = fromJS({
     type: 'vector',
     tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`],
@@ -14,9 +14,7 @@ export function getLayer(host, db, table) {
     interactive: true,
   });
 
-  return {source, layer};
-}
+  return { source, layer };
+};
 
-export function getDefaultLayer() {
-  return fromJS(MAP_STYLE);
-}
+export const defaultLayer = fromJS(MAP_STYLE);

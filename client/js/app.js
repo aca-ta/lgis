@@ -32,6 +32,7 @@ const styles = theme => ({
   },
   appBar: {
     position: 'absolute',
+    backgroundColor: '#fff44f',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -97,15 +98,16 @@ class App extends React.Component {
     table: '',
   };
 
-  handleDrawerOpen = () => this.setState({ open: true });
+  handleDrawerOpen = () => this.setState({open: true});
 
-  handleDrawerClose = () => this.setState({ open: false });
+  handleDrawerClose = () => this.setState({open: false});
 
-  handleSettingFieldChange = e => this.mapProps.settings = e.target.value;
+  handleSettingFieldChange = e => (this.mapProps.settings = e.target.value);
 
-  handleTableFieldChange = e => this.mapProps.table = e.target.value;
+  handleTableFieldChange = e => (this.mapProps.table = e.target.value);
 
-  handleButtonClick = () => this.loadData(this.mapProps.settings, this.mapProps.table);
+  handleButtonClick = () =>
+    this.loadData(this.mapProps.settings, this.mapProps.table);
 
   componentDidMount() {
     this.loadData = this.refs.map.loadData;
@@ -124,7 +126,7 @@ class App extends React.Component {
             })}>
             <Toolbar disableGutters={!open}>
               <IconButton
-                color="inherit"
+                color="primary"
                 aria-label="Open drawer"
                 onClick={this.handleDrawerOpen}
                 className={classNames(
@@ -133,8 +135,8 @@ class App extends React.Component {
                 )}>
                 <MenuIcon />
               </IconButton>
-              <Typography variant="title" color="inherit" noWrap>
-                lgis
+              <Typography variant="title" noWrap>
+                Lgis
               </Typography>
             </Toolbar>
           </AppBar>
@@ -153,7 +155,7 @@ class App extends React.Component {
               id="lgis-settings"
               className={classes.textfield}
               label="settings"
-              defaultValue='{"host": "127.0.0.1", "db": "mydatabase"}'
+              defaultValue="{&quot;host&quot;: &quot;127.0.0.1&quot;, &quot;db&quot;: &quot;mydatabase&quot;}"
               multiline
               rows="10"
               onChange={this.handleSettingFieldChange}
@@ -177,8 +179,7 @@ class App extends React.Component {
           <main
             className={classNames(classes.content, classes['content-left'], {
               [classes.contentShift]: open,
-            })}
-          >
+            })}>
             <div className={classes.drawerHeader} />
             <Map
               settings={this.mapProps.settings}

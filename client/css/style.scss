@@ -1,7 +1,4 @@
 @import '~mapbox-gl/dist/mapbox-gl';
-@import 'foundation';
-@import './libs/foundation/_settings';
-@import './libs/foundation/app';
 
 
 body {
@@ -10,22 +7,4 @@ body {
   margin: 0px;
   border: 0px;
   padding: 0px;
-}
-
-.map {
-  height: 100%;
-  width: 100%;
-  position: fixed;
-}
-
-.sidebar-menu {
-  padding: 1rem 0.5rem 0;
-
-  .show-table {
-    text-align: right;
-  }
-
-  textarea {
-    height: 200px;
-  }
 }

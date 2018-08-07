@@ -1,4 +1,12 @@
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+require('dotenv').config();
+
+const defineEnv = new webpack.DefinePlugin({
+  'process.env': {
+    MapboxAccessToken: JSON.stringify(process.env.MapboxAccessToken),
+  },
+});
 
 const javascripts = {
   mode: 'development',
@@ -24,6 +32,7 @@ const javascripts = {
     fs: 'empty',
   },
   devtool: 'source-map',
+  plugins: [defineEnv],
 };
 
 const css = {

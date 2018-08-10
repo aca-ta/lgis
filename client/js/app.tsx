@@ -11,9 +11,8 @@ import {
 } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {ChevronLeft, ChevronRight, Menu} from '@material-ui/icons';
-//import ChevronLeftIcon from '@material-ui/icons';
 import classNames from 'classnames';
-import {PropTypes} from 'prop-types';
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import Map from './map';
 

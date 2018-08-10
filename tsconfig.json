@@ -8,5 +8,14 @@
     "sourceMap": true,
     "noEmitOnError": true
   },
-  "exclude": ["node_modules", "public", "client/js/__test__", "test"]
+  "exclude": [
+    "node_modules",
+    "public",
+    "client/js/__test__",
+    "test",
+    "app",
+    "bin",
+    "routes",
+    "view"
+  ]
 }

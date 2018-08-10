@@ -26,7 +26,7 @@ const javascripts = {
         test: /\.tsx$/,
         exclude: /(node_modules)/,
         //include: '/client/js/*',
-        loader: 'ts-loader',
+        loader: 'awesome-typescript-loader',
       },
     ],
   },

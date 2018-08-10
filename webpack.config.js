@@ -1,5 +1,7 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+
 require('dotenv').config();
 
 const defineEnv = new webpack.DefinePlugin({
@@ -10,29 +12,30 @@ const defineEnv = new webpack.DefinePlugin({
 
 const javascripts = {
   mode: 'development',
-  entry: ['babel-polyfill', './client/js/index.js'],
+  entry: './client/js/index.tsx',
   output: {
     path: `${__dirname}/public/javascripts`,
     filename: 'lgis.js',
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
+        test: /\.tsx$/,
+        exclude: /(node_modules)/,
+        //include: '/client/js/*',
+        loader: 'ts-loader',
       },
     ],
-  },
-  externals: {
-    jQuery: 'jQuery',
-    foundation: 'Foundation',
   },
   node: {
     fs: 'empty',
   },
   devtool: 'source-map',
   plugins: [defineEnv],
+  cache: true,
 };
 
 const css = {
@@ -62,4 +65,5 @@ const css = {
   plugins: [new ExtractTextPlugin('lgis.css')],
 };
 
-module.exports = [javascripts, css];
+const smp = new SpeedMeasurePlugin()
+module.exports = smp.wrap([javascripts, css]);

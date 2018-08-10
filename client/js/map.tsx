@@ -1,10 +1,10 @@
+import {fromJS} from 'immutable';
 import React from 'react';
 import MapGL from 'react-map-gl';
-import {fromJS} from 'immutable';
-import {getLayer, defaultLayer} from './map-style.js';
+import {defaultLayer, getLayer} from './map-style.js';
 
 export default class Map extends React.Component {
-  state = {
+  public state = {
     mapStyle: defaultLayer,
     viewport: {
       width: window.innerWidth,
@@ -15,7 +15,7 @@ export default class Map extends React.Component {
     },
   };
 
-  loadData = (settingJson, table) => {
+  public loadData = (settingJson, table) => {
     const settings = JSON.parse(settingJson);
     const {source, layer} = getLayer(
       settings.host,
@@ -27,10 +27,10 @@ export default class Map extends React.Component {
       .setIn(['sources', 'lgis'], fromJS(source))
       .set('layers', defaultLayer.get('layers').push(layer));
 
-    this.setState({mapStyle: mapStyle})
+    this.setState({mapStyle})
   };
 
-  render() {
+  public render() {
     const {viewport, mapStyle} = this.state;
     return (
       <MapGL

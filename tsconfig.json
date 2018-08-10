@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react",
+    "module": "ES2015",
+    "moduleResolution": "node",
+    "strict": true,
+    "sourceMap": true,
+    "noEmitOnError": true
+  },
+  "exclude": ["node_modules", "public", "client/js/__test__", "test"]
+}

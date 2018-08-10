@@ -1,19 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import {
+  AppBar,
+  Button,
+  Drawer,
+  IconButton,
+  List,
+  MenuItem,
+  TextField,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import {ChevronLeft, ChevronRight, Menu} from '@material-ui/icons';
+//import ChevronLeftIcon from '@material-ui/icons';
 import classNames from 'classnames';
-import {withStyles} from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import {PropTypes} from 'prop-types';
+import * as React from 'react';
 import Map from './map';
 
 const drawerWidth = 480;
@@ -89,31 +90,32 @@ const styles = theme => ({
 });
 
 class App extends React.Component {
-  state = {
+  public state = {
     open: false,
   };
 
-  mapProps = {
+  public mapProps = {
     settings: '',
     table: '',
   };
 
-  handleDrawerOpen = () => this.setState({open: true});
+  public handleDrawerOpen = () => this.setState({open: true});
 
-  handleDrawerClose = () => this.setState({open: false});
+  public handleDrawerClose = () => this.setState({open: false});
 
-  handleSettingFieldChange = e => (this.mapProps.settings = e.target.value);
+  public handleSettingFieldChange = e =>
+    (this.mapProps.settings = e.target.value);
 
-  handleTableFieldChange = e => (this.mapProps.table = e.target.value);
+  public handleTableFieldChange = e => (this.mapProps.table = e.target.value);
 
-  handleButtonClick = () =>
+  public handleButtonClick = () =>
     this.loadData(this.mapProps.settings, this.mapProps.table);
 
-  componentDidMount() {
+  public componentDidMount() {
     this.loadData = this.refs.map.loadData;
   }
 
-  render() {
+  public render() {
     const {classes, theme} = this.props;
     const {open} = this.state;
 
@@ -135,7 +137,7 @@ class App extends React.Component {
                 )}>
                 <MenuIcon />
               </IconButton>
-              <Typography variant="title" noWrap>
+              <Typography variant="title" noWrap={true}>
                 Lgis
               </Typography>
             </Toolbar>
@@ -156,7 +158,7 @@ class App extends React.Component {
               className={classes.textfield}
               label="settings"
               defaultValue="{&quot;host&quot;: &quot;127.0.0.1&quot;, &quot;db&quot;: &quot;mydatabase&quot;}"
-              multiline
+              multiline={true}
               rows="10"
               onChange={this.handleSettingFieldChange}
             />
@@ -165,7 +167,7 @@ class App extends React.Component {
               className={classes.textfield}
               label="table"
               defaultValue="my_schema.my_table"
-              multiline
+              multiline={true}
               rows="8"
               onChange={this.handleTableFieldChange}
             />

@@ -1,5 +1,5 @@
 import {fromJS} from 'immutable';
-import React from 'react';
+import * as React from 'react';
 import MapGL from 'react-map-gl';
 import {defaultLayer, getLayer} from './map-style.js';
 

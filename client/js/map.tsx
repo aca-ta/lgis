@@ -15,7 +15,7 @@ export default class Map extends React.Component {
     },
   };
 
-  public loadData = (settingJson, table) => {
+  public loadData = (settingJson: string, table: string) => {
     const settings = JSON.parse(settingJson);
     const {source, layer} = getLayer(
       settings.host,

@@ -102,17 +102,15 @@ class App extends React.Component {
 
   public handleDrawerClose = () => this.setState({open: false});
 
-  public handleSettingFieldChange = e =>
-    (this.mapProps.settings = e.target.value);
+  public handleSettingFieldChange = (
+    e: React.FormEvent<HTMLInputElement>,
+  ) => (this.mapProps.settings = e.target.value);
 
-  public handleTableFieldChange = e => (this.mapProps.table = e.target.value);
+  public handleTableFieldChange = (e: React.FormEvent<HTMLInputElement>) =>
+    (this.mapProps.table = e.target.value);
 
   public handleButtonClick = () =>
-    this.loadData(this.mapProps.settings, this.mapProps.table);
-
-  public componentDidMount() {
-    this.loadData = this.refs.map.loadData;
-  }
+    this.refs.map.loadData(this.mapProps.settings, this.mapProps.table);
 
   public render() {
     const {classes, theme} = this.props;

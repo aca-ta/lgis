@@ -103,10 +103,10 @@ class App extends React.Component {
   public handleDrawerClose = () => this.setState({open: false});
 
   public handleSettingFieldChange = (
-    e: React.FormEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => (this.mapProps.settings = e.target.value);
 
-  public handleTableFieldChange = (e: React.FormEvent<HTMLInputElement>) =>
+  public handleTableFieldChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     (this.mapProps.table = e.target.value);
 
   public handleButtonClick = () =>

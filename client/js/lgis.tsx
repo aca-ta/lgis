@@ -9,7 +9,7 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import withStyles from '@material-ui/core/styles/withStyles';
+import {withStyles, createStyles} from '@material-ui/core/styles';
 import {Theme} from '@material-ui/core/styles/createMuiTheme';
 import {ChevronLeft, Menu} from '@material-ui/icons';
 import classNames from 'classnames';
@@ -19,7 +19,7 @@ import Map from './map';
 
 const drawerWidth = 480;
 
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme) => createStyles({
   root: {
     flexGrow: 1,
   },
@@ -209,4 +209,4 @@ class App extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(App);
+export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './app';
+import { Lgis } from './lgis';
 
 
 window.addEventListener(
   'load',
   () => {
-    ReactDOM.render(<App />, document.querySelector('#app'));
+    ReactDOM.render(<Lgis />, document.querySelector('#app'));
   },
   false,
 );

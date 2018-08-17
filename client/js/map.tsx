@@ -1,6 +1,6 @@
 import {fromJS} from 'immutable';
 import * as React from 'react';
-import MapGL, {InteractiveMapProps} from 'react-map-gl';
+import MapGL, {Viewport} from 'react-map-gl';
 import {defaultLayer, getLayer} from './map-style.js';
 
 interface Props {
@@ -10,22 +10,24 @@ interface Props {
 
 interface State {
   mapStyle: {};
-  mapProps: InteractiveMapProps;
+  width: number;
+  height: number;
+  mapboxApiAccessToken: string;
+  viewport: Viewport;
 }
 
 export default class Map extends React.Component<Props, State> {
-
   public constructor(props: Props) {
     super(props);
     this.state = {
       mapStyle: defaultLayer,
-      mapProps: {
-        width: window.innerWidth,
-        height: window.innerHeight,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      mapboxApiAccessToken: '',
+      viewport: {
         latitude: 35.681167,
         longitude: 139.767052,
         zoom: 10,
-        mapboxApiAccessToken: '',
       },
     };
   }
@@ -42,14 +44,15 @@ export default class Map extends React.Component<Props, State> {
   };
 
   public render() {
-    const {mapProps, mapStyle} = this.state;
+    const {viewport, mapStyle, height, width, mapboxApiAccessToken} = this.state;
     return (
       <MapGL
-        {...mapProps}
+        {...viewport}
+        height={height}
+        width={width}
         mapStyle={mapStyle}
-        onViewportChange={(mapProps: InteractiveMapProps) =>
-          this.setState({mapProps})
-        }
+        mapboxApiAccessToken={mapboxApiAccessToken}
+        onViewportChange={(viewport: Viewport) => this.setState({viewport})}
       />
     );
   }

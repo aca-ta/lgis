@@ -1,7 +1,7 @@
 import {fromJS} from 'immutable';
 import * as React from 'react';
 import MapGL, {Viewport} from 'react-map-gl';
-import {defaultLayer, getLayer} from './map-style';
+import {defaultLayer, getLayer} from './layer';
 
 interface Props {
   settings: string;

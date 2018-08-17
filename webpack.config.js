@@ -18,14 +18,13 @@ const javascripts = {
     filename: 'lgis.js',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
   },
   module: {
     rules: [
       {
-        test: /\.tsx$/,
+        test: /\.(ts|tsx)$/,
         exclude: /(node_modules)/,
-        //include: '/client/js/*',
         loader: 'awesome-typescript-loader',
       },
     ],

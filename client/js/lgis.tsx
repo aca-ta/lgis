@@ -1,24 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import {
+  AppBar,
+  Button,
+  Drawer,
+  IconButton,
+  List,
+  MenuItem,
+  TextField,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
+import {withStyles, createStyles} from '@material-ui/core/styles';
+import {Theme} from '@material-ui/core/styles/createMuiTheme';
+import {ChevronLeft, Menu} from '@material-ui/icons';
 import classNames from 'classnames';
-import {withStyles} from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import Map from './map';
 
 const drawerWidth = 480;
 
-const styles = theme => ({
+const styles = (theme: Theme) => createStyles({
   root: {
     flexGrow: 1,
   },
@@ -88,32 +89,47 @@ const styles = theme => ({
   },
 });
 
-class App extends React.Component {
-  state = {
+interface Props {
+  classes: any,
+  theme: any,
+}
+
+interface State {
+  open: boolean,
+}
+
+class App extends React.Component<Props, State> {
+  public state = {
     open: false,
   };
 
-  mapProps = {
+  public mapProps = {
     settings: '',
     table: '',
   };
 
-  handleDrawerOpen = () => this.setState({open: true});
+  private map = React.createRef<Map>();
 
-  handleDrawerClose = () => this.setState({open: false});
-
-  handleSettingFieldChange = e => (this.mapProps.settings = e.target.value);
-
-  handleTableFieldChange = e => (this.mapProps.table = e.target.value);
-
-  handleButtonClick = () =>
-    this.loadData(this.mapProps.settings, this.mapProps.table);
-
-  componentDidMount() {
-    this.loadData = this.refs.map.loadData;
+  public constructor(props: any) {
+    super(props);
   }
 
-  render() {
+  public handleDrawerOpen = () => this.setState({open: true});
+
+  public handleDrawerClose = () => this.setState({open: false});
+
+  public handleSettingFieldChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    (this.mapProps.settings = e.target.value);
+
+  public handleTableFieldChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    (this.mapProps.table = e.target.value);
+
+  public handleButtonClick = () => {
+    if (this.map.current) {
+      this.map.current.loadData(this.mapProps.settings, this.mapProps.table);
+    }
+  };
+  public render() {
     const {classes, theme} = this.props;
     const {open} = this.state;
 
@@ -133,9 +149,9 @@ class App extends React.Component {
                   classes.menuButton,
                   open && classes.hide,
                 )}>
-                <MenuIcon />
+                <Menu />
               </IconButton>
-              <Typography variant="title" noWrap>
+              <Typography variant="title" noWrap={true}>
                 Lgis
               </Typography>
             </Toolbar>
@@ -148,7 +164,7 @@ class App extends React.Component {
             }}>
             <div className={classes.drawerHeader}>
               <IconButton onClick={this.handleDrawerClose}>
-                <ChevronLeftIcon />
+                <ChevronLeft />
               </IconButton>
             </div>
             <TextField
@@ -156,7 +172,7 @@ class App extends React.Component {
               className={classes.textfield}
               label="settings"
               defaultValue="{&quot;host&quot;: &quot;127.0.0.1&quot;, &quot;db&quot;: &quot;mydatabase&quot;}"
-              multiline
+              multiline={true}
               rows="10"
               onChange={this.handleSettingFieldChange}
             />
@@ -165,7 +181,7 @@ class App extends React.Component {
               className={classes.textfield}
               label="table"
               defaultValue="my_schema.my_table"
-              multiline
+              multiline={true}
               rows="8"
               onChange={this.handleTableFieldChange}
             />
@@ -184,8 +200,7 @@ class App extends React.Component {
             <Map
               settings={this.mapProps.settings}
               table={this.mapProps.table}
-              is_clicked={this.state.is_clicked}
-              ref="map"
+              ref={this.map}
             />
           </main>
         </div>
@@ -194,9 +209,4 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles, {withTheme: true})(App);
+export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);

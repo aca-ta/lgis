@@ -17,4 +17,4 @@ export const getLayer = (host: string, db: string, table: string) => {
   return { source, layer };
 };
 
-export const defaultLayer = fromJS(MAP_STYLE);
+export const defaultLayer = fromJS((<any>MAP_STYLE).default);

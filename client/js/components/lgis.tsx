@@ -17,7 +17,6 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import { Dispatch } from 'redux'
 import Map from './map';
-import {ToggleToolbarAction} from '../actions/index';
 import {State} from '../reducers/index';
 import {ToggleToolbarAction} from '../actions/index';
 

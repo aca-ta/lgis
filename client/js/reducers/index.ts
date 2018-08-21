@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { toolbar, State as toolbarState } from './toolbar;
+import { toolbar, State as toolbarState } from './toolbar';
 
 export interface State {
   app: toolbarState

@@ -3,12 +3,12 @@ import * as React from 'react';
 import MapGL, {Viewport} from 'react-map-gl';
 import {defaultLayer, getLayer} from './layer';
 
-interface Props {
+interface MapProps {
   settings: string;
   table: string;
 }
 
-interface State {
+interface MapState {
   mapStyle: {};
   width: number;
   height: number;
@@ -16,8 +16,8 @@ interface State {
   viewport: Viewport;
 }
 
-export default class Map extends React.Component<Props, State> {
-  public constructor(props: Props) {
+export default class Map extends React.Component<MapProps, MapState> {
+  public constructor(props: MapProps) {
     super(props);
     this.state = {
       mapStyle: defaultLayer,

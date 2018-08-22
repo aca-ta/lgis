@@ -7,8 +7,8 @@ interface MapState {
   viewport: Viewport;
 }
 
-
-export const maps = (state: MapState , action) => {
+/*
+export const maps = (state: MapState , action:any) => {
   switch (action.type) {
     case 'ADD_LAYER':
       //TODO: add a layer
@@ -16,3 +16,4 @@ export const maps = (state: MapState , action) => {
       return state;
   }
 }
+*/

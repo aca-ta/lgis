@@ -6,4 +6,4 @@ export interface ToggleToolbarAction {
   readonly type: Actions.TOGGLE_TOOLBAR;
 }
 
-export const toggleToolbar = (): ToggleToolbarAction => {type: ToggleToolbarAction};
+export const toggleToolbar = (): ToggleToolbarAction => ({type: Actions.TOGGLE_TOOLBAR});

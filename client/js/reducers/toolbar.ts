@@ -4,7 +4,14 @@ export interface State {
   open: boolean;
 }
 
-export const toolbar = (state: State, action: ToggleToolbarAction) => {
+const initialState: State = {
+  open: false,
+};
+
+export const toolbar = (
+  state: State = initialState,
+  action: ToggleToolbarAction,
+) => {
   switch (action.type) {
     case Actions.TOGGLE_TOOLBAR:
       toggleToolbar(state);
@@ -13,4 +20,6 @@ export const toolbar = (state: State, action: ToggleToolbarAction) => {
   }
 };
 
-export const toggleToolbar = (state: State) => {open: !state.open}
+export const toggleToolbar = (state: State) => {
+  open: !state.open;
+};

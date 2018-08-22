@@ -18,7 +18,7 @@ import {connect} from 'react-redux';
 import { Dispatch } from 'redux'
 import Map from './map';
 import {State} from '../reducers/index';
-import {ToggleToolbarAction} from '../actions/index';
+import {ToggleToolbarAction, toggleToolbar} from '../actions/index';
 
 const drawerWidth = 480;
 
@@ -222,7 +222,7 @@ export const mapStateToProps = (state: State) => {
 export const mapDispatchToProps = (dispatch: Dispatch<ToggleToolbarAction>) => {
   return {
     dispatch1: () => {
-      dispatch({type: 'toolbar/toggle'});
+      dispatch(toggleToolbar());
     },
   };
 };

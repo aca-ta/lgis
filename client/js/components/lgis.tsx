@@ -216,7 +216,7 @@ class App extends React.Component<AppProps, AppState> {
 export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);
 
 export const mapStateToProps = (state: State) => {
-  return {value: state.app.open};
+  return {value: state.toolbar.open};
 };
 
 export const mapDispatchToProps = (dispatch: Dispatch<ToggleToolbarAction>) => {

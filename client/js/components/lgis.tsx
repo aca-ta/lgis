@@ -96,6 +96,8 @@ const styles = (theme: Theme) =>
 interface AppProps {
   classes: any;
   theme: any;
+  open: boolean;
+  dispatchDrawerOpen: (ope: boolean) => void;
 }
 
 interface AppState {
@@ -103,10 +105,6 @@ interface AppState {
 }
 
 class App extends React.Component<AppProps, AppState> {
-  public state = {
-    open: false,
-  };
-
   public mapProps = {
     settings: '',
     table: '',
@@ -117,10 +115,6 @@ class App extends React.Component<AppProps, AppState> {
   public constructor(props: any) {
     super(props);
   }
-
-  public handleDrawerOpen = () => this.setState({open: true});
-
-  public handleDrawerClose = () => this.setState({open: false});
 
   public handleSettingFieldChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     (this.mapProps.settings = e.target.value);
@@ -134,8 +128,7 @@ class App extends React.Component<AppProps, AppState> {
     }
   };
   public render() {
-    const {classes, theme} = this.props;
-    const {open} = this.state;
+    const {classes, theme, open} = this.props;
 
     return (
       <div className={classes.root}>
@@ -148,7 +141,7 @@ class App extends React.Component<AppProps, AppState> {
               <IconButton
                 color="primary"
                 aria-label="Open drawer"
-                onClick={this.handleDrawerOpen}
+                onClick={(e: React.MouseEvent<HTMLElement>) => this.props.dispatchDrawerOpen(this.props.open)}
                 className={classNames(
                   classes.menuButton,
                   open && classes.hide,
@@ -167,7 +160,7 @@ class App extends React.Component<AppProps, AppState> {
               paper: classes.drawerPaper,
             }}>
             <div className={classes.drawerHeader}>
-              <IconButton onClick={this.handleDrawerClose}>
+              <IconButton onClick={(e: React.MouseEvent<HTMLElement>) => this.props.dispatchDrawerOpen(this.props.open)}>
                 <ChevronLeft />
               </IconButton>
             </div>
@@ -213,16 +206,16 @@ class App extends React.Component<AppProps, AppState> {
   }
 }
 
-export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);
+const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);
 
 export const mapStateToProps = (state: State) => {
-  return {value: state.toolbar.open};
+  return {open: state.toolbar.open};
 };
 
 export const mapDispatchToProps = (dispatch: Dispatch<ToggleToolbarAction>) => {
   return {
-    dispatch1: () => {
-      dispatch(toggleToolbar());
+    dispatchDrawerOpen: (open: boolean) => {
+      dispatch(toggleToolbar(open));
     },
   };
 };

@@ -14,12 +14,10 @@ export const toolbar = (
 ) => {
   switch (action.type) {
     case Actions.TOGGLE_TOOLBAR:
-      toggleToolbar(state);
+      return toggleToolbar(state);
     default:
       return state;
   }
 };
 
-export const toggleToolbar = (state: State) => {
-  open: !state.open;
-};
+const toggleToolbar = (state: State):State => ({ open: !state.open });

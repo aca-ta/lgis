@@ -4,6 +4,7 @@ export enum Actions {
 
 export interface ToggleToolbarAction {
   readonly type: Actions.TOGGLE_TOOLBAR;
+  payload: boolean;
 }
 
-export const toggleToolbar = (): ToggleToolbarAction => ({type: Actions.TOGGLE_TOOLBAR});
+export const toggleToolbar = (open: boolean): ToggleToolbarAction => ({type: Actions.TOGGLE_TOOLBAR, payload: open});

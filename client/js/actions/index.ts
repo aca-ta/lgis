@@ -1,10 +1,20 @@
 export enum Actions {
-  TOGGLE_TOOLBAR = 'toolbar/toggle',
+  TOGGLE_DRAWER = 'toolbar/toggleDrawer',
+  INPUT_SETTINGS = 'toolbar/inputSettings',
 }
 
-export interface ToggleToolbarAction {
-  readonly type: Actions.TOGGLE_TOOLBAR;
+export interface ToggleDrawerAction {
+  readonly type: Actions.TOGGLE_DRAWER;
   payload: boolean;
 }
 
-export const toggleToolbar = (open: boolean): ToggleToolbarAction => ({type: Actions.TOGGLE_TOOLBAR, payload: open});
+export const toggleDrawer = (open: boolean): ToggleDrawerAction => ({type: Actions.TOGGLE_DRAWER, payload: open});
+
+
+export interface InputSettingsAction {
+  readonly type: Actions.INPUT_SETTINGS;
+  payload: string;
+}
+export const inputSettings = (settings: string): InputSettingsAction => ({type: Actions.INPUT_SETTINGS, payload: settings});
+
+export type ActionTypes = ToggleDrawerAction | InputSettingsAction;

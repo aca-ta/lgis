@@ -1,6 +1,7 @@
 export enum Actions {
   TOGGLE_DRAWER = 'toolbar/toggleDrawer',
   INPUT_SETTINGS = 'toolbar/inputSettings',
+  INPUT_SETTINGS = 'toolbar/inputTable',
 }
 
 export interface ToggleDrawerAction {
@@ -17,4 +18,11 @@ export interface InputSettingsAction {
 }
 export const inputSettings = (settings: string): InputSettingsAction => ({type: Actions.INPUT_SETTINGS, payload: settings});
 
-export type ActionTypes = ToggleDrawerAction | InputSettingsAction;
+
+export interface InputTableAction {
+  readonly type: Actions.INPUT_TABLE;
+  payload: string;
+}
+export const inputTable = (settings: string): InputTableAction => ({type: Actions.INPUT_TABLE, payload: table});
+
+export type ActionTypes = ToggleDrawerAction | InputSettingsAction | InputTableAction;

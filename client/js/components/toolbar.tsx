@@ -15,28 +15,26 @@ import * as React from 'react';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import {State} from '../reducers/index';
-import {ActionTypes,toggleDrawer} from '../actions/index';
+import {
+  ActionTypes,
+  toggleDrawer,
+  inputSettings,
+  inputTable,
+} from '../actions/index';
 
 interface LgisDrawerProps {
   classes: any;
   open: boolean;
   dispatchDrawerOpen: (open: boolean) => void;
-};
+  settings: string;
+  dispatchInputSettings: (settings: string) => void;
+  table: string;
+  dispatchInputTable: (table: string) => void;
+}
 
-interface LgisDrawerState {};
+interface LgisDrawerState {}
 
 class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
-
-  private settings: string = '';
-
-  private table: string = '';
-
-  private handleSettingFieldChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    (this.settings = e.target.value);
-
-  private handleTableFieldChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    (this.table = e.target.value);
-
   private handleButtonClick = () => {
     if (this.map.current) {
       this.map.current.loadData(this.settings, this.table);
@@ -44,9 +42,17 @@ class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
   };
 
   public render() {
-    const {classes, open, dispatchDrawerOpen} = this.props;
-  
-    return(
+    const {
+      classes,
+      open,
+      dispatchDrawerOpen,
+      settings,
+      dispatchInputSettings,
+      table,
+      dispatchInputTable,
+    } = this.props;
+
+    return (
       <div>
         <AppBar
           className={classNames(classes.appBar, {
@@ -59,10 +65,7 @@ class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
               onClick={(e: React.MouseEvent<HTMLElement>) =>
                 this.props.dispatchDrawerOpen(this.props.open)
               }
-              className={classNames(
-                classes.menuButton,
-                open && classes.hide,
-              )}>
+              className={classNames(classes.menuButton, open && classes.hide)}>
               <Menu />
             </IconButton>
             <Typography variant="title" noWrap={true}>
@@ -77,7 +80,10 @@ class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
             paper: classes.drawerPaper,
           }}>
           <div className={classes.drawerHeader}>
-            <IconButton onClick={(e: React.MouseEvent<HTMLElement>) => dispatchDrawerOpen(this.props.open)}>
+            <IconButton
+              onClick={(e: React.MouseEvent<HTMLElement>) =>
+                dispatchDrawerOpen(this.props.open)
+              }>
               <ChevronLeft />
             </IconButton>
           </div>
@@ -88,7 +94,9 @@ class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
             defaultValue="{&quot;host&quot;: &quot;127.0.0.1&quot;, &quot;db&quot;: &quot;mydatabase&quot;}"
             multiline={true}
             rows="10"
-            onChange={this.handleSettingFieldChange}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              dispatchInputSettings(this.props.settings)
+            }
           />
           <TextField
             id="lgis-table"
@@ -97,7 +105,9 @@ class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
             defaultValue="my_schema.my_table"
             multiline={true}
             rows="8"
-            onChange={this.handleTableFieldChange}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              dispatchInputTable(this.props.table)
+            }
           />
           <Button
             variant="contained"
@@ -107,12 +117,15 @@ class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
           </Button>
         </Drawer>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state: State) => {
-  return {open: state.toolbar.open};
+  return {
+    open: state.toolbar.open,
+    settings: state.toolbar.settings,
+  };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => {
@@ -120,10 +133,16 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => {
     dispatchDrawerOpen: (open: boolean) => {
       dispatch(toggleDrawer(open));
     },
+    dispatchInputSettings: (settings: string) => {
+      dispatch(inputSettings(settings));
+    },
+    dispatchInputTable: (table: string) => {
+      dispatch(inputTable(table));
+    },
   };
 };
 
-export const LGISToolbar= connect(
+export const LGISToolbar = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(LgisToolbar);

@@ -1,44 +1,42 @@
 import {Actions, ActionTypes} from '../actions/toolbar';
+import {ToolbarState} from '../components/toolbar';
+import {defaultLayer} from '../models/layer';
 
-export interface State {
-  open: boolean;
-  settings: string;
-  table: string;
-}
-
-const initialState: State = {
+const initialState: ToolbarState = {
   open: false,
   settings: '',
   table: '',
+  mapStyle: defaultLayer,
 };
 
-const toggleDrawer = (state: State): State => ({...state, open: !state.open});
+const toggleDrawer = (state: ToolbarState): ToolbarState => ({...state, open: !state.open});
 
-const inputSettings = (state: State): State => ({
+const inputSettings = (state: ToolbarState): ToolbarState => ({
   ...state,
   settings: state.settings,
 });
 
-const inputTable = (state: State): State => ({
+const inputTable = (state: ToolbarState): ToolbarState => ({
   ...state,
   table: state.table,
 });
 
-const addLayer = (state: State): State => ({
+const addLayer = (state: ToolbarState): ToolbarState => ({
+  // TODO: implement mapStyle loader.
   ...state,
   settings: state.settings,
   table: state.table,
 });
 
-export const toolbar = (state: State = initialState, action: ActionTypes) => {
+export const toolbar = (state: ToolbarState = initialState, action: ActionTypes) => {
   switch (action.type) {
     case Actions.TOGGLE_DRAWER:
       return toggleDrawer(state);
     case Actions.INPUT_SETTINGS:
       return inputSettings(state);
-    case actions.INPUT_TABLE:
+    case Actions.INPUT_TABLE:
       return inputTable(state);
-    case actions.ADD_LAYER:
+    case Actions.ADD_LAYER:
       return addLayer(state);
     default:
       return state;

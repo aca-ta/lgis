@@ -14,15 +14,16 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {State} from '../reducers/index';
 import {
   ActionTypes,
   toggleDrawer,
   inputSettings,
   inputTable,
+  addLayer,
 } from '../actions/toolbar';
+import {State} from '../reducers';
 
-interface LgisDrawerProps {
+interface ToolbarProps {
   classes: any;
   open: boolean;
   dispatchDrawerOpen: (open: boolean) => void;
@@ -30,17 +31,12 @@ interface LgisDrawerProps {
   dispatchInputSettings: (settings: string) => void;
   table: string;
   dispatchInputTable: (table: string) => void;
+  dispatchAddLayer: (settings: string, table: string) => void;
 }
 
-interface LgisDrawerState {}
+interface toolbarState {} //TODO: delete later.
 
-class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
-  private handleButtonClick = () => {
-    if (this.map.current) {
-      this.map.current.loadData(this.settings, this.table);
-    }
-  };
-
+class LgisToolbar extends React.Component<ToolbarProps, toolbarState> {
   public render() {
     const {
       classes,
@@ -50,6 +46,7 @@ class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
       dispatchInputSettings,
       table,
       dispatchInputTable,
+      dispatchAddLayer,
     } = this.props;
 
     return (
@@ -112,7 +109,7 @@ class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
           <Button
             variant="contained"
             className={classes.button}
-            onClick={this.handleButtonClick}>
+            onClick={dispatchAddLayer(settings, table)}>
             Show
           </Button>
         </Drawer>
@@ -121,10 +118,19 @@ class LgisToolbar extends React.Component<LgisDrawerProps, LgisDrawerState> {
   }
 }
 
+export interface ToolbarState {
+  open: boolean;
+  settings: string;
+  table: string;
+  mapStyle: any;
+}
+
 const mapStateToProps = (state: State) => {
   return {
     open: state.toolbar.open,
     settings: state.toolbar.settings,
+    table: state.toolbar.table,
+    mapStyle: state.map.mapStyle,
   };
 };
 
@@ -139,8 +145,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => {
     dispatchInputTable: (table: string) => {
       dispatch(inputTable(table));
     },
-    dispatchAddLayer: (settings: string, table: string) => {
-      dispatch(inputTable(table));
+    dispatchAddLayer: (settings: string, table: string, mapStyle: any) => {
+      dispatch(addLayer(settings, table, mapStyle));
     },
   };
 };

@@ -20,7 +20,7 @@ import {
   toggleDrawer,
   inputSettings,
   inputTable,
-} from '../actions/index';
+} from '../actions/toolbar';
 
 interface LgisDrawerProps {
   classes: any;
@@ -137,6 +137,9 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => {
       dispatch(inputSettings(settings));
     },
     dispatchInputTable: (table: string) => {
+      dispatch(inputTable(table));
+    },
+    dispatchAddLayer: (settings: string, table: string) => {
       dispatch(inputTable(table));
     },
   };

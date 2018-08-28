@@ -5,7 +5,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {State} from '../reducers/index';
-import {ToggleDrawerAction,toggleDrawer} from '../actions/index';
+import {ActionTypes,toggleDrawer} from '../actions/toolbar';
 import Map from './map';
 import {LGISToolbar} from './toolbar';
 
@@ -85,8 +85,6 @@ const styles = (theme: Theme) =>
 interface AppProps {
   classes: any;
   theme: any;
-  open: boolean;
-  dispatchDrawerOpen: (ope: boolean) => void;
 }
 
 interface AppState {
@@ -100,10 +98,6 @@ class App extends React.Component<AppProps, AppState> {
   };
 
   private map = React.createRef<Map>();
-
-  public constructor(props: any) {
-    super(props);
-  }
 
   public render() {
     const {classes, theme, open} = this.props;
@@ -131,21 +125,4 @@ class App extends React.Component<AppProps, AppState> {
   }
 }
 
-const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);
-
-const mapStateToProps = (state: State) => {
-  return {open: state.toolbar.open};
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<ToggleDrawerAction>) => {
-  return {
-    dispatchDrawerOpen: (open: boolean) => {
-      dispatch(toggleDrawer(open));
-    },
-  };
-};
-
-export const LGIS = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Lgis);
+export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);

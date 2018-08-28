@@ -1,48 +1,13 @@
-import {fromJS} from 'immutable';
 import * as React from 'react';
 import MapGL, {Viewport} from 'react-map-gl';
-import {defaultLayer, getLayer} from './layer';
+import {State} from '../reducers/index';
 
 interface MapProps {
   settings: string;
   table: string;
 }
 
-interface MapState {
-  mapStyle: {};
-  width: number;
-  height: number;
-  mapboxApiAccessToken: string;
-  viewport: Viewport;
-}
-
-export default class Map extends React.Component<MapProps, MapState> {
-  public constructor(props: MapProps) {
-    super(props);
-    this.state = {
-      mapStyle: defaultLayer,
-      width: window.innerWidth,
-      height: window.innerHeight,
-      mapboxApiAccessToken: '',
-      viewport: {
-        latitude: 35.681167,
-        longitude: 139.767052,
-        zoom: 10,
-      },
-    };
-  }
-
-  public loadData = (settingJson: string, table: string) => {
-    const settings = JSON.parse(settingJson);
-    const {source, layer} = getLayer(settings.host, settings.db, table);
-
-    const mapStyle = defaultLayer
-      .setIn(['sources', 'lgis'], fromJS(source))
-      .set('layers', defaultLayer.get('layers').push(layer));
-
-    this.setState({mapStyle});
-  };
-
+export default class Map extends React.Component<MapProps, State> {
   public render() {
     const {viewport, mapStyle, height, width, mapboxApiAccessToken} = this.state;
     return (

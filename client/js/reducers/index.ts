@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux';
-import {toolbar, State as toolbarState} from './toolbar';
-import {toolbar, State as mapState} from './map';
+import {toolbar} from './toolbar';
+import {map} from './map';
+import {ToolbarState} from '../components/toolbar';
+import {MapState} from '../components/map';
 
 export interface State {
-  toolbar: toolbarState;
-  map: mapState;
+  toolbar: ToolbarState;
+  map: MapState;
 }
 
 export const reducers = combineReducers({

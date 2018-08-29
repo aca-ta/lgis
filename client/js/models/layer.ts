@@ -23,9 +23,9 @@ export const loadData = (settingJson: string, table: string) => {
   const settings = JSON.parse(settingJson);
   const {source, layer} = getLayer(settings.host, settings.db, table);
 
-  const mapStyle = defaultLayer
+  const mapStyle: any = defaultLayer
     .setIn(['sources', 'lgis'], fromJS(source))
-    .set('layers', mapStyle.get('layers').push(layer));
+    .set('layers', defaultLayer.get('layers').push(layer));
 
   return mapStyle
 };

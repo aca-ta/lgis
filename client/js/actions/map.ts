@@ -9,7 +9,7 @@ export interface AddLayerAction {
 
 export const addLayer = (settings: string, table: string): AddLayerAction => ({
   type: Actions.ADD_LAYER,
-  payload: {setting, table},
+  payload: {settings, table},
 });
 
 export type ActionTypes = AddLayerAction;

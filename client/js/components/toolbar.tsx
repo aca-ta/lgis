@@ -109,7 +109,7 @@ class LgisToolbar extends React.Component<ToolbarProps, toolbarState> {
           <Button
             variant="contained"
             className={classes.button}
-            onClick={dispatchAddLayer(settings, table)}>
+            onClick={(e: React.MouseEvent<HTMLElement>) => dispatchAddLayer(settings, table)}>
             Show
           </Button>
         </Drawer>

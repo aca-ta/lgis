@@ -100,7 +100,7 @@ class App extends React.Component<AppProps, AppState> {
   private map = React.createRef<Map>();
 
   public render() {
-    const {classes, theme, open} = this.props;
+    const {classes, theme} = this.props;
 
     return (
       <div className={classes.root}>
@@ -108,10 +108,7 @@ class App extends React.Component<AppProps, AppState> {
           <LGISToolbar
             classes={classes}
           />
-          <main
-            className={classNames(classes.content, classes['content-left'], {
-              [classes.contentShift]: open,
-            })}>
+          <main>
             <div className={classes.drawerHeader} />
             <Map
               settings={this.mapProps.settings}

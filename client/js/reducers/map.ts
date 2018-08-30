@@ -1,8 +1,9 @@
 import {Viewport} from 'react-map-gl';
 import {loadData, defaultLayer} from '../models/layer';
-import {MapState} from '../components/map';
 
 
+// TODO: implement later
+/*
 const initialState: MapState = {
   mapStyle: defaultLayer,
   width: window.innerWidth,
@@ -15,8 +16,6 @@ const initialState: MapState = {
   },
 };
 
-// TODO: implement later
-/*
 export const map = (state: State = initialState, action: ActionTypes) => {
   switch (action.type) {
     default:

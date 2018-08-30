@@ -89,7 +89,12 @@ const App = (props: AppProps) => {
     <div className={classes.root}>
       <div className={classes.appFrame}>
         <LGISToolbar classes={classes} />
-        <main>
+        <main
+          className={classNames(
+            classes.content,
+            classes['content-left'],
+            classes.contentShift,
+          )}>
           <div className={classes.drawerHeader} />
           <MAP />
         </main>

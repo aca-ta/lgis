@@ -125,31 +125,27 @@ export interface ToolbarState {
   mapStyle: any;
 }
 
-const mapStateToProps = (state: State):ToolbarState => {
-  return {
-    open: state.toolbar.open,
-    settings: state.toolbar.settings,
-    table: state.toolbar.table,
-    mapStyle: state.toolbar.mapStyle,
-  };
-};
+const mapStateToProps = (state: State): ToolbarState => ({
+  open: state.toolbar.open,
+  settings: state.toolbar.settings,
+  table: state.toolbar.table,
+  mapStyle: state.map.mapStyle,
+});
 
-const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => {
-  return {
-    dispatchDrawerOpen: (open: boolean) => {
-      dispatch(toggleDrawer(open));
-    },
-    dispatchInputSettings: (settings: string) => {
-      dispatch(inputSettings(settings));
-    },
-    dispatchInputTable: (table: string) => {
-      dispatch(inputTable(table));
-    },
-    dispatchAddLayer: (settings: string, table: string, mapStyle: any) => {
-      dispatch(addLayer(settings, table, mapStyle));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
+  dispatchDrawerOpen: (open: boolean) => {
+    dispatch(toggleDrawer(open));
+  },
+  dispatchInputSettings: (settings: string) => {
+    dispatch(inputSettings(settings));
+  },
+  dispatchInputTable: (table: string) => {
+    dispatch(inputTable(table));
+  },
+  dispatchAddLayer: (settings: string, table: string, mapStyle: any) => {
+    dispatch(addLayer(settings, table, mapStyle));
+  },
+});
 
 export const LGISToolbar = connect(
   mapStateToProps,

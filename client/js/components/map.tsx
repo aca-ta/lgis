@@ -1,35 +1,51 @@
 import * as React from 'react';
 import MapGL, {Viewport} from 'react-map-gl';
-import {State} from '../reducers/index';
+import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
+import {ActionTypes, changeViewport} from '../actions/map';
 
-interface MapProps {}
+import {State} from '../reducers';
+
+interface MapProps {
+  viewport: Viewport;
+  mapStyle: any;
+  dispatchChangeViewport: (viewport: Viewport) => void;
+}
+
+const Map = (props: MapProps) => {
+  const {viewport, mapStyle, dispatchChangeViewport} = props;
+
+  return (
+    <MapGL
+      {...viewport}
+      height={window.innerHeight}
+      width={window.innerWidth}
+      mapStyle={mapStyle}
+      mapboxApiAccessToken={''}
+      onViewportChange={(viewport: Viewport) =>
+        dispatchChangeViewport(viewport)
+      }
+    />
+  );
+};
 
 export interface MapState {
-  mapStyle: {};
-  width: number;
-  height: number;
-  mapboxApiAccessToken: string;
   viewport: Viewport;
+  mapStyle: any;
 }
 
-export default class Map extends React.Component<MapProps, MapState> {
-  public render() {
-    const {
-      viewport,
-      mapStyle,
-      height,
-      width,
-      mapboxApiAccessToken,
-    } = this.state;
-    return (
-      <MapGL
-        {...viewport}
-        height={height}
-        width={width}
-        mapStyle={mapStyle}
-        mapboxApiAccessToken={mapboxApiAccessToken}
-        onViewportChange={(viewport: Viewport) => this.setState({viewport})}
-      />
-    );
-  }
-}
+const mapStateToProps = (state: State) => ({
+  mapStyle: state.map.mapStyle,
+  viewport: state.map.viewport,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
+  dispatchChangeViewport: (viewport: Viewport) => {
+    dispatch(changeViewport(viewport));
+  },
+});
+
+export const MAP = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Map);

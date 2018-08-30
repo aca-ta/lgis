@@ -2,11 +2,7 @@ import {withStyles, createStyles} from '@material-ui/core/styles';
 import {Theme} from '@material-ui/core/styles/createMuiTheme';
 import * as classNames from 'classnames';
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
-import {State} from '../reducers/index';
-import {ActionTypes, toggleDrawer} from '../actions/toolbar';
-import Map from './map';
+import {MAP} from './map';
 import {LGISToolbar} from './toolbar';
 
 const drawerWidth = 480;
@@ -95,7 +91,7 @@ const App = (props: AppProps) => {
         <LGISToolbar classes={classes} />
         <main>
           <div className={classes.drawerHeader} />
-          <Map />
+          <MAP />
         </main>
       </div>
     </div>

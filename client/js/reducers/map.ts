@@ -1,14 +1,10 @@
-import {Viewport} from 'react-map-gl';
-import {loadData, defaultLayer} from '../models/layer';
+import {Actions, ActionTypes} from '../actions/map';
+import {MapState} from '../components/map';
+import {defaultLayer} from '../models/layer';
 
 
-// TODO: implement later
-/*
 const initialState: MapState = {
   mapStyle: defaultLayer,
-  width: window.innerWidth,
-  height: window.innerHeight,
-  mapboxApiAccessToken: '',
   viewport: {
     latitude: 35.681167,
     longitude: 139.767052,
@@ -16,10 +12,18 @@ const initialState: MapState = {
   },
 };
 
-export const map = (state: State = initialState, action: ActionTypes) => {
+const changeViewport = (state: MapState): MapState => ({
+  ...state,
+  viewport: state.viewport,
+})
+
+
+export const map = (state: MapState = initialState, action: ActionTypes) => {
   switch (action.type) {
+    case Actions.CHANGE_VIEWPORT:
+      return changeViewport(state);
     default:
       return state;
   }
 };
-*/
+

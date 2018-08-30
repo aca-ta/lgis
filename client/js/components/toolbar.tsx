@@ -130,7 +130,7 @@ const mapStateToProps = (state: State) => {
     open: state.toolbar.open,
     settings: state.toolbar.settings,
     table: state.toolbar.table,
-    mapStyle: state.map.mapStyle,
+    mapStyle: state.toolbar.mapStyle,
   };
 };
 

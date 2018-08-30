@@ -1,6 +1,6 @@
 import {Actions, ActionTypes} from '../actions/toolbar';
 import {ToolbarState} from '../components/toolbar';
-import {defaultLayer} from '../models/layer';
+import {defaultLayer, loadData} from '../models/layer';
 
 const initialState: ToolbarState = {
   open: false,
@@ -9,7 +9,10 @@ const initialState: ToolbarState = {
   mapStyle: defaultLayer,
 };
 
-const toggleDrawer = (state: ToolbarState): ToolbarState => ({...state, open: !state.open});
+const toggleDrawer = (state: ToolbarState): ToolbarState => ({
+  ...state,
+  open: !state.open,
+});
 
 const inputSettings = (state: ToolbarState): ToolbarState => ({
   ...state,
@@ -22,13 +25,14 @@ const inputTable = (state: ToolbarState): ToolbarState => ({
 });
 
 const addLayer = (state: ToolbarState): ToolbarState => ({
-  // TODO: implement mapStyle loader.
-  ...state,
-  settings: state.settings,
-  table: state.table,
+    ...state,
+    mapStyle: loadData(state.settings, state.table)
 });
 
-export const toolbar = (state: ToolbarState = initialState, action: ActionTypes) => {
+export const toolbar = (
+  state: ToolbarState = initialState,
+  action: ActionTypes,
+) => {
   switch (action.type) {
     case Actions.TOGGLE_DRAWER:
       return toggleDrawer(state);

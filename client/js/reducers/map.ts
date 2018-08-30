@@ -1,16 +1,10 @@
 import {Viewport} from 'react-map-gl';
 import {Actions, ActionTypes} from '../actions/map';
 import {loadData, defaultLayer} from '../models/layer';
+import {MapState} from '../components/map';
 
-export interface State {
-  mapStyle: {};
-  width: number;
-  height: number;
-  mapboxApiAccessToken: string;
-  viewport: Viewport;
-}
 
-const initialState: State = {
+const initialState: MapState = {
   mapStyle: defaultLayer,
   width: window.innerWidth,
   height: window.innerHeight,
@@ -22,19 +16,8 @@ const initialState: State = {
   },
 };
 
-const addLayer = (state: State, settings: string, table: string): State => {
-  const mapStyle = loadData(settings, table);
-
-  return {
-    ...state,
-    mapStyle,
-  };
-};
-
 export const map = (state: State = initialState, action: ActionTypes) => {
   switch (action.type) {
-    case Actions.ADD_LAYER:
-      addLayer(state)
     default:
       return state;
   }

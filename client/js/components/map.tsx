@@ -1,20 +1,26 @@
 import * as React from 'react';
 import MapGL, {Viewport} from 'react-map-gl';
 import {State} from '../reducers/index';
-import {State as MapState} from '../reducers/map';
 
-interface MapProps {
-  settings: string;
-  table: string;
-}
+interface MapProps {}
 
-export interface MapState{
-  
+export interface MapState {
+  mapStyle: {};
+  width: number;
+  height: number;
+  mapboxApiAccessToken: string;
+  viewport: Viewport;
 }
 
 export default class Map extends React.Component<MapProps, MapState> {
   public render() {
-    const {viewport, mapStyle, height, width, mapboxApiAccessToken} = this.props;
+    const {
+      viewport,
+      mapStyle,
+      height,
+      width,
+      mapboxApiAccessToken,
+    } = this.state;
     return (
       <MapGL
         {...viewport}

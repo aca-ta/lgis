@@ -36,7 +36,7 @@ interface ToolbarProps {
 
 interface toolbarState {} //TODO: delete later.
 
-const LgisToolbar =(props: ToolbarProps) => {
+const LgisToolbar = (props: ToolbarProps) => {
   const {
     classes,
     open,
@@ -46,7 +46,7 @@ const LgisToolbar =(props: ToolbarProps) => {
     table,
     dispatchInputTable,
     dispatchAddLayer,
-  }  = props;
+  } = props;
 
   return (
     <div>
@@ -108,13 +108,15 @@ const LgisToolbar =(props: ToolbarProps) => {
         <Button
           variant="contained"
           className={classes.button}
-          onClick={(e: React.MouseEvent<HTMLElement>) => dispatchAddLayer(settings, table)}>
+          onClick={(e: React.MouseEvent<HTMLElement>) =>
+            dispatchAddLayer(settings, table)
+          }>
           Show
         </Button>
       </Drawer>
     </div>
   );
-}
+};
 
 export interface ToolbarState {
   open: boolean;
@@ -123,7 +125,7 @@ export interface ToolbarState {
   mapStyle: any;
 }
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: State):ToolbarState => {
   return {
     open: state.toolbar.open,
     settings: state.toolbar.settings,

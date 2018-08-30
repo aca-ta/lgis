@@ -1,5 +1,4 @@
 import {Viewport} from 'react-map-gl';
-import {Actions, ActionTypes} from '../actions/map';
 import {loadData, defaultLayer} from '../models/layer';
 import {MapState} from '../components/map';
 
@@ -16,9 +15,12 @@ const initialState: MapState = {
   },
 };
 
+// TODO: implement later
+/*
 export const map = (state: State = initialState, action: ActionTypes) => {
   switch (action.type) {
     default:
       return state;
   }
 };
+*/

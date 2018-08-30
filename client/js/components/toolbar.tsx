@@ -36,86 +36,84 @@ interface ToolbarProps {
 
 interface toolbarState {} //TODO: delete later.
 
-class LgisToolbar extends React.Component<ToolbarProps, toolbarState> {
-  public render() {
-    const {
-      classes,
-      open,
-      dispatchDrawerOpen,
-      settings,
-      dispatchInputSettings,
-      table,
-      dispatchInputTable,
-      dispatchAddLayer,
-    } = this.props;
+const LgisToolbar =(props: ToolbarProps) => {
+  const {
+    classes,
+    open,
+    dispatchDrawerOpen,
+    settings,
+    dispatchInputSettings,
+    table,
+    dispatchInputTable,
+    dispatchAddLayer,
+  }  = props;
 
-    return (
-      <div>
-        <AppBar
-          className={classNames(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}>
-          <Toolbar disableGutters={!open}>
-            <IconButton
-              color="primary"
-              aria-label="Open drawer"
-              onClick={(e: React.MouseEvent<HTMLElement>) =>
-                this.props.dispatchDrawerOpen(this.props.open)
-              }
-              className={classNames(classes.menuButton, open && classes.hide)}>
-              <Menu />
-            </IconButton>
-            <Typography variant="title" noWrap={true}>
-              Lgis
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="persistent"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}>
-          <div className={classes.drawerHeader}>
-            <IconButton
-              onClick={(e: React.MouseEvent<HTMLElement>) =>
-                dispatchDrawerOpen(this.props.open)
-              }>
-              <ChevronLeft />
-            </IconButton>
-          </div>
-          <TextField
-            id="lgis-settings"
-            className={classes.textfield}
-            label="settings"
-            defaultValue="{&quot;host&quot;: &quot;127.0.0.1&quot;, &quot;db&quot;: &quot;mydatabase&quot;}"
-            multiline={true}
-            rows="10"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              dispatchInputSettings(this.props.settings)
+  return (
+    <div>
+      <AppBar
+        className={classNames(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}>
+        <Toolbar disableGutters={!open}>
+          <IconButton
+            color="primary"
+            aria-label="Open drawer"
+            onClick={(e: React.MouseEvent<HTMLElement>) =>
+              props.dispatchDrawerOpen(props.open)
             }
-          />
-          <TextField
-            id="lgis-table"
-            className={classes.textfield}
-            label="table"
-            defaultValue="my_schema.my_table"
-            multiline={true}
-            rows="8"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              dispatchInputTable(this.props.table)
-            }
-          />
-          <Button
-            variant="contained"
-            className={classes.button}
-            onClick={(e: React.MouseEvent<HTMLElement>) => dispatchAddLayer(settings, table)}>
-            Show
-          </Button>
-        </Drawer>
-      </div>
-    );
-  }
+            className={classNames(classes.menuButton, open && classes.hide)}>
+            <Menu />
+          </IconButton>
+          <Typography variant="title" noWrap={true}>
+            Lgis
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="persistent"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}>
+        <div className={classes.drawerHeader}>
+          <IconButton
+            onClick={(e: React.MouseEvent<HTMLElement>) =>
+              dispatchDrawerOpen(props.open)
+            }>
+            <ChevronLeft />
+          </IconButton>
+        </div>
+        <TextField
+          id="lgis-settings"
+          className={classes.textfield}
+          label="settings"
+          defaultValue="{&quot;host&quot;: &quot;127.0.0.1&quot;, &quot;db&quot;: &quot;mydatabase&quot;}"
+          multiline={true}
+          rows="10"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            dispatchInputSettings(props.settings)
+          }
+        />
+        <TextField
+          id="lgis-table"
+          className={classes.textfield}
+          label="table"
+          defaultValue="my_schema.my_table"
+          multiline={true}
+          rows="8"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            dispatchInputTable(props.table)
+          }
+        />
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={(e: React.MouseEvent<HTMLElement>) => dispatchAddLayer(settings, table)}>
+          Show
+        </Button>
+      </Drawer>
+    </div>
+  );
 }
 
 export interface ToolbarState {

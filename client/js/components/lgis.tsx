@@ -95,7 +95,7 @@ class App extends React.Component<AppProps, AppState> {
   public mapProps = {
     settings: '',
     table: '',
-  };
+  }
 
   private map = React.createRef<Map>();
 
@@ -110,11 +110,7 @@ class App extends React.Component<AppProps, AppState> {
           />
           <main>
             <div className={classes.drawerHeader} />
-            <Map
-              settings={this.mapProps.settings}
-              table={this.mapProps.table}
-              ref={this.map}
-            />
+            <Map />
           </main>
         </div>
       </div>

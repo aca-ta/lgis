@@ -7,30 +7,30 @@ export enum Actions {
 
 export interface ToggleDrawerAction {
   readonly type: Actions.TOGGLE_DRAWER;
-  payload: boolean;
+  payload: {open: boolean};
 }
 
 export const toggleDrawer = (open: boolean): ToggleDrawerAction => ({
   type: Actions.TOGGLE_DRAWER,
-  payload: open,
+  payload: {open},
 });
 
 export interface InputSettingsAction {
   readonly type: Actions.INPUT_SETTINGS;
-  payload: string;
+  payload: {settings: string};
 }
 export const inputSettings = (settings: string): InputSettingsAction => ({
   type: Actions.INPUT_SETTINGS,
-  payload: settings,
+  payload: {settings},
 });
 
 export interface InputTableAction {
   readonly type: Actions.INPUT_TABLE;
-  payload: string;
+  payload: {table: string};
 }
 export const inputTable = (table: string): InputTableAction => ({
   type: Actions.INPUT_TABLE,
-  payload: table,
+  payload: {table},
 });
 
 export interface AddLayerAction {

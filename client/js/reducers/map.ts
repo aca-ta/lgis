@@ -1,3 +1,4 @@
+import {Viewport} from 'react-map-gl';
 import {Actions, ActionTypes} from '../actions/map';
 import {MapState} from '../components/map';
 import {defaultLayer} from '../models/layer';
@@ -12,16 +13,16 @@ const initialState: MapState = {
   },
 };
 
-const changeViewport = (state: MapState): MapState => ({
+const changeViewport = (state: MapState, viewport: Viewport): MapState => ({
   ...state,
-  viewport: state.viewport,
+  viewport,
 })
 
 
 export const map = (state: MapState = initialState, action: ActionTypes) => {
   switch (action.type) {
     case Actions.CHANGE_VIEWPORT:
-      return changeViewport(state);
+      return changeViewport(state, action.payload.viewport);
     default:
       return state;
   }

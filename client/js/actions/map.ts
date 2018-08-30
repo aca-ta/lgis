@@ -3,15 +3,14 @@ export enum Actions {
   CHANGE_VIEWPORT = 'map/changeViewport',
 }
 
-
 export interface ChangeViewportAction {
   readonly type: Actions.CHANGE_VIEWPORT;
-  payload: Viewport
+  payload: {viewport: Viewport};
 }
 
 export const changeViewport = (viewport: Viewport): ChangeViewportAction => ({
   type: Actions.CHANGE_VIEWPORT,
-  payload: viewport
-})
+  payload: {viewport},
+});
 
 export type ActionTypes = ChangeViewportAction;

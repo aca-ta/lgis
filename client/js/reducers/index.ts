@@ -9,7 +9,7 @@ export interface State {
   map: MapState;
 }
 
-export const reducers = combineReducers({
+export const reducers = combineReducers<State>({
   toolbar,
   map,
 } as any);

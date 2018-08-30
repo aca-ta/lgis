@@ -9,24 +9,24 @@ const initialState: ToolbarState = {
   mapStyle: defaultLayer,
 };
 
-const toggleDrawer = (state: ToolbarState): ToolbarState => ({
+const toggleDrawer = (state: ToolbarState, open: boolean): ToolbarState => ({
   ...state,
-  open: !state.open,
+  open: !open,
 });
 
-const inputSettings = (state: ToolbarState): ToolbarState => ({
+const inputSettings = (state: ToolbarState, settings: string): ToolbarState => ({
   ...state,
-  settings: state.settings,
+  settings,
 });
 
-const inputTable = (state: ToolbarState): ToolbarState => ({
+const inputTable = (state: ToolbarState, table: string): ToolbarState => ({
   ...state,
-  table: state.table,
+  table,
 });
 
-const addLayer = (state: ToolbarState): ToolbarState => ({
+const addLayer = (state: ToolbarState, settings: string, table: string, mapStyle: any): ToolbarState => ({
   ...state,
-  mapStyle: loadData(state.settings, state.table),
+  mapStyle: loadData(mapStyle, state.settings, state.table),
 });
 
 export const toolbar = (
@@ -35,13 +35,13 @@ export const toolbar = (
 ) => {
   switch (action.type) {
     case Actions.TOGGLE_DRAWER:
-      return toggleDrawer(state);
+      return toggleDrawer(state, action.payload.open);
     case Actions.INPUT_SETTINGS:
-      return inputSettings(state);
+      return inputSettings(state, action.payload.settings);
     case Actions.INPUT_TABLE:
-      return inputTable(state);
+      return inputTable(state, action.payload.table);
     case Actions.ADD_LAYER:
-      return addLayer(state);
+      return addLayer(state, action.payload.settings, action.payload.table, action.payload.mapStyle);
     default:
       return state;
   }

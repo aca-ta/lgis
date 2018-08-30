@@ -5,7 +5,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {State} from '../reducers/index';
-import {ActionTypes,toggleDrawer} from '../actions/toolbar';
+import {ActionTypes, toggleDrawer} from '../actions/toolbar';
 import Map from './map';
 import {LGISToolbar} from './toolbar';
 
@@ -84,38 +84,22 @@ const styles = (theme: Theme) =>
 
 interface AppProps {
   classes: any;
-  theme: any;
 }
 
-interface AppState {
-  open: boolean;
-}
+const App = (props: AppProps) => {
+  const {classes} = props;
 
-class App extends React.Component<AppProps, AppState> {
-  public mapProps = {
-    settings: '',
-    table: '',
-  }
-
-  private map = React.createRef<Map>();
-
-  public render() {
-    const {classes, theme} = this.props;
-
-    return (
-      <div className={classes.root}>
-        <div className={classes.appFrame}>
-          <LGISToolbar
-            classes={classes}
-          />
-          <main>
-            <div className={classes.drawerHeader} />
-            <Map />
-          </main>
-        </div>
+  return (
+    <div className={classes.root}>
+      <div className={classes.appFrame}>
+        <LGISToolbar classes={classes} />
+        <main>
+          <div className={classes.drawerHeader} />
+          <Map />
+        </main>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);

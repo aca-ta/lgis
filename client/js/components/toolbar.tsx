@@ -118,7 +118,14 @@ const LgisToolbar = (props: ToolbarProps) => {
   );
 };
 
-const mapStateToProps = (state: State) => {
+export interface ToolbarState {
+  open: boolean;
+  settings: string;
+  table: string;
+  mapStyle: any;
+}
+
+const mapStateToProps = (state: State):ToolbarState => {
   return {
     open: state.toolbar.open,
     settings: state.toolbar.settings,

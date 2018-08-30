@@ -35,8 +35,6 @@ interface ToolbarProps {
   mapStyle: any;
 }
 
-interface toolbarState {} //TODO: delete later.
-
 const LgisToolbar = (props: ToolbarProps) => {
   const {
     classes,
@@ -120,14 +118,7 @@ const LgisToolbar = (props: ToolbarProps) => {
   );
 };
 
-export interface ToolbarState {
-  open: boolean;
-  settings: string;
-  table: string;
-  mapStyle: any;
-}
-
-const mapStateToProps = (state: State):ToolbarState => {
+const mapStateToProps = (state: State) => {
   return {
     open: state.toolbar.open,
     settings: state.toolbar.settings,

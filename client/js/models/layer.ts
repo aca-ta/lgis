@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
 import * as MAP_STYLE from './map-style-basic-v8.json';
 
 export const defaultLayer = fromJS((<any>MAP_STYLE).default);
@@ -16,7 +16,7 @@ export const getLayer = (host: string, db: string, table: string) => {
     interactive: true,
   });
 
-  return { source, layer };
+  return {source, layer};
 };
 
 export const loadData = (settingJson: string, table: string) => {
@@ -27,5 +27,5 @@ export const loadData = (settingJson: string, table: string) => {
     .setIn(['sources', 'lgis'], fromJS(source))
     .set('layers', defaultLayer.get('layers').push(layer));
 
-  return mapStyle
+  return mapStyle;
 };

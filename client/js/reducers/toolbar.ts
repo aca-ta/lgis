@@ -25,8 +25,8 @@ const inputTable = (state: ToolbarState): ToolbarState => ({
 });
 
 const addLayer = (state: ToolbarState): ToolbarState => ({
-    ...state,
-    mapStyle: loadData(state.settings, state.table)
+  ...state,
+  mapStyle: loadData(state.settings, state.table),
 });
 
 export const toolbar = (

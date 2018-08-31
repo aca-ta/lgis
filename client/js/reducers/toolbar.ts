@@ -24,9 +24,9 @@ const inputTable = (state: ToolbarState, table: string): ToolbarState => ({
   table,
 });
 
-const addLayer = (state: ToolbarState, settings: string, table: string, mapStyle: any): ToolbarState => ({
+const addLayer = (state: ToolbarState, settings: string, table: string): ToolbarState => ({
   ...state,
-  mapStyle: loadData(mapStyle, state.settings, state.table),
+  mapStyle: loadData(state.mapStyle, settings, table),
 });
 
 export const toolbar = (
@@ -41,7 +41,7 @@ export const toolbar = (
     case Actions.INPUT_TABLE:
       return inputTable(state, action.payload.table);
     case Actions.ADD_LAYER:
-      return addLayer(state, action.payload.settings, action.payload.table, action.payload.mapStyle);
+      return addLayer(state, action.payload.settings, action.payload.table);
     default:
       return state;
   }

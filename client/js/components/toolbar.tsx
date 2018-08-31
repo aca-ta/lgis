@@ -142,8 +142,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchInputTable: (table: string) => {
     dispatch(inputTable(table));
   },
-  dispatchAddLayer: (settings: string, table: string, mapStyle: any) => {
-    dispatch(addLayer(settings, table, mapStyle));
+  dispatchAddLayer: (settings: string, table: string) => {
+    dispatch(addLayer(settings, table));
   },
 });
 

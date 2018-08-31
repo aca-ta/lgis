@@ -7,12 +7,10 @@ export enum Actions {
 
 export interface ToggleDrawerAction {
   readonly type: Actions.TOGGLE_DRAWER;
-  payload: {open: boolean};
 }
 
-export const toggleDrawer = (open: boolean): ToggleDrawerAction => ({
+export const toggleDrawer = (): ToggleDrawerAction => ({
   type: Actions.TOGGLE_DRAWER,
-  payload: {open},
 });
 
 export interface InputSettingsAction {

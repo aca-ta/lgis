@@ -26,7 +26,7 @@ import {State} from '../reducers';
 interface ToolbarProps {
   classes: any;
   open: boolean;
-  dispatchDrawerOpen: (open: boolean) => void;
+  dispatchDrawerOpen: () => void;
   settings: string;
   dispatchInputSettings: (settings: string) => void;
   table: string;
@@ -59,7 +59,7 @@ const LgisToolbar = (props: ToolbarProps) => {
             color="primary"
             aria-label="Open drawer"
             onClick={(e: React.MouseEvent<HTMLElement>) =>
-              props.dispatchDrawerOpen(props.open)
+              dispatchDrawerOpen()
             }
             className={classNames(classes.menuButton, open && classes.hide)}>
             <Menu />
@@ -78,7 +78,7 @@ const LgisToolbar = (props: ToolbarProps) => {
         <div className={classes.drawerHeader}>
           <IconButton
             onClick={(e: React.MouseEvent<HTMLElement>) =>
-              dispatchDrawerOpen(props.open)
+              dispatchDrawerOpen()
             }>
             <ChevronLeft />
           </IconButton>
@@ -87,22 +87,22 @@ const LgisToolbar = (props: ToolbarProps) => {
           id="lgis-settings"
           className={classes.textfield}
           label="settings"
-          defaultValue="{&quot;host&quot;: &quot;127.0.0.1&quot;, &quot;db&quot;: &quot;mydatabase&quot;}"
+          defaultValue={settings}
           multiline={true}
           rows="10"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            dispatchInputSettings(props.settings)
+            dispatchInputSettings(e.target.value)
           }
         />
         <TextField
           id="lgis-table"
           className={classes.textfield}
           label="table"
-          defaultValue="my_schema.my_table"
+          defaultValue={table}
           multiline={true}
           rows="8"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            dispatchInputTable(props.table)
+            dispatchInputTable(e.target.value)
           }
         />
         <Button
@@ -133,8 +133,8 @@ const mapStateToProps = (state: State): ToolbarState => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
-  dispatchDrawerOpen: (open: boolean) => {
-    dispatch(toggleDrawer(open));
+  dispatchDrawerOpen: () => {
+    dispatch(toggleDrawer());
   },
   dispatchInputSettings: (settings: string) => {
     dispatch(inputSettings(settings));

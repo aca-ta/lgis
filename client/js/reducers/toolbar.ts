@@ -4,14 +4,14 @@ import {defaultLayer, loadData} from '../models/layer';
 
 const initialState: ToolbarState = {
   open: false,
-  settings: '',
-  table: '',
+  settings: '{"host": "127.0.0.1", "db": "mydatabase"}',
+  table: 'my_schema.my_table',
   mapStyle: defaultLayer,
 };
 
-const toggleDrawer = (state: ToolbarState, open: boolean): ToolbarState => ({
+const toggleDrawer = (state: ToolbarState): ToolbarState => ({
   ...state,
-  open: !open,
+  open: !state.open,
 });
 
 const inputSettings = (state: ToolbarState, settings: string): ToolbarState => ({
@@ -35,7 +35,7 @@ export const toolbar = (
 ) => {
   switch (action.type) {
     case Actions.TOGGLE_DRAWER:
-      return toggleDrawer(state, action.payload.open);
+      return toggleDrawer(state);
     case Actions.INPUT_SETTINGS:
       return inputSettings(state, action.payload.settings);
     case Actions.INPUT_TABLE:

@@ -19,13 +19,13 @@ export const getLayer = (host: string, db: string, table: string) => {
   return {source, layer};
 };
 
-export const loadData = (mapStyle: any, settingJson: string, table: string) => {
+export const loadData = (prevMapStyle: any, settingJson: string, table: string) => {
   const settings = JSON.parse(settingJson);
   const {source, layer} = getLayer(settings.host, settings.db, table);
 
-  const prevMapStyle: any = mapStyle
+  const mapStyle: any = prevMapStyle
     .setIn(['sources', 'lgis'], fromJS(source))
-    .set('layers', mapStyle.get('layers').push(layer));
+    .set('layers', prevMapStyle.get('layers').push(layer));
 
   return mapStyle;
 };

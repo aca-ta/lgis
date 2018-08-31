@@ -5,7 +5,12 @@ import {createStore} from 'redux';
 import {Lgis} from './components/lgis';
 import {reducers} from './reducers';
 
-const store = createStore(reducers);
+const store = createStore(
+  reducers,
+  typeof window !== 'undefined' &&
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 window.addEventListener(
   'load',

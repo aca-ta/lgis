@@ -122,7 +122,7 @@ export interface ToolbarState {
   open: boolean;
   settings: string;
   table: string;
-  mapStyle: any;
+  mapStyle?: any;
 }
 
 const mapStateToProps = (state: State): ToolbarState => ({
@@ -142,8 +142,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchInputTable: (table: string) => {
     dispatch(inputTable(table));
   },
-  dispatchAddLayer: (settings: string, table: string) => {
-    dispatch(addLayer(settings, table));
+  dispatchAddLayer: (settings: string, table: string, mapStyle: any) => {
+    dispatch(addLayer(settings, table, mapStyle));
   },
 });
 

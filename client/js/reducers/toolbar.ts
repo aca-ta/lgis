@@ -6,7 +6,6 @@ const initialState: ToolbarState = {
   open: false,
   settings: '{"host": "127.0.0.1", "db": "mydatabase"}',
   table: 'my_schema.my_table',
-  mapStyle: defaultLayer,
 };
 
 const toggleDrawer = (state: ToolbarState): ToolbarState => ({
@@ -14,7 +13,10 @@ const toggleDrawer = (state: ToolbarState): ToolbarState => ({
   open: !state.open,
 });
 
-const inputSettings = (state: ToolbarState, settings: string): ToolbarState => ({
+const inputSettings = (
+  state: ToolbarState,
+  settings: string,
+): ToolbarState => ({
   ...state,
   settings,
 });
@@ -24,9 +26,14 @@ const inputTable = (state: ToolbarState, table: string): ToolbarState => ({
   table,
 });
 
-const addLayer = (state: ToolbarState, settings: string, table: string): ToolbarState => ({
+const addLayer = (
+  state: ToolbarState,
+  settings: string,
+  table: string,
+  mapStyle: any,
+): ToolbarState => ({
   ...state,
-  mapStyle: loadData(state.mapStyle, settings, table),
+  mapStyle: loadData(mapStyle, settings, table),
 });
 
 export const toolbar = (
@@ -41,7 +48,12 @@ export const toolbar = (
     case Actions.INPUT_TABLE:
       return inputTable(state, action.payload.table);
     case Actions.ADD_LAYER:
-      return addLayer(state, action.payload.settings, action.payload.table);
+      return addLayer(
+        state,
+        action.payload.settings,
+        action.payload.table,
+        action.payload.mapStyle,
+      );
     default:
       return state;
   }

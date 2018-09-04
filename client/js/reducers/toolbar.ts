@@ -1,7 +1,6 @@
 import {Actions, ActionTypes} from '../actions/toolbar';
 import {ToolbarState} from '../components/toolbar';
 import {defaultLayer, loadData} from '../models/layer';
-import {RootState} from '../reducers';
 
 const initialState: ToolbarState = {
   open: false,
@@ -62,14 +61,14 @@ export const toolbarReducer = (
 };
 
 export const toolbarMapStyleReducer = (
-  state: RootState,
+  state: ToolbarState,
   action: ActionTypes,
   mapStyle: any,
 ) => {
   switch (action.type) {
     case Actions.ADD_LAYER:
       return addLayer(
-        state.toolbar,
+        state,
         action.payload.settings,
         action.payload.table,
         mapStyle,

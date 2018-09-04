@@ -42,6 +42,6 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
 
 export const reducer = (state: RootState, action: RootActionType) => {
   const intermediateState = combinedReducers(state, action);
-  const finalState = crossSliceReducer(intermediateState, action);
+  const finalState = crossSliceReducer(state, action);
   return finalState;
 };

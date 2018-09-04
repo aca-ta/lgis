@@ -33,7 +33,7 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
           action,
           state.map.mapStyle,
         ),
-        map: mapReducer(state.map, action),
+        map: state.map,
       };
     default:
       return state;

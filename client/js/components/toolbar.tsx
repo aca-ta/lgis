@@ -21,7 +21,7 @@ import {
   inputTable,
   addLayer,
 } from '../actions/toolbar';
-import {State} from '../reducers';
+import {RootState} from '../reducers';
 
 interface ToolbarProps {
   classes: any;
@@ -125,7 +125,7 @@ export interface ToolbarState {
   mapStyle?: any;
 }
 
-const mapStateToProps = (state: State): ToolbarState => ({
+const mapStateToProps = (state: RootState): ToolbarState => ({
   open: state.toolbar.open,
   settings: state.toolbar.settings,
   table: state.toolbar.table,

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {ActionTypes, changeViewport} from '../actions/map';
 
-import {State} from '../reducers';
+import {RootState} from '../reducers';
 
 interface MapProps {
   viewport: Viewport;
@@ -34,7 +34,7 @@ export interface MapState {
   mapStyle: any;
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: RootState) => ({
   mapStyle: state.map.mapStyle,
   viewport: state.map.viewport,
 });

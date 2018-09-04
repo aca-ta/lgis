@@ -1,6 +1,7 @@
 import {Actions, ActionTypes} from '../actions/toolbar';
 import {ToolbarState} from '../components/toolbar';
 import {defaultLayer, loadData} from '../models/layer';
+import {RootState} from '../reducers';
 
 const initialState: ToolbarState = {
   open: false,
@@ -36,9 +37,10 @@ const addLayer = (
   mapStyle: loadData(mapStyle, settings, table),
 });
 
-export const toolbar = (
+export const toolbarReducer = (
   state: ToolbarState = initialState,
   action: ActionTypes,
+  mapStyle: any,
 ) => {
   switch (action.type) {
     case Actions.TOGGLE_DRAWER:
@@ -53,6 +55,24 @@ export const toolbar = (
         action.payload.settings,
         action.payload.table,
         action.payload.mapStyle,
+      );
+    default:
+      return state;
+  }
+};
+
+export const toolbarMapStyleReducer = (
+  state: RootState,
+  action: ActionTypes,
+  mapStyle: any,
+) => {
+  switch (action.type) {
+    case Actions.ADD_LAYER:
+      return addLayer(
+        state.toolbar,
+        action.payload.settings,
+        action.payload.table,
+        mapStyle,
       );
     default:
       return state;

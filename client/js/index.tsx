@@ -3,10 +3,10 @@ import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import {Lgis} from './components/lgis';
-import {reducers} from './reducers';
+import {reducer} from './reducers';
 
 const store = createStore(
-  reducers,
+  reducer,
   typeof window !== 'undefined' &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__(),

@@ -19,7 +19,7 @@ const changeViewport = (state: MapState, viewport: Viewport): MapState => ({
 })
 
 
-export const map = (state: MapState = initialState, action: ActionTypes) => {
+export const mapReducer = (state: MapState = initialState, action: ActionTypes) => {
   switch (action.type) {
     case Actions.CHANGE_VIEWPORT:
       return changeViewport(state, action.payload.viewport);

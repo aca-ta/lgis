@@ -29,8 +29,6 @@ type RootActionType = toolbarActionType | mapActionType;
 const crossSliceReducer = (state: RootState, action: RootActionType) => {
   switch (action.type) {
     case toolbarActions.ADD_LAYER:
-      //TODO: toolbarMapStyleReducerの戻り値で更新したmapStyleをとれているので、
-      //ここで直接loadDataを呼び出してmap.stateに入れる
       return {
         toolbar: state.toolbar,
         map: {
@@ -47,13 +45,6 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
   }
 };
 
-/*
-export const reducer = (state: RootState, action: RootActionType) => {
-  const intermediateState = combinedReducers(state, action);
-  const finalState = crossSliceReducer(state, action);
-  return finalState;
-};
-*/
 export const reducer = reduceReducers(
   combinedReducers,
   crossSliceReducer,

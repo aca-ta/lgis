@@ -33,15 +33,14 @@ export const inputTable = (table: string): InputTableAction => ({
 
 export interface AddLayerAction {
   readonly type: Actions.ADD_LAYER;
-  payload: {settings: string; table: string; mapStyle: any;};
+  payload: {settings: string; table: string};
 }
 export const addLayer = (
   settings: string,
   table: string,
-  mapStyle: any,
 ): AddLayerAction => ({
   type: Actions.ADD_LAYER,
-  payload: {settings, table, mapStyle},
+  payload: {settings, table},
 });
 
 export type ActionTypes =

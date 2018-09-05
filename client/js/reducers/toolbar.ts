@@ -26,16 +26,6 @@ const inputTable = (state: ToolbarState, table: string): ToolbarState => ({
   table,
 });
 
-const addLayer = (
-  state: ToolbarState,
-  settings: string,
-  table: string,
-  mapStyle: any,
-): ToolbarState => ({
-  ...state,
-  mapStyle: loadData(mapStyle, settings, table),
-});
-
 export const toolbarReducer = (
   state: ToolbarState = initialState,
   action: ActionTypes,
@@ -48,32 +38,8 @@ export const toolbarReducer = (
       return inputSettings(state, action.payload.settings);
     case Actions.INPUT_TABLE:
       return inputTable(state, action.payload.table);
-    case Actions.ADD_LAYER:
-      return addLayer(
-        state,
-        action.payload.settings,
-        action.payload.table,
-        action.payload.mapStyle,
-      );
     default:
       return state;
   }
 };
 
-export const toolbarMapStyleReducer = (
-  state: ToolbarState,
-  action: ActionTypes,
-  mapStyle: any,
-) => {
-  switch (action.type) {
-    case Actions.ADD_LAYER:
-      return addLayer(
-        state,
-        action.payload.settings,
-        action.payload.table,
-        mapStyle,
-      );
-    default:
-      return state;
-  }
-};

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {createStore, Reducer} from 'redux';
 import {Lgis} from './components/lgis';
 import {reducer} from './reducers';
 

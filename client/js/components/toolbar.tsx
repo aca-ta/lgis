@@ -31,8 +31,7 @@ interface ToolbarProps {
   dispatchInputSettings: (settings: string) => void;
   table: string;
   dispatchInputTable: (table: string) => void;
-  dispatchAddLayer: (settings: string, table: string, mapStyle: any) => void;
-  mapStyle: any;
+  dispatchAddLayer: (settings: string, table: string) => void;
 }
 
 const LgisToolbar = (props: ToolbarProps) => {
@@ -45,7 +44,6 @@ const LgisToolbar = (props: ToolbarProps) => {
     table,
     dispatchInputTable,
     dispatchAddLayer,
-    mapStyle,
   } = props;
 
   return (
@@ -109,7 +107,7 @@ const LgisToolbar = (props: ToolbarProps) => {
           variant="contained"
           className={classes.button}
           onClick={(e: React.MouseEvent<HTMLElement>) =>
-            dispatchAddLayer(settings, table, mapStyle)
+            dispatchAddLayer(settings, table)
           }>
           Show
         </Button>
@@ -122,14 +120,12 @@ export interface ToolbarState {
   open: boolean;
   settings: string;
   table: string;
-  mapStyle?: any;
 }
 
 const mapStateToProps = (state: RootState): ToolbarState => ({
   open: state.toolbar.open,
   settings: state.toolbar.settings,
   table: state.toolbar.table,
-  mapStyle: state.map.mapStyle,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
@@ -142,8 +138,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchInputTable: (table: string) => {
     dispatch(inputTable(table));
   },
-  dispatchAddLayer: (settings: string, table: string, mapStyle: any) => {
-    dispatch(addLayer(settings, table, mapStyle));
+  dispatchAddLayer: (settings: string, table: string) => {
+    dispatch(addLayer(settings, table));
   },
 });
 

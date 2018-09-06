@@ -3,8 +3,10 @@ import {
   Button,
   Drawer,
   IconButton,
+  InputLabel,
   List,
   MenuItem,
+  Select,
   Toolbar,
   Typography,
   TextField,
@@ -56,9 +58,7 @@ const LgisToolbar = (props: ToolbarProps) => {
           <IconButton
             color="primary"
             aria-label="Open drawer"
-            onClick={(e: React.MouseEvent<HTMLElement>) =>
-              dispatchDrawerOpen()
-            }
+            onClick={(e: React.MouseEvent<HTMLElement>) => dispatchDrawerOpen()}
             className={classNames(classes.menuButton, open && classes.hide)}>
             <Menu />
           </IconButton>
@@ -92,6 +92,17 @@ const LgisToolbar = (props: ToolbarProps) => {
             dispatchInputSettings(e.target.value)
           }
         />
+        <InputLabel shrink htmlFor="geom-type-label-placeholder">
+          Geometry type
+        </InputLabel>
+        <Select
+          value="geom"
+          onChange={(e: React.ChangeEvent<HTMLElement>) => alert("alert")}
+          inputProps={{name: 'GeomType', id: 'geom-type'}}>
+          <MenuItem value="point">Point</MenuItem>
+          <MenuItem value="linestring">LineString</MenuItem>
+          <MenuItem value="polygon">Polygon</MenuItem>
+        </Select>
         <TextField
           id="lgis-table"
           className={classes.textfield}

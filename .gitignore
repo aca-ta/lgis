@@ -2,11 +2,11 @@
 node_modules/
 public/javascripts/*
 public/stylesheets/*
+yarn-error.log
 
+## testing
 coverage/
 .nyc_output
-
-.tern-project
 
 # dotenv
 .env

@@ -6,6 +6,7 @@ const initialState: ToolbarState = {
   open: false,
   settings: '{"host": "127.0.0.1", "db": "mydatabase"}',
   table: 'my_schema.my_table',
+  geomType: '',
 };
 
 const toggleDrawer = (state: ToolbarState): ToolbarState => ({
@@ -26,6 +27,11 @@ const inputTable = (state: ToolbarState, table: string): ToolbarState => ({
   table,
 });
 
+const selectGeomType = (state: ToolbarState, geomType: string): ToolbarState => ({
+  ...state,
+  geomType,
+});
+
 export const toolbarReducer = (
   state: ToolbarState = initialState,
   action: ActionTypes,
@@ -38,6 +44,8 @@ export const toolbarReducer = (
       return inputSettings(state, action.payload.settings);
     case Actions.INPUT_TABLE:
       return inputTable(state, action.payload.table);
+    case Actions.SELECT_GEOM_TYPE:
+      return selectGeomType(state, action.payload.geomType);
     default:
       return state;
   }

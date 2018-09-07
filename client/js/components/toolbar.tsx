@@ -21,6 +21,7 @@ import {
   toggleDrawer,
   inputSettings,
   inputTable,
+  selectGeomType,
   addLayer,
 } from '../actions/toolbar';
 import {RootState} from '../reducers';
@@ -32,7 +33,9 @@ interface ToolbarProps {
   settings: string;
   dispatchInputSettings: (settings: string) => void;
   table: string;
+  geomType: string;
   dispatchInputTable: (table: string) => void;
+  dispatchSelectGeomType: (geomType: string) => void;
   dispatchAddLayer: (settings: string, table: string) => void;
 }
 
@@ -45,6 +48,8 @@ const LgisToolbar = (props: ToolbarProps) => {
     dispatchInputSettings,
     table,
     dispatchInputTable,
+    geomType,
+    dispatchSelectGeomType,
     dispatchAddLayer,
   } = props;
 
@@ -96,8 +101,8 @@ const LgisToolbar = (props: ToolbarProps) => {
           Geometry type
         </InputLabel>
         <Select
-          value="geom"
-          onChange={(e: React.ChangeEvent<HTMLElement>) => alert("alert")}
+          value={geomType}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => dispatchSelectGeomType(e.target.value)}
           inputProps={{name: 'GeomType', id: 'geom-type'}}>
           <MenuItem value="point">Point</MenuItem>
           <MenuItem value="linestring">LineString</MenuItem>
@@ -131,12 +136,14 @@ export interface ToolbarState {
   open: boolean;
   settings: string;
   table: string;
+  geomType: string;
 }
 
 const mapStateToProps = (state: RootState): ToolbarState => ({
   open: state.toolbar.open,
   settings: state.toolbar.settings,
   table: state.toolbar.table,
+  geomType: state.toolbar.geomType,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
@@ -148,6 +155,9 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   },
   dispatchInputTable: (table: string) => {
     dispatch(inputTable(table));
+  },
+  dispatchSelectGeomType: (geomType: string) => {
+    dispatch(selectGeomType(geomType));
   },
   dispatchAddLayer: (settings: string, table: string) => {
     dispatch(addLayer(settings, table));

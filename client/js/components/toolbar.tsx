@@ -102,7 +102,9 @@ const LgisToolbar = (props: ToolbarProps) => {
         </InputLabel>
         <Select
           value={geomType}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => dispatchSelectGeomType(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            dispatchSelectGeomType(e.target.value)
+          }
           inputProps={{name: 'GeomType', id: 'geom-type'}}>
           <MenuItem value="point">Point</MenuItem>
           <MenuItem value="linestring">LineString</MenuItem>

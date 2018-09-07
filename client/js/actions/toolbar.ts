@@ -45,10 +45,7 @@ export interface AddLayerAction {
   readonly type: Actions.ADD_LAYER;
   payload: {settings: string; table: string};
 }
-export const addLayer = (
-  settings: string,
-  table: string,
-): AddLayerAction => ({
+export const addLayer = (settings: string, table: string): AddLayerAction => ({
   type: Actions.ADD_LAYER,
   payload: {settings, table},
 });

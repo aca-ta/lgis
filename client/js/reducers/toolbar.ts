@@ -27,7 +27,10 @@ const inputTable = (state: ToolbarState, table: string): ToolbarState => ({
   table,
 });
 
-const selectGeomType = (state: ToolbarState, geomType: string): ToolbarState => ({
+const selectGeomType = (
+  state: ToolbarState,
+  geomType: string,
+): ToolbarState => ({
   ...state,
   geomType,
 });
@@ -50,4 +53,3 @@ export const toolbarReducer = (
       return state;
   }
 };
-

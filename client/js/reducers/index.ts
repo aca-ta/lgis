@@ -37,6 +37,7 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
             state.map.mapStyle,
             state.toolbar.settings,
             state.toolbar.table,
+            state.toolbar.geomType,
           ),
         },
       };

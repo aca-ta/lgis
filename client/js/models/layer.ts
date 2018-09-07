@@ -3,10 +3,17 @@ import * as MAP_STYLE from './map-style-basic-v8.json';
 
 export const defaultLayer = fromJS((<any>MAP_STYLE).default);
 
-export const getLayer = (host: string, db: string, table: string) => {
+export const getLayer = (
+  host: string,
+  db: string,
+  table: string,
+  geomType: string,
+) => {
   const source = fromJS({
     type: 'vector',
-    tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`],
+    tiles: [
+      `http://localhost:3000/tiles/${host}/${db}/${table}/${geomType}/{z}/{x}/{y}`,
+    ],
   });
   const layer = fromJS({
     id: 'data',
@@ -19,9 +26,14 @@ export const getLayer = (host: string, db: string, table: string) => {
   return {source, layer};
 };
 
-export const loadData = (prevMapStyle: any, settingJson: string, table: string) => {
+export const loadData = (
+  prevMapStyle: any,
+  settingJson: string,
+  table: string,
+  geomType: string,
+) => {
   const settings = JSON.parse(settingJson);
-  const {source, layer} = getLayer(settings.host, settings.db, table);
+  const {source, layer} = getLayer(settings.host, settings.db, table, geomType);
 
   const mapStyle: any = prevMapStyle
     .setIn(['sources', 'lgis'], fromJS(source))

@@ -4,28 +4,32 @@ import * as MAP_STYLE from './map-style-basic-v8.json';
 export const defaultLayer = fromJS((<any>MAP_STYLE).default);
 
 const pointLayer = {
-  id: 'data',
+  id: 'point',
   type: 'circle',
   source: 'lgis',
   'source-layer': 'tile',
   interactive: true,
 };
 
-export const getLayer = (
-  host: string,
-  db: string,
-  table: string,
-  geomType: string,
-) => {
-  const source = fromJS({
-    type: 'vector',
-    tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`],
-  });
+const lineStringLayer = {
+  id: 'linestring',
+  type: 'line',
+  source: 'lgis',
+  'source-layer': 'tile',
+  interactive: true,
+};
 
+const getSource = (host: string, db: string, table: string) => ({
+  type: 'vector',
+  tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`],
+});
+
+const getLayer = (geomType: string) => {
   switch (geomType) {
     case 'point':
-      const layer = fromJS(pointLayer);
-      return {source, layer};
+      return fromJS(pointLayer);
+    case 'linestring':
+      return fromJS(lineStringLayer);
     default:
       throw new Error('Geometry type is not choosen.');
   }
@@ -38,7 +42,8 @@ export const loadData = (
   geomType: string,
 ) => {
   const settings = JSON.parse(settingJson);
-  const {source, layer} = getLayer(settings.host, settings.db, table, geomType);
+  const source = getSource(settings.host, settings.db, table);
+  const layer = getLayer(geomType);
 
   const mapStyle: any = prevMapStyle
     .setIn(['sources', 'lgis'], fromJS(source))

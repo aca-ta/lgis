@@ -40,7 +40,7 @@ module.exports.createMvt = (req, func) => {
 
 
   const map = new mapnik.Map(256, 256, mercator.proj4);
-  const layer = new mapnik.Layer('tile', sridToProj4('4301'));
+  const layer = new mapnik.Layer('tile', sridToProj4('4326'));
   const postgis = new mapnik.Datasource(postgisSettings);
   const bbox = mercator.xyz_to_envelope(x, y, z, false);
 

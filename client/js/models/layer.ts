@@ -21,8 +21,8 @@ const lineStringLayer = {
   'source-layer': 'tile',
   interactive: true,
   paint: {
-    'line-color': '#176b31'
-  }
+    'line-color': '#176b31',
+  },
 };
 
 const polygonLayer = {
@@ -33,8 +33,8 @@ const polygonLayer = {
   interactive: true,
   paint: {
     'fill-color': '#96a186',
-    'fill-opacity': 0.8
-  }
+    'fill-opacity': 0.8,
+  },
 };
 
 const getSource = (host: string, db: string, table: string) => ({
@@ -55,6 +55,14 @@ const getLayer = (geomType: string) => {
   }
 };
 
+const setSource = (prevMapStyle: any, source: any) => {
+  const hasSource = prevMapStyle.hasIn(['sources', 'lgis'], source);
+  if (!hasSource) {
+    return prevMapStyle.setIn(['sources', 'lgis'], source);
+  }
+  return prevMapStyle;
+};
+
 export const addLayerStyle = (
   prevMapStyle: any,
   settingJson: string,
@@ -65,9 +73,7 @@ export const addLayerStyle = (
   const source = getSource(settings.host, settings.db, table);
   const layer = getLayer(geomType);
 
-  const mapStyle: any = prevMapStyle
-    .setIn(['sources', 'lgis'], fromJS(source))
-    .set('layers', prevMapStyle.get('layers').push(layer));
+  const mapStyle = setSource(prevMapStyle, fromJS(source));
+  return mapStyle.set('layers', mapStyle.get('layers').push(layer));
 
-  return mapStyle;
 };

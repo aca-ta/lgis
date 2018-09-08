@@ -12,7 +12,7 @@ import {
   ActionTypes as mapActionType,
   Actions as mapActions,
 } from '../actions/map';
-import {loadData} from '../models/layer';
+import {addLayerStyle} from '../models/layer';
 
 export interface RootState {
   toolbar: ToolbarState;
@@ -33,7 +33,7 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
         toolbar: state.toolbar,
         map: {
           ...state.map,
-          mapStyle: loadData(
+          mapStyle: addLayerStyle(
             state.map.mapStyle,
             state.toolbar.settings,
             state.toolbar.table,

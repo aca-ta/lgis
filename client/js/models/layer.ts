@@ -55,7 +55,7 @@ const getLayer = (geomType: string) => {
   }
 };
 
-export const loadData = (
+export const addLayerStyle = (
   prevMapStyle: any,
   settingJson: string,
   table: string,

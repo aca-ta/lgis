@@ -89,7 +89,7 @@ const LgisToolbar = (props: ToolbarProps) => {
         <TextField
           id="lgis-settings"
           className={classes.textfield}
-          label="settings"
+          label="Settings"
           defaultValue={settings}
           multiline={true}
           rows="10"
@@ -102,6 +102,7 @@ const LgisToolbar = (props: ToolbarProps) => {
         </InputLabel>
         <Select
           value={geomType}
+          className={classes.selector}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             dispatchSelectGeomType(e.target.value)
           }
@@ -113,7 +114,7 @@ const LgisToolbar = (props: ToolbarProps) => {
         <TextField
           id="lgis-table"
           className={classes.textfield}
-          label="table"
+          label="Table"
           defaultValue={table}
           multiline={true}
           rows="8"

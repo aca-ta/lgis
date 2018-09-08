@@ -73,6 +73,9 @@ const styles = (theme: Theme) =>
     textfield: {
       padding: 10,
     },
+    selector: {
+      padding: 10,
+    },
     button: {
       margin: theme.spacing.unit * 3,
     },

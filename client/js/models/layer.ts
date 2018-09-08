@@ -24,15 +24,13 @@ export const getLayer = (
     ],
   });
 
-  let layer = undefined;
   switch(geomType){
     case 'point':
-      layer = fromJS(pointLayer);
+      return {source, fromJS(pointLayer)};
     default:
       throw new Error('Geometry type is not choosen.')
   }
 
-  return {source, layer};
 };
 
 export const loadData = (

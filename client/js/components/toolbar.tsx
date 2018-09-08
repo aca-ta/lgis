@@ -3,8 +3,10 @@ import {
   Button,
   Drawer,
   IconButton,
+  InputLabel,
   List,
   MenuItem,
+  Select,
   Toolbar,
   Typography,
   TextField,
@@ -19,6 +21,7 @@ import {
   toggleDrawer,
   inputSettings,
   inputTable,
+  selectGeomType,
   addLayer,
 } from '../actions/toolbar';
 import {RootState} from '../reducers';
@@ -30,7 +33,9 @@ interface ToolbarProps {
   settings: string;
   dispatchInputSettings: (settings: string) => void;
   table: string;
+  geomType: string;
   dispatchInputTable: (table: string) => void;
+  dispatchSelectGeomType: (geomType: string) => void;
   dispatchAddLayer: (settings: string, table: string) => void;
 }
 
@@ -43,6 +48,8 @@ const LgisToolbar = (props: ToolbarProps) => {
     dispatchInputSettings,
     table,
     dispatchInputTable,
+    geomType,
+    dispatchSelectGeomType,
     dispatchAddLayer,
   } = props;
 
@@ -56,9 +63,7 @@ const LgisToolbar = (props: ToolbarProps) => {
           <IconButton
             color="primary"
             aria-label="Open drawer"
-            onClick={(e: React.MouseEvent<HTMLElement>) =>
-              dispatchDrawerOpen()
-            }
+            onClick={(e: React.MouseEvent<HTMLElement>) => dispatchDrawerOpen()}
             className={classNames(classes.menuButton, open && classes.hide)}>
             <Menu />
           </IconButton>
@@ -84,7 +89,7 @@ const LgisToolbar = (props: ToolbarProps) => {
         <TextField
           id="lgis-settings"
           className={classes.textfield}
-          label="settings"
+          label="Settings"
           defaultValue={settings}
           multiline={true}
           rows="10"
@@ -92,10 +97,24 @@ const LgisToolbar = (props: ToolbarProps) => {
             dispatchInputSettings(e.target.value)
           }
         />
+        <InputLabel shrink htmlFor="geom-type-label-placeholder">
+          Geometry type
+        </InputLabel>
+        <Select
+          value={geomType}
+          className={classes.selector}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            dispatchSelectGeomType(e.target.value)
+          }
+          inputProps={{name: 'GeomType', id: 'geom-type'}}>
+          <MenuItem value="point">Point</MenuItem>
+          <MenuItem value="linestring">LineString</MenuItem>
+          <MenuItem value="polygon">Polygon</MenuItem>
+        </Select>
         <TextField
           id="lgis-table"
           className={classes.textfield}
-          label="table"
+          label="Table"
           defaultValue={table}
           multiline={true}
           rows="8"
@@ -120,12 +139,14 @@ export interface ToolbarState {
   open: boolean;
   settings: string;
   table: string;
+  geomType: string;
 }
 
 const mapStateToProps = (state: RootState): ToolbarState => ({
   open: state.toolbar.open,
   settings: state.toolbar.settings,
   table: state.toolbar.table,
+  geomType: state.toolbar.geomType,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
@@ -137,6 +158,9 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   },
   dispatchInputTable: (table: string) => {
     dispatch(inputTable(table));
+  },
+  dispatchSelectGeomType: (geomType: string) => {
+    dispatch(selectGeomType(geomType));
   },
   dispatchAddLayer: (settings: string, table: string) => {
     dispatch(addLayer(settings, table));

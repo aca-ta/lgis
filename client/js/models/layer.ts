@@ -3,6 +3,14 @@ import * as MAP_STYLE from './map-style-basic-v8.json';
 
 export const defaultLayer = fromJS((<any>MAP_STYLE).default);
 
+const pointLayer = {
+  id: 'data',
+  type: 'circle',
+  source: 'lgis',
+  'source-layer': 'tile',
+  interactive: true,
+};
+
 export const getLayer = (
   host: string,
   db: string,
@@ -12,16 +20,17 @@ export const getLayer = (
   const source = fromJS({
     type: 'vector',
     tiles: [
-      `http://localhost:3000/tiles/${host}/${db}/${table}/${geomType}/{z}/{x}/{y}`,
+      `http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`,
     ],
   });
-  const layer = fromJS({
-    id: 'data',
-    type: 'circle',
-    source: 'lgis',
-    'source-layer': 'tile',
-    interactive: true,
-  });
+
+  let layer = undefined;
+  switch(geomType){
+    case 'point':
+      layer = fromJS(pointLayer);
+    default:
+      throw new Error('Geometry type is not choosen.')
+  }
 
   return {source, layer};
 };

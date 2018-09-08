@@ -20,6 +20,9 @@ const lineStringLayer = {
   source: 'lgis',
   'source-layer': 'tile',
   interactive: true,
+  paint: {
+    'line-color': '#176b31'
+  }
 };
 
 const getSource = (host: string, db: string, table: string) => ({

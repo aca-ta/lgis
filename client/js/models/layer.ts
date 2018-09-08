@@ -19,18 +19,16 @@ export const getLayer = (
 ) => {
   const source = fromJS({
     type: 'vector',
-    tiles: [
-      `http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`,
-    ],
+    tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`],
   });
 
-  switch(geomType){
+  switch (geomType) {
     case 'point':
-      return {source, fromJS(pointLayer)};
+      const layer = fromJS(pointLayer);
+      return {source, layer};
     default:
-      throw new Error('Geometry type is not choosen.')
+      throw new Error('Geometry type is not choosen.');
   }
-
 };
 
 export const loadData = (

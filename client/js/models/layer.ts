@@ -34,6 +34,7 @@ const polygonLayer = {
   paint: {
     'fill-color': '#96a186',
     'fill-opacity': 0.8,
+    'fill-outline-color': 'black',
   },
 };
 
@@ -75,5 +76,4 @@ export const addLayerStyle = (
 
   const mapStyle = setSource(prevMapStyle, fromJS(source));
   return mapStyle.set('layers', mapStyle.get('layers').push(layer));
-
 };

@@ -9,6 +9,9 @@ const pointLayer = {
   source: 'lgis',
   'source-layer': 'tile',
   interactive: true,
+  paint: {
+    'circle-color': '#4153f4',
+  },
 };
 
 const lineStringLayer = {

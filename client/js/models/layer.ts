@@ -25,6 +25,18 @@ const lineStringLayer = {
   }
 };
 
+const polygonLayer = {
+  id: 'polygon',
+  type: 'fill',
+  source: 'lgis',
+  'source-layer': 'tile',
+  interactive: true,
+  paint: {
+    'fill-color': '#96a186',
+    'fill-opacity': 0.8
+  }
+};
+
 const getSource = (host: string, db: string, table: string) => ({
   type: 'vector',
   tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`],
@@ -36,6 +48,8 @@ const getLayer = (geomType: string) => {
       return fromJS(pointLayer);
     case 'linestring':
       return fromJS(lineStringLayer);
+    case 'polygon':
+      return fromJS(polygonLayer);
     default:
       throw new Error('Geometry type is not choosen.');
   }

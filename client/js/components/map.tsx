@@ -1,5 +1,5 @@
 import * as React from 'react';
-import MapGL, {Viewport} from 'react-map-gl';
+import ReactMapGL, {Viewport, Popup} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {ActionTypes, changeViewport} from '../actions/map';
@@ -16,7 +16,7 @@ const Map = (props: MapProps) => {
   const {viewport, mapStyle, dispatchChangeViewport} = props;
 
   return (
-    <MapGL
+    <ReactMapGL
       {...viewport}
       height={window.innerHeight}
       width={window.innerWidth}
@@ -24,8 +24,16 @@ const Map = (props: MapProps) => {
       mapboxApiAccessToken={''}
       onViewportChange={(viewport: Viewport) =>
         dispatchChangeViewport(viewport)
-      }
-    />
+      }>
+      <Popup
+        latitude={viewport.latitude}
+        longitude={viewport.longitude}
+        closeButton={true}
+        closeOnClick={true}
+        anchor="top">
+        <div>hoge</div>
+      </Popup>
+    </ReactMapGL>
   );
 };
 

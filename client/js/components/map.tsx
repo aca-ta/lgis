@@ -19,7 +19,7 @@ const ToolTip = (
       latitude={latitude}
       longitude={longitude}
       anchor="top"
-      onClose={() => dispatchClosePopup()} //TODO: implement dispachClosePopup()
+      onClose={() => dispatchClosePopup()}
     >
       <div>hoge</div>
     </Popup>

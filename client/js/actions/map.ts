@@ -1,6 +1,7 @@
 import {Viewport} from 'react-map-gl';
 export enum Actions {
   CHANGE_VIEWPORT = 'map/changeViewport',
+  CLOSE_POPUP = 'map/closePopup',
 }
 
 export interface ChangeViewportAction {
@@ -13,4 +14,12 @@ export const changeViewport = (viewport: Viewport): ChangeViewportAction => ({
   payload: {viewport},
 });
 
-export type ActionTypes = ChangeViewportAction;
+export interface ClosePopupAction {
+  readonly type: Actions.CLOSE_POPUP;
+}
+
+export const closePopup = (): ClosePopupAction => ({
+  type: Actions.CLOSE_POPUP,
+});
+
+export type ActionTypes = ChangeViewportAction | ClosePopupAction;

@@ -2,31 +2,44 @@ import * as React from 'react';
 import ReactMapGL, {Viewport, Popup} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {ActionTypes, changeViewport} from '../actions/map';
+import {ActionTypes, changeViewport, closePopup} from '../actions/map';
 
 import {RootState} from '../reducers';
 
-interface MapProps {
-  viewport: Viewport;
-  mapStyle: any;
-  dispatchChangeViewport: (viewport: Viewport) => void;
-}
+const ToolTip = (
+  latitude: number,
+  longitude: number,
+  isPopupOpen: boolean,
+  dispatchClosePopup: () => void,
+) => {
+  if (!isPopupOpen) return;
 
-const renderPopup = (latitude: number, longitude: number) => {
   return (
     <Popup
       latitude={latitude}
       longitude={longitude}
       anchor="top"
-      onClose={() => alert('close button is clicked.')} //TODO: implement dispachClosePopup()
+      onClose={() => dispatchClosePopup()} //TODO: implement dispachClosePopup()
     >
       <div>hoge</div>
     </Popup>
-  )
-}
+  );
+};
 
-const Map = (props: MapProps) => {
-  const {viewport, mapStyle, dispatchChangeViewport} = props;
+const Map = (props: {
+  viewport: Viewport;
+  mapStyle: any;
+  isPopupOpen: boolean;
+  dispatchChangeViewport: (viewport: Viewport) => void;
+  dispatchClosePopup: () => void;
+}) => {
+  const {
+    viewport,
+    mapStyle,
+    isPopupOpen,
+    dispatchChangeViewport,
+    dispatchClosePopup,
+  } = props;
 
   return (
     <ReactMapGL
@@ -37,9 +50,13 @@ const Map = (props: MapProps) => {
       mapboxApiAccessToken={''}
       onViewportChange={(viewport: Viewport) =>
         dispatchChangeViewport(viewport)
-      }
-    >
-      {renderPopup(viewport.latitude, viewport.longitude)}
+      }>
+      {ToolTip(
+        viewport.latitude,
+        viewport.longitude,
+        isPopupOpen,
+        dispatchClosePopup,
+      )}
     </ReactMapGL>
   );
 };
@@ -47,16 +64,21 @@ const Map = (props: MapProps) => {
 export interface MapState {
   viewport: Viewport;
   mapStyle: any;
+  isPopupOpen: boolean;
 }
 
 const mapStateToProps = (state: RootState) => ({
   mapStyle: state.map.mapStyle,
   viewport: state.map.viewport,
+  isPopupOpen: state.map.isPopupOpen,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchChangeViewport: (viewport: Viewport) => {
     dispatch(changeViewport(viewport));
+  },
+  dispatchClosePopup: () => {
+    dispatch(closePopup());
   },
 });
 

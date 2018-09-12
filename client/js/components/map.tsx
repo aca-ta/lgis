@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactMapGL, {Viewport, Popup} from 'react-map-gl';
+import ReactMapGL, {Viewport, Popup, MapEvent} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {ActionTypes, changeViewport, closePopup} from '../actions/map';
@@ -50,7 +50,8 @@ const Map = (props: {
       mapboxApiAccessToken={''}
       onViewportChange={(viewport: Viewport) =>
         dispatchChangeViewport(viewport)
-      }>
+      }
+      onClick={(e: MapEvent, lngLat: number[], feature: any) => alert('feature is clicked')}>
       {ToolTip(
         viewport.latitude,
         viewport.longitude,

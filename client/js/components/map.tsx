@@ -2,7 +2,12 @@ import * as React from 'react';
 import ReactMapGL, {Viewport, Popup, MapEvent} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {ActionTypes, changeViewport, closePopup} from '../actions/map';
+import {
+  ActionTypes,
+  changeViewport,
+  openPopup,
+  closePopup,
+} from '../actions/map';
 
 import {RootState} from '../reducers';
 
@@ -19,8 +24,7 @@ const ToolTip = (
       latitude={latitude}
       longitude={longitude}
       anchor="top"
-      onClose={() => dispatchClosePopup()}
-    >
+      onClose={() => dispatchClosePopup()}>
       <div>hoge</div>
     </Popup>
   );
@@ -31,6 +35,7 @@ const Map = (props: {
   mapStyle: any;
   isPopupOpen: boolean;
   dispatchChangeViewport: (viewport: Viewport) => void;
+  dispatchOpenPopup: () => void;
   dispatchClosePopup: () => void;
 }) => {
   const {
@@ -38,6 +43,7 @@ const Map = (props: {
     mapStyle,
     isPopupOpen,
     dispatchChangeViewport,
+    dispatchOpenPopup,
     dispatchClosePopup,
   } = props;
 
@@ -51,7 +57,9 @@ const Map = (props: {
       onViewportChange={(viewport: Viewport) =>
         dispatchChangeViewport(viewport)
       }
-      onClick={(e: MapEvent, lngLat: number[], feature: any) => alert('feature is clicked')}>
+      onClick={(e: MapEvent, lngLat: number[], feature: any) =>
+        dispatchOpenPopup()
+      }>
       {ToolTip(
         viewport.latitude,
         viewport.longitude,
@@ -77,6 +85,9 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchChangeViewport: (viewport: Viewport) => {
     dispatch(changeViewport(viewport));
+  },
+  dispatchOpenPopup: () => {
+    dispatch(openPopup());
   },
   dispatchClosePopup: () => {
     dispatch(closePopup());

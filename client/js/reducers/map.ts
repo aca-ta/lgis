@@ -19,6 +19,11 @@ const changeViewport = (state: MapState, viewport: Viewport): MapState => ({
   viewport,
 })
 
+const openPopup = (state: MapState): MapState => ({
+  ...state,
+  isPopupOpen: true,
+})
+
 const closePopup = (state: MapState): MapState => ({
   ...state,
   isPopupOpen: false,
@@ -28,6 +33,8 @@ export const mapReducer = (state: MapState = initialState, action: ActionTypes) 
   switch (action.type) {
     case Actions.CHANGE_VIEWPORT:
       return changeViewport(state, action.payload.viewport);
+    case Actions.OPEN_POPUP:
+      return openPopup(state);
     case Actions.CLOSE_POPUP:
       return closePopup(state);
     default:

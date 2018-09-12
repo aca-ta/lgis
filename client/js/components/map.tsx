@@ -12,9 +12,10 @@ import {
 import {RootState} from '../reducers';
 
 const ToolTip = (
+  isPopupOpen: boolean,
   latitude: number,
   longitude: number,
-  isPopupOpen: boolean,
+  feature: any,
   dispatchClosePopup: () => void,
 ) => {
   if (!isPopupOpen) return;
@@ -34,14 +35,20 @@ const Map = (props: {
   viewport: Viewport;
   mapStyle: any;
   isPopupOpen: boolean;
+  popupLat: number;
+  popupLng: number;
+  feature: any;
   dispatchChangeViewport: (viewport: Viewport) => void;
-  dispatchOpenPopup: () => void;
+  dispatchOpenPopup: (lat: number, lng: number, feature: any) => void;
   dispatchClosePopup: () => void;
 }) => {
   const {
     viewport,
     mapStyle,
     isPopupOpen,
+    popupLat,
+    popupLng,
+    feature,
     dispatchChangeViewport,
     dispatchOpenPopup,
     dispatchClosePopup,
@@ -58,14 +65,9 @@ const Map = (props: {
         dispatchChangeViewport(viewport)
       }
       onClick={(e: MapEvent, lngLat: number[], feature: any) =>
-        dispatchOpenPopup()
+        dispatchOpenPopup(e.lngLat[0], e.lngLat[1], e.features[0])
       }>
-      {ToolTip(
-        viewport.latitude,
-        viewport.longitude,
-        isPopupOpen,
-        dispatchClosePopup,
-      )}
+      {ToolTip(isPopupOpen, popupLng, popupLat, feature, dispatchClosePopup)}
     </ReactMapGL>
   );
 };
@@ -74,20 +76,26 @@ export interface MapState {
   viewport: Viewport;
   mapStyle: any;
   isPopupOpen: boolean;
+  popupLat: number;
+  popupLng: number;
+  feature: any;
 }
 
 const mapStateToProps = (state: RootState) => ({
   mapStyle: state.map.mapStyle,
   viewport: state.map.viewport,
   isPopupOpen: state.map.isPopupOpen,
+  popupLat: state.map.popupLat,
+  popupLng: state.map.popupLng,
+  feature: state.map.feature,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchChangeViewport: (viewport: Viewport) => {
     dispatch(changeViewport(viewport));
   },
-  dispatchOpenPopup: () => {
-    dispatch(openPopup());
+  dispatchOpenPopup: (lat: number, lng: number, feature: any) => {
+    dispatch(openPopup(lat, lng, feature));
   },
   dispatchClosePopup: () => {
     dispatch(closePopup());

@@ -13,7 +13,7 @@ const initialState: MapState = {
   isPopupOpen: true,
   popupLat: 0,
   popupLng: 0,
-  feature: undefined,
+  properties: {},
 };
 
 const changeViewport = (state: MapState, viewport: Viewport): MapState => ({
@@ -21,12 +21,12 @@ const changeViewport = (state: MapState, viewport: Viewport): MapState => ({
   viewport,
 });
 
-const openPopup = (state: MapState, popupLat: number, popupLng: number, feature: any): MapState => ({
+const openPopup = (state: MapState, popupLat: number, popupLng: number, properties: {}): MapState => ({
   ...state,
   isPopupOpen: true,
   popupLat,
   popupLng,
-  feature,
+  properties,
 });
 
 const closePopup = (state: MapState): MapState => ({
@@ -46,7 +46,7 @@ export const mapReducer = (
         state,
         action.payload.lat,
         action.payload.lng,
-        action.payload.feature,
+        action.payload.properties,
       );
     case Actions.CLOSE_POPUP:
       return closePopup(state);

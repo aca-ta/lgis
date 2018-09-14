@@ -2,6 +2,7 @@ import * as React from 'react';
 import ReactMapGL, {Viewport, Popup, MapEvent} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
+import * as _ from 'lodash';
 import {
   ActionTypes,
   changeViewport,
@@ -10,15 +11,18 @@ import {
 } from '../actions/map';
 
 import {RootState} from '../reducers';
+import {Feature} from '../types/react-map-gl.d';
 
 const ToolTip = (
   isPopupOpen: boolean,
   latitude: number,
   longitude: number,
-  feature: any,
+  properties: {},
   dispatchClosePopup: () => void,
 ) => {
-  if (!isPopupOpen) return;
+  if (Object.keys(properties).length === 0) return;
+  const list: React.StatelessComponent[] = [];
+  _.forEach(properties, (value, key) => list.push(<div>value + key</div>));
 
   return (
     <Popup
@@ -26,7 +30,7 @@ const ToolTip = (
       longitude={longitude}
       anchor="top"
       onClose={() => dispatchClosePopup()}>
-      <div>hoge</div>
+      <div>{list}</div>
     </Popup>
   );
 };
@@ -37,9 +41,9 @@ const Map = (props: {
   isPopupOpen: boolean;
   popupLat: number;
   popupLng: number;
-  feature: any;
+  properties: {};
   dispatchChangeViewport: (viewport: Viewport) => void;
-  dispatchOpenPopup: (lat: number, lng: number, feature: any) => void;
+  dispatchOpenPopup: (lat: number, lng: number, properties: {}) => void;
   dispatchClosePopup: () => void;
 }) => {
   const {
@@ -48,7 +52,7 @@ const Map = (props: {
     isPopupOpen,
     popupLat,
     popupLng,
-    feature,
+    properties,
     dispatchChangeViewport,
     dispatchOpenPopup,
     dispatchClosePopup,
@@ -64,10 +68,15 @@ const Map = (props: {
       onViewportChange={(viewport: Viewport) =>
         dispatchChangeViewport(viewport)
       }
-      onClick={(e: MapEvent, lngLat: number[], feature: any) =>
-        dispatchOpenPopup(e.lngLat[0], e.lngLat[1], e.features[0])
+      onClick={(e: MapEvent, lngLat: number[], feature: Feature) =>
+        //TODO: featureの型を定義する
+        dispatchOpenPopup(
+          e.lngLat[0],
+          e.lngLat[1],
+          (e.features[0] as Feature).properties,
+        )
       }>
-      {ToolTip(isPopupOpen, popupLng, popupLat, feature, dispatchClosePopup)}
+      {ToolTip(isPopupOpen, popupLng, popupLat, properties, dispatchClosePopup)}
     </ReactMapGL>
   );
 };
@@ -78,7 +87,7 @@ export interface MapState {
   isPopupOpen: boolean;
   popupLat: number;
   popupLng: number;
-  feature: any;
+  properties: {};
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -87,15 +96,15 @@ const mapStateToProps = (state: RootState) => ({
   isPopupOpen: state.map.isPopupOpen,
   popupLat: state.map.popupLat,
   popupLng: state.map.popupLng,
-  feature: state.map.feature,
+  properties: state.map.properties,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchChangeViewport: (viewport: Viewport) => {
     dispatch(changeViewport(viewport));
   },
-  dispatchOpenPopup: (lat: number, lng: number, feature: any) => {
-    dispatch(openPopup(lat, lng, feature));
+  dispatchOpenPopup: (lat: number, lng: number, properties: {}) => {
+    dispatch(openPopup(lat, lng, properties));
   },
   dispatchClosePopup: () => {
     dispatch(closePopup());

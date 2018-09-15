@@ -2,7 +2,6 @@ import * as React from 'react';
 import ReactMapGL, {Viewport, Popup, MapEvent} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import * as _ from 'lodash';
 import {
   ActionTypes,
   changeViewport,

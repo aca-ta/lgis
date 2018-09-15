@@ -25,7 +25,7 @@ export const Tooltip = (
   properties: {[key: string]: string},
   dispatchClosePopup: () => void,
 ) => {
-  if (Object.keys(properties).length === 0) return;
+  if (!isPopupOpen || Object.keys(properties).length === 0) return;
 
   return (
     <Popup

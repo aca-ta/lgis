@@ -8,6 +8,16 @@ import {
   TableBody,
 } from '@material-ui/core';
 
+const createParamList = (properties: {[key: string]: string}) =>
+  Object.keys(properties).map(key => {
+    return (
+      <TableRow key={`${key}Row`}>
+        <TableCell key={`${key}Cell`}>{key}</TableCell>
+        <TableCell key={`{${key}Val`}>{properties[key]}</TableCell>
+      </TableRow>
+    );
+  });
+
 export const Tooltip = (
   isPopupOpen: boolean,
   latitude: number,
@@ -16,14 +26,6 @@ export const Tooltip = (
   dispatchClosePopup: () => void,
 ) => {
   if (Object.keys(properties).length === 0) return;
-  const ParamList = Object.keys(properties).map(key => {
-    return (
-      <TableRow key={`${key}Row`}>
-        <TableCell key={`${key}Cell`}>{key}</TableCell>
-        <TableCell key={`{${key}Val`}>{properties[key]}</TableCell>
-      </TableRow>
-    );
-  });
 
   return (
     <Popup
@@ -38,7 +40,7 @@ export const Tooltip = (
             <TableCell>Value</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>{ParamList}</TableBody>
+        <TableBody>{createParamList(properties)}</TableBody>
       </Table>
     </Popup>
   );

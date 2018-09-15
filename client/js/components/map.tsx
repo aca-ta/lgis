@@ -46,13 +46,14 @@ const Map = (props: {
       onViewportChange={(viewport: Viewport) =>
         dispatchChangeViewport(viewport)
       }
-      onClick={(e: MapEvent, lngLat: number[], feature: Feature) =>
+      onClick={(e: MapEvent, lngLat: number[], feature: Feature) => {
+        if((e.features[0] as Feature).source !== 'lgis') return;
         dispatchOpenPopup(
           e.lngLat[0],
           e.lngLat[1],
           (e.features[0] as Feature).properties,
         )
-      }>
+      }}>
       {Tooltip(isPopupOpen, popupLng, popupLat, properties, dispatchClosePopup)}
     </ReactMapGL>
   );

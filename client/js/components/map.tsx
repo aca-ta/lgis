@@ -1,12 +1,4 @@
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from '@material-ui/core';
 import ReactMapGL, {Viewport, Popup, MapEvent} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
@@ -20,42 +12,7 @@ import {
 
 import {RootState} from '../reducers';
 import {Feature} from '../types/react-map-gl.d';
-
-const ToolTip = (
-  isPopupOpen: boolean,
-  latitude: number,
-  longitude: number,
-  properties: {[key: string]: string},
-  dispatchClosePopup: () => void,
-) => {
-  if (Object.keys(properties).length === 0) return;
-  const ParamList = Object.keys(properties).map(key => {
-    return (
-      <TableRow key={`${key}Row`}>
-        <TableCell key={`${key}Cell`}>{key}</TableCell>
-        <TableCell key={`{${key}Val`}>{properties[key]}</TableCell>
-      </TableRow>
-    );
-  });
-
-  return (
-    <Popup
-      latitude={latitude}
-      longitude={longitude}
-      anchor="top"
-      onClose={() => dispatchClosePopup()}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Key</TableCell>
-            <TableCell>Value</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{ParamList}</TableBody>
-      </Table>
-    </Popup>
-  );
-};
+import {Tooltip} from './tooltip';
 
 const Map = (props: {
   viewport: Viewport;
@@ -97,7 +54,7 @@ const Map = (props: {
           (e.features[0] as Feature).properties,
         )
       }>
-      {ToolTip(isPopupOpen, popupLng, popupLat, properties, dispatchClosePopup)}
+      {Tooltip(isPopupOpen, popupLng, popupLat, properties, dispatchClosePopup)}
     </ReactMapGL>
   );
 };

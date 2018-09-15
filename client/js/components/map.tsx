@@ -31,9 +31,9 @@ const ToolTip = (
   if (Object.keys(properties).length === 0) return;
   const ParamList = Object.keys(properties).map(key => {
     return (
-      <TableRow>
-        <TableCell>{key}</TableCell>
-        <TableCell>{properties[key]}</TableCell>
+      <TableRow key={`${key}Row`}>
+        <TableCell key={`${key}Cell`}>{key}</TableCell>
+        <TableCell key={`{${key}Val`}>{properties[key]}</TableCell>
       </TableRow>
     );
   });

@@ -9,7 +9,7 @@ export interface Layer {
 export interface Feature {
   id: number;
   layer: Layer;
-  properties: {};
+  properties: {[key: string]: string};
   source: string;
   sourceLayer: string;
   state: {};

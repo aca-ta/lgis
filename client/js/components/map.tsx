@@ -19,9 +19,13 @@ const Map = (props: {
   isPopupOpen: boolean;
   popupLat: number;
   popupLng: number;
-  properties: {};
+  properties: {[key: string]: string};
   dispatchChangeViewport: (viewport: Viewport) => void;
-  dispatchOpenPopup: (lat: number, lng: number, properties: {}) => void;
+  dispatchOpenPopup: (
+    lat: number,
+    lng: number,
+    properties: {[key: string]: string},
+  ) => void;
   dispatchClosePopup: () => void;
 }) => {
   const {
@@ -47,12 +51,12 @@ const Map = (props: {
         dispatchChangeViewport(viewport)
       }
       onClick={(e: MapEvent, lngLat: number[], feature: Feature) => {
-        if((e.features[0] as Feature).source !== 'lgis') return;
+        if ((e.features[0] as Feature).source !== 'lgis') return;
         dispatchOpenPopup(
           e.lngLat[0],
           e.lngLat[1],
           (e.features[0] as Feature).properties,
-        )
+        );
       }}>
       {Tooltip(isPopupOpen, popupLng, popupLat, properties, dispatchClosePopup)}
     </ReactMapGL>
@@ -65,7 +69,7 @@ export interface MapState {
   isPopupOpen: boolean;
   popupLat: number;
   popupLng: number;
-  properties: {};
+  properties: {[key: string]: string};
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -81,7 +85,11 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchChangeViewport: (viewport: Viewport) => {
     dispatch(changeViewport(viewport));
   },
-  dispatchOpenPopup: (lat: number, lng: number, properties: {}) => {
+  dispatchOpenPopup: (
+    lat: number,
+    lng: number,
+    properties: {[key: string]: string},
+  ) => {
     dispatch(openPopup(lat, lng, properties));
   },
   dispatchClosePopup: () => {

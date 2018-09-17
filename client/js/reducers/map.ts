@@ -21,7 +21,12 @@ const changeViewport = (state: MapState, viewport: Viewport): MapState => ({
   viewport,
 });
 
-const openPopup = (state: MapState, popupLat: number, popupLng: number, properties: {}): MapState => ({
+const openPopup = (
+  state: MapState,
+  popupLat: number,
+  popupLng: number,
+  properties: {[key: string]: string},
+): MapState => ({
   ...state,
   isPopupOpen: true,
   popupLat,

@@ -18,7 +18,7 @@ export const changeViewport = (viewport: Viewport): ChangeViewportAction => ({
 
 export interface OpenPopupAction {
   readonly type: Actions.OPEN_POPUP;
-  payload: {lat: number; lng: number; properties: {}};
+  payload: {lat: number; lng: number; properties: {[key: string]: string}};
 }
 
 export const openPopup = (

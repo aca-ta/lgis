@@ -49,8 +49,7 @@ const Map = (props: {
         dispatchChangeViewport(viewport)
       }
       onClick={(e: MapEvent, lngLat: number[], feature: Feature) => {
-        //TODO: check whether feature exists.
-        if ((e.features[0] as Feature).source !== 'lgis') return;
+        if (e.features.length === 0 || (e.features[0] as Feature).source !== 'lgis') return;
         dispatchOpenPopup(
           e.lngLat[0],
           e.lngLat[1],

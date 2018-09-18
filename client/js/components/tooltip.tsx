@@ -19,13 +19,12 @@ const createParamList = (properties: {[key: string]: string}) =>
   });
 
 export const Tooltip = (
-  isPopupOpen: boolean,
   latitude: number,
   longitude: number,
   properties: {[key: string]: string},
   dispatchClosePopup: () => void,
 ) => {
-  if (!isPopupOpen || Object.keys(properties).length === 0) return;
+  if (Object.keys(properties).length === 0) return;
 
   return (
     <Popup

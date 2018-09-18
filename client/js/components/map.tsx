@@ -16,7 +16,6 @@ import {Tooltip} from './tooltip';
 const Map = (props: {
   viewport: Viewport;
   mapStyle: any;
-  isPopupOpen: boolean;
   popupLat: number;
   popupLng: number;
   properties: {[key: string]: string};
@@ -31,7 +30,6 @@ const Map = (props: {
   const {
     viewport,
     mapStyle,
-    isPopupOpen,
     popupLat,
     popupLng,
     properties,
@@ -51,6 +49,7 @@ const Map = (props: {
         dispatchChangeViewport(viewport)
       }
       onClick={(e: MapEvent, lngLat: number[], feature: Feature) => {
+        //TODO: check whether feature exists.
         if ((e.features[0] as Feature).source !== 'lgis') return;
         dispatchOpenPopup(
           e.lngLat[0],
@@ -58,7 +57,7 @@ const Map = (props: {
           (e.features[0] as Feature).properties,
         );
       }}>
-      {Tooltip(isPopupOpen, popupLng, popupLat, properties, dispatchClosePopup)}
+      {Tooltip(popupLng, popupLat, properties, dispatchClosePopup)}
     </ReactMapGL>
   );
 };
@@ -66,7 +65,6 @@ const Map = (props: {
 export interface MapState {
   viewport: Viewport;
   mapStyle: any;
-  isPopupOpen: boolean;
   popupLat: number;
   popupLng: number;
   properties: {[key: string]: string};
@@ -75,7 +73,6 @@ export interface MapState {
 const mapStateToProps = (state: RootState) => ({
   mapStyle: state.map.mapStyle,
   viewport: state.map.viewport,
-  isPopupOpen: state.map.isPopupOpen,
   popupLat: state.map.popupLat,
   popupLng: state.map.popupLng,
   properties: state.map.properties,

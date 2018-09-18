@@ -10,7 +10,6 @@ const initialState: MapState = {
     longitude: 139.767052,
     zoom: 10,
   },
-  isPopupOpen: true,
   popupLat: 0,
   popupLng: 0,
   properties: {},
@@ -28,7 +27,6 @@ const openPopup = (
   properties: {[key: string]: string},
 ): MapState => ({
   ...state,
-  isPopupOpen: true,
   popupLat,
   popupLng,
   properties,
@@ -36,7 +34,9 @@ const openPopup = (
 
 const closePopup = (state: MapState): MapState => ({
   ...state,
-  isPopupOpen: false,
+  popupLat: 0,
+  popupLng: 0,
+  properties: {},
 });
 
 export const mapReducer = (

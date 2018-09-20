@@ -1,4 +1,5 @@
 import {Popup} from 'react-map-gl';
+import styled from 'styled-components';
 import * as React from 'react';
 import {
   Table,
@@ -18,7 +19,7 @@ const createParamList = (properties: {[key: string]: string}) =>
     );
   });
 
-export const Tooltip = (
+const tooltip = (
   latitude: number,
   longitude: number,
   properties: {[key: string]: string},
@@ -44,3 +45,9 @@ export const Tooltip = (
     </Popup>
   );
 };
+
+export const Tooltip = styled(tooltip)`
+&&&{
+  height: 300;
+  overflow: auto;
+}`;

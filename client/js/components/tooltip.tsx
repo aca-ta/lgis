@@ -19,7 +19,13 @@ const createParamList = (properties: {[key: string]: string}) =>
     );
   });
 
-const tooltip = (
+const StyledPopup = styled(Popup)`
+&&&{
+  max-height: 300px;
+  overflow: auto;
+}`;
+
+export const Tooltip = (
   latitude: number,
   longitude: number,
   properties: {[key: string]: string},
@@ -28,7 +34,7 @@ const tooltip = (
   if (Object.keys(properties).length === 0) return;
 
   return (
-    <Popup
+    <StyledPopup
       latitude={latitude}
       longitude={longitude}
       anchor="top"
@@ -42,12 +48,7 @@ const tooltip = (
         </TableHead>
         <TableBody>{createParamList(properties)}</TableBody>
       </Table>
-    </Popup>
+    </StyledPopup>
   );
 };
 
-export const Tooltip = styled(tooltip)`
-&&&{
-  height: 300;
-  overflow: auto;
-}`;

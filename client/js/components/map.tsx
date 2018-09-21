@@ -60,12 +60,7 @@ const Map = (props: {
           (e.features[0] as Feature).properties,
         );
       }}>
-      <Tooltip
-        popupLng={popupLng}
-        popupLat={popupLat}
-        properties={properties}
-        dispatchClosePopup={dispatchClosePopup}
-      />
+      {Tooltip(popupLng, popupLat, properties, dispatchClosePopup)}
     </ReactMapGL>
   );
 };

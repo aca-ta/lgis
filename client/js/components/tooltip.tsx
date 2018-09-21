@@ -20,10 +20,12 @@ const createParamList = (properties: {[key: string]: string}) =>
   });
 
 const StyledPopup = styled(Popup)`
-&&&{
-  max-height: 300px;
-  overflow: auto;
-}`;
+  &&& {
+    max-height: 300px;
+    overflow: auto;
+    user-select: all;
+  }
+`;
 
 export const Tooltip = (
   latitude: number,
@@ -38,6 +40,7 @@ export const Tooltip = (
       latitude={latitude}
       longitude={longitude}
       anchor="top"
+      closeOnClick={false}
       onClose={() => dispatchClosePopup()}>
       <Table>
         <TableHead>
@@ -51,4 +54,3 @@ export const Tooltip = (
     </StyledPopup>
   );
 };
-

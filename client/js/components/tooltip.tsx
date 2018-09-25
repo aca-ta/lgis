@@ -22,7 +22,7 @@ const createParamList = (properties: {[key: string]: string}) =>
 const StyledPopup = styled(Popup)`
   &&& {
     max-height: 300px;
-    overflow: auto;
+    overflow-y: auto;
     user-select: text;
   }
 `;

@@ -23,7 +23,7 @@ const StyledPopup = styled(Popup)`
   &&& {
     max-height: 300px;
     overflow: auto;
-    user-select: all;
+    user-select: text;
   }
 `;
 

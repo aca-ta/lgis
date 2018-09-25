@@ -41,6 +41,7 @@ export const Tooltip = (
       longitude={longitude}
       anchor="top"
       closeOnClick={false}
+      captureScroll={true}
       onClose={() => dispatchClosePopup()}>
       <Table>
         <TableHead>

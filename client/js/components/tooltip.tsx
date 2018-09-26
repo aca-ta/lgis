@@ -18,7 +18,7 @@ const createParamList = (properties: {[key: string]: string}) =>
       </TableRow>
     );
   });
-
+// FIXME: cannot scroll with mousewheel.
 const StyledPopup = styled(Popup)`
   &&& {
     max-height: 300px;

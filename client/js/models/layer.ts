@@ -38,12 +38,12 @@ const polygonLayer = {
   },
 };
 
-const getSource = (host: string, db: string, datum: string, table: string) => ({
+const createSource = (host: string, db: string, datum: string, table: string) => ({
   type: 'vector',
   tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/${datum}/{z}/{x}/{y}`],
 });
 
-const getLayer = (geomType: string) => {
+const selectLayerStyle = (geomType: string) => {
   switch (geomType) {
     case 'point':
       return fromJS(pointLayer);
@@ -71,8 +71,8 @@ export const addLayerStyle = (
   geomType: string,
 ) => {
   const settings = JSON.parse(settingJson);
-  const source = getSource(settings.host, settings.db, settings.datum, table);
-  const layer = getLayer(geomType);
+  const source = createSource(settings.host, settings.db, settings.datum, table);
+  const layer = selectLayerStyle(geomType);
 
   const mapStyle = setSource(prevMapStyle, fromJS(source));
   return mapStyle.set('layers', mapStyle.get('layers').push(layer));

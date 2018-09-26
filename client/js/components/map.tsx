@@ -1,22 +1,45 @@
 import * as React from 'react';
-import MapGL, {Viewport} from 'react-map-gl';
+import ReactMapGL, {Viewport, Popup, MapEvent} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {ActionTypes, changeViewport} from '../actions/map';
+import {
+  ActionTypes,
+  changeViewport,
+  openPopup,
+  closePopup,
+} from '../actions/map';
 
 import {RootState} from '../reducers';
+import {Feature} from '../types/react-map-gl.d';
+import {Tooltip} from './tooltip';
 
-interface MapProps {
+const Map = (props: {
   viewport: Viewport;
   mapStyle: any;
+  popupLat: number;
+  popupLng: number;
+  properties: {[key: string]: string};
   dispatchChangeViewport: (viewport: Viewport) => void;
-}
-
-const Map = (props: MapProps) => {
-  const {viewport, mapStyle, dispatchChangeViewport} = props;
+  dispatchOpenPopup: (
+    lat: number,
+    lng: number,
+    properties: {[key: string]: string},
+  ) => void;
+  dispatchClosePopup: () => void;
+}) => {
+  const {
+    viewport,
+    mapStyle,
+    popupLat,
+    popupLng,
+    properties,
+    dispatchChangeViewport,
+    dispatchOpenPopup,
+    dispatchClosePopup,
+  } = props;
 
   return (
-    <MapGL
+    <ReactMapGL
       {...viewport}
       height={window.innerHeight}
       width={window.innerWidth}
@@ -25,23 +48,52 @@ const Map = (props: MapProps) => {
       onViewportChange={(viewport: Viewport) =>
         dispatchChangeViewport(viewport)
       }
-    />
+      onClick={(e: MapEvent, lngLat: number[], feature: Feature) => {
+        if (
+          e.features.length === 0 ||
+          (e.features[0] as Feature).source !== 'lgis'
+        )
+          return;
+        dispatchOpenPopup(
+          e.lngLat[0],
+          e.lngLat[1],
+          (e.features[0] as Feature).properties,
+        );
+      }}>
+      {Tooltip(popupLng, popupLat, properties, dispatchClosePopup)}
+    </ReactMapGL>
   );
 };
 
 export interface MapState {
   viewport: Viewport;
   mapStyle: any;
+  popupLat: number;
+  popupLng: number;
+  properties: {[key: string]: string};
 }
 
 const mapStateToProps = (state: RootState) => ({
   mapStyle: state.map.mapStyle,
   viewport: state.map.viewport,
+  popupLat: state.map.popupLat,
+  popupLng: state.map.popupLng,
+  properties: state.map.properties,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchChangeViewport: (viewport: Viewport) => {
     dispatch(changeViewport(viewport));
+  },
+  dispatchOpenPopup: (
+    lat: number,
+    lng: number,
+    properties: {[key: string]: string},
+  ) => {
+    dispatch(openPopup(lat, lng, properties));
+  },
+  dispatchClosePopup: () => {
+    dispatch(closePopup());
   },
 });
 

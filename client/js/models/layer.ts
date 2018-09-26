@@ -38,9 +38,9 @@ const polygonLayer = {
   },
 };
 
-const getSource = (host: string, db: string, table: string) => ({
+const getSource = (host: string, db: string, datum: string, table: string) => ({
   type: 'vector',
-  tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/{z}/{x}/{y}`],
+  tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/${datum}/{z}/{x}/{y}`],
 });
 
 const getLayer = (geomType: string) => {
@@ -71,7 +71,7 @@ export const addLayerStyle = (
   geomType: string,
 ) => {
   const settings = JSON.parse(settingJson);
-  const source = getSource(settings.host, settings.db, table);
+  const source = getSource(settings.host, settings.db, settings.datum, table);
   const layer = getLayer(geomType);
 
   const mapStyle = setSource(prevMapStyle, fromJS(source));

@@ -4,7 +4,7 @@ import {defaultLayer, addLayerStyle} from '../models/layer';
 
 const initialState: ToolbarState = {
   open: false,
-  settings: '{"host": "127.0.0.1", "db": "mydatabase"}',
+  settings: '{"host": "127.0.0.1", "db": "mydatabase", "datum": "4326"}',
   table: 'my_schema.my_table',
   geomType: '',
 };

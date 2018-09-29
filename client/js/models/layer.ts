@@ -38,12 +38,19 @@ const polygonLayer = {
   },
 };
 
-const getSource = (host: string, db: string, datum: string, table: string) => ({
+const createSource = (
+  host: string,
+  db: string,
+  datum: string,
+  table: string,
+) => ({
   type: 'vector',
-  tiles: [`http://localhost:3000/tiles/${host}/${db}/${table}/${datum}/{z}/{x}/{y}`],
+  tiles: [
+    `http://localhost:3000/tiles/${host}/${db}/${table}/${datum}/{z}/{x}/{y}`,
+  ],
 });
 
-const getLayer = (geomType: string) => {
+const selectLayerStyle = (geomType: string) => {
   switch (geomType) {
     case 'point':
       return fromJS(pointLayer);
@@ -56,12 +63,16 @@ const getLayer = (geomType: string) => {
   }
 };
 
-const setSource = (prevMapStyle: any, source: any) => {
-  const hasSource = prevMapStyle.hasIn(['sources', 'lgis'], source);
-  if (!hasSource) {
-    return prevMapStyle.setIn(['sources', 'lgis'], source);
-  }
-  return prevMapStyle;
+const setSource = (mapStyle: any, source: any) => {
+  return mapStyle.mergeIn(['sources', 'lgis'], source);
+};
+
+const setLayer = (mapStyle: any, layer: any) => {
+  const newLayers = mapStyle
+    .get('layers')
+    .filter((elm: any) => elm.get('source') !== 'lgis')
+    .push(layer);
+  return mapStyle.mergeIn(['layers'], newLayers);
 };
 
 export const addLayerStyle = (
@@ -71,9 +82,15 @@ export const addLayerStyle = (
   geomType: string,
 ) => {
   const settings = JSON.parse(settingJson);
-  const source = getSource(settings.host, settings.db, settings.datum, table);
-  const layer = getLayer(geomType);
+  const source = createSource(
+    settings.host,
+    settings.db,
+    settings.datum,
+    table,
+  );
+  const layer = selectLayerStyle(geomType);
 
-  const mapStyle = setSource(prevMapStyle, fromJS(source));
-  return mapStyle.set('layers', mapStyle.get('layers').push(layer));
+  let mapStyle = setSource(prevMapStyle, fromJS(source));
+  mapStyle = setLayer(mapStyle, layer);
+  return mapStyle;
 };

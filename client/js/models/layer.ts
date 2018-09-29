@@ -70,7 +70,7 @@ const setSource = (mapStyle: any, source: any) => {
 const setLayer = (mapStyle: any, layer: any) => {
   const newLayers = mapStyle
     .get('layers')
-    .filter((elm: any) => elm.source !== 'lgis')
+    .filter((elm: any) => elm.get('source') !== 'lgis')
     .push(layer);
   return mapStyle.mergeIn(['layers'], newLayers);
 };

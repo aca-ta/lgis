@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 
@@ -14,7 +15,7 @@ const javascripts = {
   mode: 'development',
   entry: './client/js/index.tsx',
   output: {
-    path: `${__dirname}/public/javascripts`,
+    path: path.resolve(__dirname, 'public/javascripts'),
     filename: 'lgis.js',
   },
   resolve: {
@@ -41,7 +42,7 @@ const css = {
   mode: 'development',
   entry: './client/css/style.scss',
   output: {
-    path: `${__dirname}/public/stylesheets`,
+    path: path.resolve(__dirname, 'public/stylesheets'),
     filename: 'lgis.css',
   },
   module: {

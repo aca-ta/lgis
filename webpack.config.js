@@ -32,7 +32,7 @@ const javascripts = {
   node: {
     fs: 'empty',
   },
-  devtool: 'source-map',
+  devtool: '#eval-cheap-module-source-map',
   plugins: [defineEnv],
   cache: true,
 };

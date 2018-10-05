@@ -11,7 +11,8 @@ import {
   Typography,
   TextField,
 } from '@material-ui/core';
-import {ChevronLeft, Menu} from '@material-ui/icons';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import Menu from '@material-ui/icons/Menu';
 import * as classNames from 'classnames';
 import * as React from 'react';
 import {Dispatch} from 'redux';

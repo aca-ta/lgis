@@ -1,7 +1,7 @@
-import {fromJS} from 'immutable';
+//import {fromJS} from 'immutable';
 import * as MAP_STYLE from './map-style-basic-v8.json';
 
-export const defaultLayer = fromJS((<any>MAP_STYLE).default);
+export const defaultLayer = (<any>MAP_STYLE).default;
 
 const pointLayer = {
   id: 'point',
@@ -53,26 +53,27 @@ const createSource = (
 const selectLayerStyle = (geomType: string) => {
   switch (geomType) {
     case 'point':
-      return fromJS(pointLayer);
+      return pointLayer;
     case 'linestring':
-      return fromJS(lineStringLayer);
+      return lineStringLayer;
     case 'polygon':
-      return fromJS(polygonLayer);
+      return polygonLayer;
     default:
       throw new Error('Geometry type is not choosen.');
   }
 };
 
 const setSource = (mapStyle: any, source: any) => {
-  return mapStyle.mergeIn(['sources', 'lgis'], source);
+  mapStyle.sources.lgis = source
+  return mapStyle
 };
 
 const setLayer = (mapStyle: any, layer: any) => {
-  const newLayers = mapStyle
-    .get('layers')
-    .filter((elm: any) => elm.get('source') !== 'lgis')
-    .push(layer);
-  return mapStyle.mergeIn(['layers'], newLayers);
+  let newLayers = mapStyle.layers
+    .filter((elm: any) => elm.source !== 'lgis')
+  newLayers.push(layer);
+  mapStyle.layers = newLayers;
+  return mapStyle
 };
 
 export const addLayerStyle = (
@@ -90,7 +91,7 @@ export const addLayerStyle = (
   );
   const layer = selectLayerStyle(geomType);
 
-  let mapStyle = setSource(prevMapStyle, fromJS(source));
+  let mapStyle = setSource(prevMapStyle, source);
   mapStyle = setLayer(mapStyle, layer);
   return mapStyle;
 };

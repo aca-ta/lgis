@@ -4,11 +4,15 @@
     "jsx": "react",
     "module": "ES2015",
     "moduleResolution": "node",
-    "allowJs": true,
     "strict": true,
     "sourceMap": true,
     "noEmitOnError": true,
+    "removeComments": true,
     "lib": ["ES2016", "DOM"]
+  },
+  "awesomeTypescriptLoaderOptions":{
+    "useCache": true,
+    "reportFiles": "client/js/**/*"
   },
   "exclude": [
     "node_modules",

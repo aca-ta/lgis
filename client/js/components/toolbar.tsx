@@ -1,17 +1,15 @@
-import {
-  AppBar,
-  Button,
-  Drawer,
-  IconButton,
-  InputLabel,
-  List,
-  MenuItem,
-  Select,
-  Toolbar,
-  Typography,
-  TextField,
-} from '@material-ui/core';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import Drawer    from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import InputLabel from '@material-ui/core/InputLabel';
+import List      from '@material-ui/core/List';
+import MenuItem  from '@material-ui/core/MenuItem';
+import Select    from '@material-ui/core/Select';
+import Toolbar   from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import ChevronLeft  from '@material-ui/icons/ChevronLeft';
 import Menu from '@material-ui/icons/Menu';
 import * as classNames from 'classnames';
 import * as React from 'react';

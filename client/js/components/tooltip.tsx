@@ -1,13 +1,13 @@
 import {Popup} from 'react-map-gl';
 import styled from 'styled-components';
-import * as React from 'react';
 import {
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
 } from '@material-ui/core';
+import * as React from 'react';
 
 const createParamList = (properties: {[key: string]: string}) =>
   Object.keys(properties).map(key => {
@@ -33,7 +33,11 @@ export const Tooltip = (
   properties: {[key: string]: string},
   dispatchClosePopup: () => void,
 ) => {
-  if (Object.keys(properties).length === 0) return;
+  if (Object.keys(properties).length === 0) {
+    return;
+  }
+
+  const closePopup = () => dispatchClosePopup();
 
   return (
     <StyledPopup
@@ -42,7 +46,7 @@ export const Tooltip = (
       anchor="top"
       closeOnClick={false}
       captureScroll={true}
-      onClose={() => dispatchClosePopup()}>
+      onClose={closePopup}>
       <Table>
         <TableHead>
           <TableRow>

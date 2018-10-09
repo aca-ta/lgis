@@ -1,12 +1,12 @@
 import * as React from 'react';
-import ReactMapGL, {Viewport, Popup, MapEvent} from 'react-map-gl';
+import ReactMapGL, {MapEvent, Popup, Viewport} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {
   ActionTypes,
   changeViewport,
-  openPopup,
   closePopup,
+  openPopup,
 } from '../actions/map';
 
 import {RootState} from '../reducers';
@@ -38,6 +38,17 @@ const Map = (props: {
     dispatchClosePopup,
   } = props;
 
+  const openPopupOrNot = (e: MapEvent) => {
+    if (e.features.length === 0 || (e.features[0] as Feature).source !== 'lgis'){
+      return;
+    }
+    return dispatchOpenPopup(
+      e.lngLat[0],
+      e.lngLat[1],
+      (e.features[0] as Feature).properties,
+    );
+  }
+
   return (
     <ReactMapGL
       {...viewport}
@@ -45,21 +56,8 @@ const Map = (props: {
       width={window.innerWidth}
       mapStyle={mapStyle}
       mapboxApiAccessToken={''}
-      onViewportChange={(viewport: Viewport) =>
-        dispatchChangeViewport(viewport)
-      }
-      onClick={(e: MapEvent, lngLat: number[], feature: Feature) => {
-        if (
-          e.features.length === 0 ||
-          (e.features[0] as Feature).source !== 'lgis'
-        )
-          return;
-        dispatchOpenPopup(
-          e.lngLat[0],
-          e.lngLat[1],
-          (e.features[0] as Feature).properties,
-        );
-      }}>
+      onViewportChange={dispatchChangeViewport}
+      onClick={openPopupOrNot}>
       {Tooltip(popupLng, popupLat, properties, dispatchClosePopup)}
     </ReactMapGL>
   );

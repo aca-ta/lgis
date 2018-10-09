@@ -1,5 +1,4 @@
 import {Popup} from 'react-map-gl';
-import styled from 'styled-components';
 import {
   Table,
   TableBody,
@@ -18,14 +17,6 @@ const createParamList = (properties: {[key: string]: string}) =>
       </TableRow>
     );
   });
-// FIXME: cannot scroll with mousewheel.
-const StyledPopup = styled(Popup)`
-  &&& {
-    max-height: 300px;
-    overflow-y: auto;
-    user-select: text;
-  }
-`;
 
 export const Tooltip = (
   latitude: number,
@@ -40,7 +31,7 @@ export const Tooltip = (
   const closePopup = () => dispatchClosePopup();
 
   return (
-    <StyledPopup
+    <Popup
       latitude={latitude}
       longitude={longitude}
       anchor="top"
@@ -56,6 +47,6 @@ export const Tooltip = (
         </TableHead>
         <TableBody>{createParamList(properties)}</TableBody>
       </Table>
-    </StyledPopup>
+    </Popup>
   );
 };

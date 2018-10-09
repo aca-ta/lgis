@@ -8,3 +8,9 @@ body {
   border: 0px;
   padding: 0px;
 }
+
+.mapboxgl-popup-content {
+  overflow-y: auto;
+  max-height: 300px;
+  user-select: text;
+}

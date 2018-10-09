@@ -1,7 +1,7 @@
 import {fromJS} from 'immutable';
 import * as MAP_STYLE from './map-style-basic-v8.json';
 
-export const defaultLayer = fromJS((<any>MAP_STYLE).default);
+export const defaultLayer = fromJS((MAP_STYLE as any).default);
 
 const pointLayer = {
   id: 'point',
@@ -22,6 +22,7 @@ const lineStringLayer = {
   interactive: true,
   paint: {
     'line-color': '#176b31',
+    'line-width': 2
   },
 };
 

@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "build": "webpack",
     "test": "jest",
-    "cover": "nyc --reporter html --reporter cobertura --reporter json-summary npm test"
+    "cover": "jest --coverage"
   },
   "dependencies": {
     "@material-ui/core": "^1.4.1",

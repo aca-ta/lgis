@@ -1,12 +1,12 @@
 {
   "name": "lgis",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
+  "author": "seljydef",
   "scripts": {
     "start": "node ./bin/www",
     "build": "webpack",
-    "test": "NODE_ENV=test tape -r babel-register -r ./test/client/js/setup-browser-env.js ./test/client/js/",
-    "cover": "nyc --reporter html --reporter cobertura --reporter json-summary npm test"
+    "test": "jest",
+    "cover": "jest --coverage"
   },
   "dependencies": {
     "@material-ui/core": "^1.4.1",
@@ -39,27 +39,33 @@
     "serve-favicon": "^2.4.2"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.5",
     "awesome-typescript-loader": "^5.2.0",
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "jest": "^23.6.0",
     "jsdom": "^11.11.0",
     "jsdom-global": "^3.0.2",
-    "mocha": "^5.2.0",
     "node-sass": "^4.9.0",
-    "nyc": "^12.0.2",
     "prettier": "^1.12.1",
     "sass-loader": "^7.0.1",
     "sinon": "^6.1.3",
     "speed-measure-webpack-plugin": "^1.2.2",
-    "tape": "^4.9.1",
-    "tape-catch": "^1.0.6",
+    "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.14.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.0.1",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
   }
 }

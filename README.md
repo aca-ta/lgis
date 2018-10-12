@@ -3,6 +3,8 @@
 A light weight web GIS tool.  
 Rendering geospatial data with Postgis. made with [react-map-gl](https://github.com/uber/react-map-gl) and [mapnik](https://github.com/mapnik/node-mapnik).
 
+![LGIS](media/header.gif)
+
 ## Install
 
 ```

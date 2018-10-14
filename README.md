@@ -1,7 +1,7 @@
 # Light GIS
 
-A light weight web GIS tool.  
-Rendering geospatial data with Postgis. made with [react-map-gl](https://github.com/uber/react-map-gl) and [mapnik](https://github.com/mapnik/node-mapnik).
+LGIS is a lightweight web GIS application.  
+Render geospatial data with PostGIS. 
 
 ![LGIS](media/header.gif)
 
@@ -20,13 +20,13 @@ yarn start
 
 ### Mapbox Access Tokens
 
-To use Lgis, you'll need a Mapbox Acess token.  
+To use Lgis, you'll need a Mapbox Access token.  
 There are two ways to provide a token to Lgis.
 
 - Set your access token in the URL.
-  - e.g `?access_token=TOKEN`
+  - E.g `?access_token=TOKEN`
 - Create `.env` file and write your token in the file.
-  - e.g `MapboxAccessToken=TOKEN`
+  - E.g `MapboxAccessToken=TOKEN`
 
 ## Depends
 

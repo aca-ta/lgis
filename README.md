@@ -1,7 +1,7 @@
 # Light GIS
 
 LGIS is a lightweight web GIS application.  
-Render geospatial data with PostGIS. 
+It renders geospatial data with PostGIS.
 
 ![LGIS](media/header.gif)
 

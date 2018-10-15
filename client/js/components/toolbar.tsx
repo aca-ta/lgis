@@ -121,6 +121,12 @@ const LgisToolbar = (props: ToolbarProps) => {
           variant="contained"
           className={classes.button}
           onClick={onClickAddLayer}>
+          Save
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={onClickAddLayer}>
           Show
         </Button>
       </Drawer>

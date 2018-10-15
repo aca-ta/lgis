@@ -36,6 +36,7 @@ interface ToolbarProps {
   dispatchInputTable: (e: React.ChangeEvent<HTMLInputElement>) => void;
   dispatchSelectGeomType: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   dispatchAddLayer: (settings: string, table: string) => void;
+  dispatchSaveMap: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 const LgisToolbar = (props: ToolbarProps) => {
@@ -50,6 +51,7 @@ const LgisToolbar = (props: ToolbarProps) => {
     geomType,
     dispatchSelectGeomType,
     dispatchAddLayer,
+    dispatchSaveMap,
   } = props;
 
 
@@ -121,13 +123,13 @@ const LgisToolbar = (props: ToolbarProps) => {
           variant="contained"
           className={classes.button}
           onClick={onClickAddLayer}>
-          Save
+          Show
         </Button>
         <Button
           variant="contained"
           className={classes.button}
-          onClick={onClickAddLayer}>
-          Show
+          onClick={dispatchSaveMap}>
+          Save
         </Button>
       </Drawer>
     </div>
@@ -162,7 +164,11 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
     dispatch(selectGeomType(e.target.value));
   },
   dispatchAddLayer: (settings: string, table: string) => {
-    dispatch(addLayer(settings, table));
+    dispatch(addLayer(settings, table)); //FIXME: settingsとtableはreducerで参照する
+  },
+  dispatchSaveMap: (e: React.MouseEvent<HTMLElement>) => {
+    // dispatch();
+    alert("save");
   },
 });
 

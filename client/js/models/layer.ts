@@ -99,7 +99,11 @@ export const addLayerStyle = (
 
 export const saveMap = (settingJson: string, table: string) => {
   const settings = JSON.parse(settingJson);
-  axios.default.get(`/save/${settings.host}/${settings.db}/${table}/${settings.datum}/`)
+
+  // FIXME: use modal dialog
+  const name = prompt("The map name is...", "");
+
+  axios.default.get(`/save/${name}/${settings.host}/${settings.db}/${table}/${settings.datum}/`)
     .then(
       (response) => alert("saved"));
 }

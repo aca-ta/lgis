@@ -24,7 +24,7 @@ router.get('/tiles/:host/:db/:table/:datum/:Z/:X/:Y/', (req, res) => {
 });
 
 
-router.get('/save/:host/:db/:table/:datum/', (req, res) => {
+router.get('/save/:name/:host/:db/:table/:datum/', (req, res) => {
   map.save(req, data => {
     console.log("res");
     res.status(200).end(data);

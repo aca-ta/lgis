@@ -1,18 +1,18 @@
-import {combineReducers, Reducer} from 'redux';
 import reduceReducers from 'reduce-reducers';
-import {toolbarReducer} from './toolbar';
-import {mapReducer} from './map';
-import {ToolbarState} from '../components/toolbar';
-import {MapState} from '../components/map';
+import {combineReducers, Reducer} from 'redux';
 import {
-  ActionTypes as toolbarActionType,
-  Actions as toolbarActions,
-} from '../actions/toolbar';
-import {
-  ActionTypes as mapActionType,
   Actions as mapActions,
+  ActionTypes as mapActionType,
 } from '../actions/map';
+import {
+  Actions as toolbarActions,
+  ActionTypes as toolbarActionType,
+} from '../actions/toolbar';
+import {MapState} from '../components/map';
+import {ToolbarState} from '../components/toolbar';
 import {addLayerStyle} from '../models/layer';
+import {mapReducer} from './map';
+import {toolbarReducer} from './toolbar';
 
 export interface RootState {
   toolbar: ToolbarState;

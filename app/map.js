@@ -1,3 +1,6 @@
 module.exports.save = (req, func) => {
-  console.log("map is saved");
+  const msg = "map is saved";
+  console.log(msg);
+  func(msg)
+  return msg;
 }

@@ -53,6 +53,8 @@ const LgisToolbar = (props: ToolbarProps) => {
     dispatchAddLayer,
   } = props;
 
+  const saveMapWrapper = (event: React.MouseEvent<HTMLElement>) => saveMap(settings, table);
+
   return (
     <div>
       <AppBar
@@ -123,7 +125,7 @@ const LgisToolbar = (props: ToolbarProps) => {
         <Button
           variant="contained"
           className={classes.button}
-          onClick={saveMap}>
+          onClick={saveMapWrapper}>
           Save
         </Button>
       </Drawer>

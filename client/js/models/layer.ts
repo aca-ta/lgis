@@ -97,8 +97,9 @@ export const addLayerStyle = (
   return mapStyle;
 };
 
-export const saveMap = () => {
-  axios.default.get(`/save/host/db/table/1234/`)
+export const saveMap = (settingJson: string, table: string) => {
+  const settings = JSON.parse(settingJson);
+  axios.default.get(`/save/${settings.host}/${settings.db}/${table}/${settings.datum}/`)
     .then(
-      (response) => alert("save"));
+      (response) => alert("saved"));
 }

@@ -1,3 +1,4 @@
+import * as axios from 'axios';
 import {fromJS} from 'immutable';
 import * as MAP_STYLE from './map-style-basic-v8.json';
 
@@ -97,5 +98,7 @@ export const addLayerStyle = (
 };
 
 export const saveMap = () => {
-  alert("save")
+  axios.default.get(`/save/host/db/table/1234/`)
+    .then(
+      (response) => alert("save"));
 }

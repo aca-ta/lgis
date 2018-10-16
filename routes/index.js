@@ -25,15 +25,9 @@ router.get('/tiles/:host/:db/:table/:datum/:Z/:X/:Y/', (req, res) => {
 
 
 router.get('/save/:host/:db/:table/:datum/', (req, res) => {
-  map.save(req, (err, data) => {
-    if (err) {
-      console.log(err);
-      res.status(500);
-      res.end("error");
-      return;
-    }
-    res.status(200);
-    res.end();
+  map.save(req, data => {
+    console.log("res");
+    res.status(200).end(data);
   });
 });
 

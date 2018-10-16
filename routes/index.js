@@ -1,5 +1,6 @@
 const express = require('express');
 const tile = require('../app/tile');
+const map = require('../app/map');
 
 const router = express.Router();
 
@@ -19,6 +20,20 @@ router.get('/tiles/:host/:db/:table/:datum/:Z/:X/:Y/', (req, res) => {
     }
     res.status(200).set({ 'Content-Type': 'application/x-protobuf' });
     res.end(data.getData());
+  });
+});
+
+
+router.get('/save/:host/:db/:table/:datum/', (req, res) => {
+  map.save(req, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.status(500);
+      res.end("error");
+      return;
+    }
+    res.status(200);
+    res.end();
   });
 });
 

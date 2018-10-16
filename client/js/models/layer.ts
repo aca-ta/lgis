@@ -95,3 +95,7 @@ export const addLayerStyle = (
   mapStyle = setLayer(mapStyle, layer);
   return mapStyle;
 };
+
+export const saveMap = () => {
+  alert("save")
+}

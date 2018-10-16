@@ -23,6 +23,7 @@ import {
   selectGeomType,
   toggleDrawer,
 } from '../actions/toolbar';
+import {saveMap} from '../models/layer';
 import {RootState} from '../reducers';
 
 interface ToolbarProps {
@@ -36,7 +37,6 @@ interface ToolbarProps {
   dispatchInputTable: (e: React.ChangeEvent<HTMLInputElement>) => void;
   dispatchSelectGeomType: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   dispatchAddLayer: (e: React.MouseEvent<HTMLInputElement>) => void;
-  dispatchSaveMap: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 const LgisToolbar = (props: ToolbarProps) => {
@@ -51,7 +51,6 @@ const LgisToolbar = (props: ToolbarProps) => {
     geomType,
     dispatchSelectGeomType,
     dispatchAddLayer,
-    dispatchSaveMap,
   } = props;
 
   return (
@@ -124,7 +123,7 @@ const LgisToolbar = (props: ToolbarProps) => {
         <Button
           variant="contained"
           className={classes.button}
-          onClick={dispatchSaveMap}>
+          onClick={saveMap}>
           Save
         </Button>
       </Drawer>
@@ -161,10 +160,6 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   },
   dispatchAddLayer: (e: React.MouseEvent<HTMLInputElement>) => {
     dispatch(addLayer());
-  },
-  dispatchSaveMap: (e: React.MouseEvent<HTMLElement>) => {
-    // dispatch();
-    alert("save");
   },
 });
 

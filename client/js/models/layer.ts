@@ -104,7 +104,7 @@ export const saveMap = (settingJson: string, table: string) => {
   const name = prompt("The map name is...", "");
 
   const query = `name=${name}&host=${settings.host}&db=${settings.db}&table=${table}&datum=${settings.datum}`
-  axios.default.get(`/save?${query}`)
+  axios.default.get(`/save_map?${query}`)
     .then(
       (response) => alert("saved"));
 }

@@ -1,6 +1,6 @@
 const express = require('express');
 const tile = require('../app/tile');
-const map = require('../app/map');
+const saveMap = require('../app/savemap');
 
 const router = express.Router();
 
@@ -24,8 +24,8 @@ router.get('/tiles/:host/:db/:table/:datum/:Z/:X/:Y/', (req, res) => {
 });
 
 
-router.get('/save', (req, res) => {
-  map.save(req, data => {
+router.get('/save_map', (req, res) => {
+  saveMap.save(req, data => {
     console.log(data);
     res.status(200).end(data);
   });

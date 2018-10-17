@@ -103,7 +103,8 @@ export const saveMap = (settingJson: string, table: string) => {
   // FIXME: use modal dialog
   const name = prompt("The map name is...", "");
 
-  axios.default.get(`/save/${name}/${settings.host}/${settings.db}/${table}/${settings.datum}/`)
+  const query = `name=${name}&host=${settings.host}&db=${settings.db}&table=${table}&datum=${settings.datum}`
+  axios.default.get(`/save?${query}`)
     .then(
       (response) => alert("saved"));
 }

@@ -1,6 +1,5 @@
 module.exports.save = (req, func) => {
-  const msg = "map is saved";
-  console.log(msg);
+  const msg = `${req.query.name} is saved`;
   func(msg)
   return msg;
 }

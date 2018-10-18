@@ -1,8 +1,12 @@
 const fs = require('fs');
 
+const getSavedMapPath = (name) => {
+  return `etc/savedMaps/${name}.json`;
+} 
+
 module.exports.write = (name, host, db, table, datum) => {
 
-  const basepath = `etc/savedMaps/${name}.json`;
+  const basepath = getSavedMapPath(name);
   try {
     const stream = fs.createWriteStream(basepath, 'utf8');
 

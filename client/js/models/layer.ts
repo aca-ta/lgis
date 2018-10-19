@@ -108,3 +108,13 @@ export const saveMap = (settingJson: string, table: string) => {
     .then(
       (response) => alert("saved"));
 }
+
+export const loadMap = () => {
+
+  const name = prompt("name?");
+
+  const query = `name=${name}`;
+  axios.default.get(`/load_map?${query}`)
+    .then(
+      (response) => alert("load: " + response));
+}

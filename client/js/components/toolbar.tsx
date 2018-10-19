@@ -23,7 +23,7 @@ import {
   selectGeomType,
   toggleDrawer,
 } from '../actions/toolbar';
-import {saveMap} from '../models/layer';
+import {loadMap, saveMap} from '../models/layer';
 import {RootState} from '../reducers';
 
 interface ToolbarProps {
@@ -54,6 +54,7 @@ const LgisToolbar = (props: ToolbarProps) => {
   } = props;
 
   const saveMapWrapper = (event: React.MouseEvent<HTMLElement>) => saveMap(settings, table);
+  const loadMapWrapper = (event: React.MouseEvent<HTMLElement>) => loadMap();
 
   return (
     <div>
@@ -127,6 +128,12 @@ const LgisToolbar = (props: ToolbarProps) => {
           className={classes.button}
           onClick={saveMapWrapper}>
           Save
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={loadMapWrapper}>
+          Load
         </Button>
       </Drawer>
     </div>

@@ -116,5 +116,8 @@ export const loadMap = () => {
   const query = `name=${name}`;
   axios.default.get(`/load_map?${query}`)
     .then(
-      (response) => alert("load: " + response));
+      (response) => {
+        alert("loaded");
+        console.log(response);
+      });
 }

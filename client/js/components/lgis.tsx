@@ -1,4 +1,4 @@
-import {withStyles, createStyles} from '@material-ui/core/styles';
+import {createStyles, withStyles} from '@material-ui/core/styles';
 import {Theme} from '@material-ui/core/styles/createMuiTheme';
 import * as classNames from 'classnames';
 import * as React from 'react';

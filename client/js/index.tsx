@@ -29,7 +29,8 @@ window.addEventListener(
         <ConnectedRouter history={history}>
           <div>
             <Switch>
-              <Lgis />
+              <Route exact={true} path="/" component={Lgis} />
+              <Route render={() => <div>miss</div>} />
             </Switch>
           </div>
         </ConnectedRouter>

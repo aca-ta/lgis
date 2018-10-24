@@ -1,8 +1,9 @@
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
+import {Route, Switch} from 'react-router';
 import {applyMiddleware, compose, createStore, Reducer} from 'redux';
 import {Lgis} from './components/lgis';
 import {reducer} from './reducers';
@@ -25,7 +26,13 @@ window.addEventListener(
   () => {
     ReactDOM.render(
       <Provider store={store}>
-        <Lgis />
+        <ConnectedRouter history={history}>
+          <div>
+            <Switch>
+              <Lgis />
+            </Switch>
+          </div>
+        </ConnectedRouter>
       </Provider>,
       document.querySelector('#app'),
     );

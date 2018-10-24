@@ -5,11 +5,6 @@ const loadMap = require('../app/loadMap');
 
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', (req, res) => {
-  res.render('index', { title: 'Express' });
-});
-
 
 router.get('/tiles/:host/:db/:table/:datum/:Z/:X/:Y/', (req, res) => {
   tile.createMvt(req, (err, data) => {
@@ -24,7 +19,6 @@ router.get('/tiles/:host/:db/:table/:datum/:Z/:X/:Y/', (req, res) => {
   });
 });
 
-
 router.get('/save_map', (req, res) => {
   saveMap.save(req, data => {
     console.log(data);
@@ -37,6 +31,10 @@ router.get('/load_map', (req, res) => {
     console.log(data);
     res.status(200).end(data);
   });
+});
+
+router.get('*', (req, res) => {
+  res.render('index', { title: 'Express' });
 });
 
 

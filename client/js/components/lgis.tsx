@@ -2,6 +2,7 @@ import {createStyles, withStyles} from '@material-ui/core/styles';
 import {Theme} from '@material-ui/core/styles/createMuiTheme';
 import * as classNames from 'classnames';
 import * as React from 'react';
+import {connect} from 'react-redux';
 import {MAP} from './map';
 import {LGISToolbar} from './toolbar';
 
@@ -85,25 +86,31 @@ interface AppProps {
   classes: any;
 }
 
-const App = (props: AppProps) => {
-  const {classes} = props;
-
-  return (
-    <div className={classes.root}>
-      <div className={classes.appFrame}>
-        <LGISToolbar classes={classes} />
-        <main
-          className={classNames(
-            classes.content,
-            classes['content-left'],
-            classes.contentShift,
-          )}>
-          <div className={classes.drawerHeader} />
-          <MAP />
-        </main>
+class App extends React.Component<AppProps, {}> {
+  public render() {
+    const {classes} = this.props;
+    return (
+      <div className={classes.root}>
+        <div className={classes.appFrame}>
+          <LGISToolbar classes={classes} />
+          <main
+            className={classNames(
+              classes.content,
+              classes['content-left'],
+              classes.contentShift,
+            )}>
+            <div className={classes.drawerHeader} />
+            <MAP />
+          </main>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+
+  private componentdidmount() {
+    // TODO: load savedMap.
+    console.log('App mounted.');
+  }
+}
 
 export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);

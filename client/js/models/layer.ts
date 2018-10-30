@@ -39,6 +39,19 @@ const polygonLayer = {
   },
 };
 
+const polygon3DLayer = {
+  id: 'polygon',
+  type: 'fill-extrusion',
+  source: 'lgis',
+  'source-layer': 'tile',
+  interactive: true,
+  paint: {
+    'fill-extrusion-color': '#96a186',
+    'fill-extrusion-opacity': 0.8,
+    'fill-extrusion-height': 1*2,
+  },
+};
+
 const createSource = (
   host: string,
   db: string,
@@ -59,6 +72,8 @@ const selectLayerStyle = (geomType: string) => {
       return fromJS(lineStringLayer);
     case 'polygon':
       return fromJS(polygonLayer);
+    case 'polygon3d':
+      return fromJS(polygon3DLayer);
     default:
       throw new Error('Geometry type is not choosen.');
   }

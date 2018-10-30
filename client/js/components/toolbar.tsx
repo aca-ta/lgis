@@ -109,6 +109,7 @@ const LgisToolbar = (props: ToolbarProps) => {
           <MenuItem value="point">Point</MenuItem>
           <MenuItem value="linestring">LineString</MenuItem>
           <MenuItem value="polygon">Polygon</MenuItem>
+          <MenuItem value="polygon3d">Polygon3D</MenuItem>
         </Select>
         <TextField
           id="lgis-table"

@@ -48,7 +48,7 @@ const polygon3DLayer = {
   paint: {
     'fill-extrusion-color': '#96a186',
     'fill-extrusion-opacity': 0.8,
-    'fill-extrusion-height': 1*2,
+    'fill-extrusion-height': ['get', 'height'],
   },
 };
 

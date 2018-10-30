@@ -87,6 +87,12 @@ interface AppProps {
 }
 
 class App extends React.Component<AppProps, {}> {
+
+  public componentDidMount() {
+    // TODO: load savedMap.
+    console.log('App mounted.');
+  }
+  
   public render() {
     const {classes} = this.props;
     return (
@@ -107,10 +113,6 @@ class App extends React.Component<AppProps, {}> {
     );
   }
 
-  private componentdidmount() {
-    // TODO: load savedMap.
-    console.log('App mounted.');
-  }
 }
 
 export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);

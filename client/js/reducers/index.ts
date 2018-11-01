@@ -1,3 +1,4 @@
+import {RouterState} from 'connected-react-router';
 import reduceReducers from 'reduce-reducers';
 import {combineReducers, Reducer} from 'redux';
 import {
@@ -14,13 +15,14 @@ import {
 } from '../actions/toolbar';
 import {MapState} from '../components/map';
 import {ToolbarState} from '../components/toolbar';
-import {addLayerStyle} from '../models/layer';
+import {addLayerStyle, loadMap} from '../models/layer';
 import {mapReducer} from './map';
 import {toolbarReducer} from './toolbar';
 
 export interface RootState {
   toolbar: ToolbarState;
   map: MapState;
+  router: RouterState;
 }
 
 const combinedReducers = combineReducers<RootState>({
@@ -34,7 +36,7 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
   switch (action.type) {
     case toolbarActions.ADD_LAYER:
       return {
-        toolbar: state.toolbar,
+        ...state,
         map: {
           ...state.map,
           mapStyle: addLayerStyle(
@@ -47,10 +49,7 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
       };
     case loadActions.LOAD_MAP:
       return {
-        toolbar: state.toolbar,
-        map: {
-          ...state.map
-        }
+        ...state
       }
     default:
       return state;

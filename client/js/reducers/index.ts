@@ -1,6 +1,10 @@
 import reduceReducers from 'reduce-reducers';
 import {combineReducers, Reducer} from 'redux';
 import {
+  Actions as loadActions,
+  ActionTypes as loadActionType,
+} from '../actions/load';
+import {
   Actions as mapActions,
   ActionTypes as mapActionType,
 } from '../actions/map';
@@ -24,7 +28,7 @@ const combinedReducers = combineReducers<RootState>({
   map: mapReducer,
 } as any);
 
-type RootActionType = toolbarActionType | mapActionType;
+type RootActionType = toolbarActionType | mapActionType | loadActionType;
 
 const crossSliceReducer = (state: RootState, action: RootActionType) => {
   switch (action.type) {
@@ -41,6 +45,13 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
           ),
         },
       };
+    case loadActions.LOAD_MAP:
+      return {
+        toolbar: state.toolbar,
+        map: {
+          ...state.map
+        }
+      }
     default:
       return state;
   }

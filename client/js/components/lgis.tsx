@@ -1,8 +1,14 @@
-import {createStyles, withStyles} from '@material-ui/core/styles';
+import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import {Theme} from '@material-ui/core/styles/createMuiTheme';
 import * as classNames from 'classnames';
+import {Location} from 'history';
 import * as React from 'react';
 import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
+import {
+  ActionTypes,
+  loadMap,
+} from '../actions/load';
 import {MAP} from './map';
 import {LGISToolbar} from './toolbar';
 
@@ -84,13 +90,13 @@ const styles = (theme: Theme) =>
 
 interface AppProps {
   classes: any;
+  dispatchLoadMap: () => void;
 }
 
 class App extends React.Component<AppProps, {}> {
 
   public componentDidMount() {
-    // TODO: load savedMap.
-    console.log('App mounted.');
+    this.props.dispatchLoadMap();
   }
   
   public render() {
@@ -115,4 +121,13 @@ class App extends React.Component<AppProps, {}> {
 
 }
 
-export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);
+const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
+  dispatchLoadMap: () => {
+    dispatch(loadMap());
+  }
+})
+
+export const Lgis = connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles, {withTheme: true})(App))

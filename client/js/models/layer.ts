@@ -1,4 +1,4 @@
-import * as axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {fromJS} from 'immutable';
 import * as MAP_STYLE from './map-style-basic-v8.json';
 
@@ -104,18 +104,26 @@ export const saveMap = (settingJson: string, table: string) => {
   const name = prompt("The map name is...", "");
 
   const query = `name=${name}&host=${settings.host}&db=${settings.db}&table=${table}&datum=${settings.datum}`
-  axios.default.get(`/save_map?${query}`)
+  axios.get(`/save_map?${query}`)
     .then(
       (response) => alert("saved"));
+}
+
+interface LoadMapResponse {
+  name: string;
+  host: string;
+  db: string;
+  table: string;
+  datum: string;
 }
 
 export const loadMap = (name: string) => {
 
   const query = `name=${name}`;
-  axios.default.get(`/load_map?${query}`)
+  axios.get(`/load_map?${query}`)
     .then(
-      (response) => {
+      (response: AxiosResponse<LoadMapResponse>) => {
         alert("loaded");
-        console.log(response);
+        console.log(response.data.name);
       });
 }

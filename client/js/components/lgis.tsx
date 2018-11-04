@@ -90,13 +90,16 @@ const styles = (theme: Theme) =>
 
 interface AppProps {
   classes: any;
-  dispatchLoadMap: () => void;
+  dispatchLoadMap: (pathname: string) => void;
+  location: Location;
 }
 
 class App extends React.Component<AppProps, {}> {
 
   public componentDidMount() {
-    this.props.dispatchLoadMap();
+    const {dispatchLoadMap, location} = this.props;
+    const path = location.pathname.replace(/^\/+/g, "");
+    dispatchLoadMap(path);
   }
   
   public render() {
@@ -122,8 +125,8 @@ class App extends React.Component<AppProps, {}> {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
-  dispatchLoadMap: () => {
-    dispatch(loadMap());
+  dispatchLoadMap: (pathname: string) => {
+    dispatch(loadMap(pathname));
   }
 })
 

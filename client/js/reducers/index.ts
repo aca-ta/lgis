@@ -48,8 +48,18 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
         },
       };
     case loadActions.LOAD_MAP:
+      const loaded = loadMap(action.payload.pathname);
       return {
-        ...state
+        ...state,
+        map: {
+          ...state.map,
+          mapStyle: addLayerStyle(
+            state.map.mapStyle,
+            state.toolbar.settings,
+            state.toolbar.table,
+            state.toolbar.geomType,
+          ),
+        },
       }
     default:
       return state;

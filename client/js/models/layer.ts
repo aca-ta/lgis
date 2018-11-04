@@ -118,12 +118,11 @@ interface LoadMapResponse {
 }
 
 export const loadMap = (name: string) => {
-
   const query = `name=${name}`;
   axios.get(`/load_map?${query}`)
     .then(
       (response: AxiosResponse<LoadMapResponse>) => {
         alert("loaded");
-        console.log(response.data.name);
+        return response.data;
       });
 }

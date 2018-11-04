@@ -5,10 +5,7 @@ import {Location} from 'history';
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {
-  ActionTypes,
-  loadMap,
-} from '../actions/load';
+import {ActionTypes, loadMap} from '../actions/load';
 import {MAP} from './map';
 import {LGISToolbar} from './toolbar';
 
@@ -95,13 +92,15 @@ interface AppProps {
 }
 
 class App extends React.Component<AppProps, {}> {
-
   public componentDidMount() {
     const {dispatchLoadMap, location} = this.props;
-    const path = location.pathname.replace(/^\/+/g, "");
+    const path = location.pathname.replace(/^\/+/g, '');
+    if (!path) {
+      return;
+    }
     dispatchLoadMap(path);
   }
-  
+
   public render() {
     const {classes} = this.props;
     return (
@@ -121,16 +120,15 @@ class App extends React.Component<AppProps, {}> {
       </div>
     );
   }
-
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
   dispatchLoadMap: (pathname: string) => {
     dispatch(loadMap(pathname));
-  }
-})
+  },
+});
 
 export const Lgis = connect(
   null,
-  mapDispatchToProps
-)(withStyles(styles, {withTheme: true})(App))
+  mapDispatchToProps,
+)(withStyles(styles, {withTheme: true})(App));

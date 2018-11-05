@@ -104,7 +104,7 @@ export const saveMap = (
 ) => {
   const settings = JSON.parse(settingJson);
 
-  // FIXME: use modal dialog
+  // FIXME: use modal dialog instead of prompt
   const name = prompt('The map name is...', '');
 
   const query = `name=${name}&settings=${JSON.stringify(
@@ -116,7 +116,7 @@ export const saveMap = (
 interface LoadMapResponse {
   name: string;
   table: string;
-  geomtype: string;
+  geomtype: string; // TODO: geomType
   settings: {
     host: string;
     db: string;

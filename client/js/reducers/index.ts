@@ -15,7 +15,7 @@ import {
 } from '../actions/toolbar';
 import {MapState} from '../components/map';
 import {ToolbarState} from '../components/toolbar';
-import {addLayerStyle, loadMap} from '../models/layer';
+import {addLayerStyle} from '../models/layer';
 import {mapReducer} from './map';
 import {toolbarReducer} from './toolbar';
 
@@ -48,16 +48,15 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
         },
       };
     case loadActions.LOAD_MAP:
-      const loaded = loadMap(action.payload.pathname);
       return {
         ...state,
         map: {
           ...state.map,
           mapStyle: addLayerStyle(
             state.map.mapStyle,
-            state.toolbar.settings,
-            state.toolbar.table,
-            state.toolbar.geomType,
+            action.payload.settings,
+            action.payload.table,
+            action.payload.geomType,
           ),
         },
       }

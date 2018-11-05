@@ -4,12 +4,12 @@ export enum Actions {
 
 export interface LoadMapAction {
   readonly type: Actions.LOAD_MAP;
-  payload: {pathname: string}
+  payload: {name: string, table: string, geomType: string, settings: any}
 }
 
-export const loadMap = (pathname: string): LoadMapAction => ({
+export const loadMap = (name: string, table: string, geomType: string, settings: any): LoadMapAction => ({
   type: Actions.LOAD_MAP,
-  payload: {pathname}
+  payload: {name, table, geomType, settings}
 });
 
 

@@ -5,7 +5,8 @@ import {Location} from 'history';
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {ActionTypes, loadMap} from '../actions/load';
+import {ActionTypes, loadMap as loadMapAct} from '../actions/load';
+import {loadMap} from '../models/layer';
 import {MAP} from './map';
 import {LGISToolbar} from './toolbar';
 
@@ -87,7 +88,7 @@ const styles = (theme: Theme) =>
 
 interface AppProps {
   classes: any;
-  dispatchLoadMap: (pathname: string) => void;
+  dispatchLoadMap: (name: string, table: string, geomtype: string, settings: any) => void;
   location: Location;
 }
 
@@ -98,7 +99,10 @@ class App extends React.Component<AppProps, {}> {
     if (!path) {
       return;
     }
-    dispatchLoadMap(path);
+    loadMap(path).then(data => {
+      const {name, table, geomtype, settings} = data;
+      dispatchLoadMap(name, table, geomtype, settings);
+    });
   }
 
   public render() {
@@ -123,8 +127,8 @@ class App extends React.Component<AppProps, {}> {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
-  dispatchLoadMap: (pathname: string) => {
-    dispatch(loadMap(pathname));
+  dispatchLoadMap: (name: string, table: string, geomType: string, settings: any) => {
+    dispatch(loadMapAct(name, table, geomType, settings));
   },
 });
 

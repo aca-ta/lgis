@@ -53,7 +53,7 @@ const LgisToolbar = (props: ToolbarProps) => {
     dispatchAddLayer,
   } = props;
 
-  const saveMapWrapper = (event: React.MouseEvent<HTMLElement>) => saveMap(settings, table);
+  const saveMapWrapper = (event: React.MouseEvent<HTMLElement>) => saveMap(settings, table, geomType);
   const loadMapWrapper = (event: React.MouseEvent<HTMLElement>) => loadMap("");
 
   return (

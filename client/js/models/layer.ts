@@ -23,7 +23,7 @@ const lineStringLayer = {
   interactive: true,
   paint: {
     'line-color': '#176b31',
-    'line-width': 2
+    'line-width': 2,
   },
 };
 
@@ -97,32 +97,44 @@ export const addLayerStyle = (
   return mapStyle;
 };
 
-export const saveMap = (settingJson: string, table: string) => {
+export const saveMap = (
+  settingJson: string,
+  table: string,
+  geomType: string,
+) => {
   const settings = JSON.parse(settingJson);
 
   // FIXME: use modal dialog
-  const name = prompt("The map name is...", "");
+  const name = prompt('The map name is...', '');
 
-  const query = `name=${name}&host=${settings.host}&db=${settings.db}&table=${table}&datum=${settings.datum}`
-  axios.get(`/save_map?${query}`)
-    .then(
-      (response) => alert("saved"));
-}
+  const query = `name=${name}&settings=${JSON.stringify(
+    settings,
+  )}&geomtype=${geomType}&table=${table}`;
+  axios.get(`/save_map?${query}`).then(response => alert('saved'));
+};
 
 interface LoadMapResponse {
   name: string;
-  host: string;
-  db: string;
   table: string;
-  datum: string;
+  geomtype: string;
+  settings: {
+    host: string;
+    db: string;
+    datum: string;
+  };
 }
 
-export const loadMap = (name: string) => {
+// export const loadMap = (name: string) => {
+//   const query = `name=${name}`;
+//   return axios
+//     .get(`/load_map?${query}`)
+//     .then((response: AxiosResponse<LoadMapResponse>) => {
+//       alert('loaded');
+//       return response.data;
+//     });
+// };
+export const loadMap = async (name: string) => {
   const query = `name=${name}`;
-  axios.get(`/load_map?${query}`)
-    .then(
-      (response: AxiosResponse<LoadMapResponse>) => {
-        alert("loaded");
-        return response.data;
-      });
-}
+  const res: AxiosResponse<LoadMapResponse> = await axios.get(`/load_map?${query}`)
+  return res.data;
+};

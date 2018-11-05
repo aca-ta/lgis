@@ -91,7 +91,7 @@ const LgisToolbar = (props: ToolbarProps) => {
           id="lgis-settings"
           className={classes.textfield}
           label="Settings"
-          defaultValue={settings}
+          value={settings}
           multiline={true}
           rows="10"
           onChange={dispatchInputSettings}
@@ -112,7 +112,7 @@ const LgisToolbar = (props: ToolbarProps) => {
           id="lgis-table"
           className={classes.textfield}
           label="Table"
-          defaultValue={table}
+          value={table}
           multiline={true}
           rows="8"
           onChange={dispatchInputTable}
@@ -128,12 +128,6 @@ const LgisToolbar = (props: ToolbarProps) => {
           className={classes.button}
           onClick={saveMapWrapper}>
           Save
-        </Button>
-        <Button
-          variant="contained"
-          className={classes.button}
-          onClick={loadMapWrapper}>
-          Load
         </Button>
       </Drawer>
     </div>

@@ -102,7 +102,10 @@ class App extends React.Component<AppProps, {}> {
     loadMap(path).then(data => {
       const {name, table, geomtype, settings} = data;
       dispatchLoadMap(name, table, geomtype, settings);
-    });
+    })
+    .catch(err => {
+        console.error(err.response.data);
+      });
   }
 
   public render() {

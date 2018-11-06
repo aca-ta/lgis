@@ -27,9 +27,15 @@ router.get('/save_map', (req, res) => {
 });
 
 router.get('/load_map', (req, res) => {
-  loadMap.load(req, data => {
-    console.log(data);
-    res.status(200).end(data);
+  loadMap.load(req, (err, msg) => {
+    if (err) {
+      console.log(err);
+      res.status(500);
+      res.end(msg);
+      return;
+    }
+    console.log(msg);
+    res.status(200).end(msg);
   });
 });
 

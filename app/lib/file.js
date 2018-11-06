@@ -23,7 +23,6 @@ module.exports.read = (name) => {
 
   const basePath = getSavedMapPath(name);
 
-  //: TODO error handling.
   const data = fs.readFileSync(basePath);
   return data
 }

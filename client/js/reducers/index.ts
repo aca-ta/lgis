@@ -65,7 +65,7 @@ const crossSliceReducer = (state: RootState, action: RootActionType) => {
             action.payload.geomType,
           ),
         },
-      }
+      };
     default:
       return state;
   }

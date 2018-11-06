@@ -1,5 +1,9 @@
-import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
+import {
+  ConnectedRouter,
+  connectRouter,
+  routerMiddleware,
+} from 'connected-react-router';
+import {createBrowserHistory} from 'history';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
@@ -15,10 +19,7 @@ const store = createStore(
   typeof window !== 'undefined' &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
-  compose(
-    applyMiddleware(
-    routerMiddleware(history),
-  ))
+  compose(applyMiddleware(routerMiddleware(history))),
 );
 
 window.addEventListener(

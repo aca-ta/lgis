@@ -53,8 +53,9 @@ const LgisToolbar = (props: ToolbarProps) => {
     dispatchAddLayer,
   } = props;
 
-  const saveMapWrapper = (event: React.MouseEvent<HTMLElement>) => saveMap(settings, table, geomType);
-  const loadMapWrapper = (event: React.MouseEvent<HTMLElement>) => loadMap("");
+  const saveMapWrapper = (event: React.MouseEvent<HTMLElement>) =>
+    saveMap(settings, table, geomType);
+  const loadMapWrapper = (event: React.MouseEvent<HTMLElement>) => loadMap('');
 
   return (
     <div>
@@ -82,8 +83,7 @@ const LgisToolbar = (props: ToolbarProps) => {
           paper: classes.drawerPaper,
         }}>
         <div className={classes.drawerHeader}>
-          <IconButton
-            onClick={dispatchDrawerOpen}>
+          <IconButton onClick={dispatchDrawerOpen}>
             <ChevronLeft />
           </IconButton>
         </div>

@@ -4,7 +4,7 @@ const getSavedMapPath = (name) => {
   return `etc/savedMaps/${name}.json`;
 } 
 
-module.exports.write = (name, settings, geomtype, table) => {
+module.exports.write = (name, settings, geomType, table) => {
 
   const basePath = getSavedMapPath(name);
   const stream = fs.createWriteStream(basePath, 'utf8');
@@ -12,7 +12,7 @@ module.exports.write = (name, settings, geomtype, table) => {
   const saved = {
     name,
     settings,
-    geomtype,
+    geomType,
     table,
   }
   stream.write(JSON.stringify(saved));

@@ -2,8 +2,9 @@ const file = require('./lib/file');
 
 module.exports.load = (req, func) => {
 
+  let data = "";
   try {
-    const data = file.read(req.query.name);
+    data = file.read(req.query.name);
   } catch (err) {
     if (err.code === 'ENOENT') {
       const msg = `ERROR: ${req.query.name} not found.`;

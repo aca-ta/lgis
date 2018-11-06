@@ -61,7 +61,7 @@ const selectLayerStyle = (geomType: string) => {
     case 'polygon':
       return fromJS(polygonLayer);
     default:
-      throw new Error('Geometry type is not choosen.');
+      alert('Geometry type is not choosen.');
   }
 };
 
@@ -109,14 +109,14 @@ export const saveMap = (
 
   const query = `name=${name}&settings=${JSON.stringify(
     settings,
-  )}&geomtype=${geomType}&table=${table}`;
+  )}&geomType=${geomType}&table=${table}`;
   axios.get(`/save_map?${query}`).then(response => alert('saved'));
 };
 
 interface LoadMapResponse {
   name: string;
   table: string;
-  geomtype: string; // TODO: geomType
+  geomType: string;
   settings: {
     host: string;
     db: string;
@@ -124,15 +124,6 @@ interface LoadMapResponse {
   };
 }
 
-// export const loadMap = (name: string) => {
-//   const query = `name=${name}`;
-//   return axios
-//     .get(`/load_map?${query}`)
-//     .then((response: AxiosResponse<LoadMapResponse>) => {
-//       alert('loaded');
-//       return response.data;
-//     });
-// };
 export const loadMap = async (name: string) => {
   const query = `name=${name}`;
   const res: AxiosResponse<LoadMapResponse> = await axios.get(`/load_map?${query}`)

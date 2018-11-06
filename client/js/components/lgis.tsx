@@ -88,7 +88,12 @@ const styles = (theme: Theme) =>
 
 interface AppProps {
   classes: any;
-  dispatchLoadMap: (name: string, table: string, geomtype: string, settings: any) => void;
+  dispatchLoadMap: (
+    name: string,
+    table: string,
+    geomtype: string,
+    settings: any,
+  ) => void;
   location: Location;
 }
 
@@ -101,12 +106,16 @@ class App extends React.Component<AppProps, {}> {
     }
     loadMap(path)
       .then(data => {
-      const {name, table, geomType, settings} = data;
-      dispatchLoadMap(name, table, geomType, settings);
-    })
-    .catch(err => {
-        console.error(err.response.data);
+        const {name, table, geomType, settings} = data;
+        dispatchLoadMap(name, table, geomType, settings);
       })
+      .catch(err => {
+        if (err.response) {
+          console.log(err.response.data);
+        } else {
+          console.log(err.message);
+        }
+      });
   }
 
   public render() {
@@ -131,7 +140,12 @@ class App extends React.Component<AppProps, {}> {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
-  dispatchLoadMap: (name: string, table: string, geomType: string, settings: any) => {
+  dispatchLoadMap: (
+    name: string,
+    table: string,
+    geomType: string,
+    settings: any,
+  ) => {
     dispatch(loadMapAct(name, table, geomType, settings));
   },
 });

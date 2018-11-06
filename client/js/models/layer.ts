@@ -1,3 +1,4 @@
+import axios, {AxiosResponse} from 'axios';
 import {fromJS} from 'immutable';
 import * as MAP_STYLE from './map-style-basic-v8.json';
 
@@ -22,7 +23,7 @@ const lineStringLayer = {
   interactive: true,
   paint: {
     'line-color': '#176b31',
-    'line-width': 2
+    'line-width': 2,
   },
 };
 
@@ -75,7 +76,7 @@ const selectLayerStyle = (geomType: string) => {
     case 'polygon3d':
       return fromJS(polygon3DLayer);
     default:
-      throw new Error('Geometry type is not choosen.');
+      alert('Geometry type is not choosen.');
   }
 };
 
@@ -109,4 +110,37 @@ export const addLayerStyle = (
   let mapStyle = setSource(prevMapStyle, fromJS(source));
   mapStyle = setLayer(mapStyle, layer);
   return mapStyle;
+};
+
+export const saveMap = (
+  settingJson: string,
+  table: string,
+  geomType: string,
+) => {
+  const settings = JSON.parse(settingJson);
+
+  // FIXME: use modal dialog instead of prompt
+  const name = prompt('The map name is...', '');
+
+  const query = `name=${name}&settings=${JSON.stringify(
+    settings,
+  )}&geomType=${geomType}&table=${table}`;
+  axios.get(`/save_map?${query}`).then(response => alert('saved'));
+};
+
+interface LoadMapResponse {
+  name: string;
+  table: string;
+  geomType: string;
+  settings: {
+    host: string;
+    db: string;
+    datum: string;
+  };
+}
+
+export const loadMap = async (name: string) => {
+  const query = `name=${name}`;
+  const res: AxiosResponse<LoadMapResponse> = await axios.get(`/load_map?${query}`)
+  return res.data;
 };

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const mapnik = require('mapnik');
-const mercator = require('./sphericalmercator');
+const mercator = require('./lib/sphericalmercator');
 
 
 // register postgis plugin

@@ -2,6 +2,7 @@
   "name": "lgis",
   "version": "0.1.0",
   "author": "seljydef",
+  "license": "MIT",
   "scripts": {
     "start": "node ./bin/www",
     "build": "webpack",
@@ -12,28 +13,35 @@
     "@material-ui/core": "^1.4.1",
     "@material-ui/icons": "^2.0.0",
     "@types/classnames": "^2.2.6",
+    "@types/history": "^4.7.2",
     "@types/immutable": "^3.8.7",
     "@types/material-ui": "^0.21.5",
     "@types/react": "^16.4.9",
     "@types/react-dom": "^16.0.7",
     "@types/react-map-gl": "^3.3.1",
     "@types/react-redux": "^6.0.6",
+    "@types/react-router": "^4.0.32",
     "@types/reduce-reducers": "^0.1.3",
+    "axios": "^0.18.0",
     "body-parser": "^1.17.1",
     "classnames": "^2.2.6",
+    "connected-react-router": "^4.5.0",
     "cookie-parser": "^1.4.3",
     "debug": "^3.1.0",
     "dotenv": "^6.0.0",
     "ejs": "^2.5.6",
     "express": "^4.15.3",
+    "history": "^4.7.2",
     "immutable": "^3.8.2",
     "mapnik": "^3.6.2",
+    "mkdirp": "^0.5.1",
     "morgan": "^1.8.1",
     "motion-ui": "^1.2.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-map-gl": "^4.0.0-alpha.1",
     "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
     "reduce-reducers": "^0.4.3",
     "redux": "^4.0.0",
     "serve-favicon": "^2.4.2"
@@ -66,6 +74,13 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

@@ -1,41 +1,42 @@
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import Drawer    from '@material-ui/core/Drawer';
+import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import InputLabel from '@material-ui/core/InputLabel';
-import List      from '@material-ui/core/List';
-import MenuItem  from '@material-ui/core/MenuItem';
-import Select    from '@material-ui/core/Select';
-import Toolbar   from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
-import ChevronLeft  from '@material-ui/icons/ChevronLeft';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import Menu from '@material-ui/icons/Menu';
 import * as classNames from 'classnames';
 import * as React from 'react';
-import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
 import {
   ActionTypes,
-  toggleDrawer,
+  addLayer,
   inputSettings,
   inputTable,
   selectGeomType,
-  addLayer,
+  toggleDrawer,
 } from '../actions/toolbar';
+import {loadMap, saveMap} from '../models/layer';
 import {RootState} from '../reducers';
 
 interface ToolbarProps {
   classes: any;
   open: boolean;
-  dispatchDrawerOpen: () => void;
+  dispatchDrawerOpen: (e: React.MouseEvent<HTMLElement>) => void;
   settings: string;
-  dispatchInputSettings: (settings: string) => void;
+  dispatchInputSettings: (e: React.ChangeEvent<HTMLInputElement>) => void;
   table: string;
   geomType: string;
-  dispatchInputTable: (table: string) => void;
-  dispatchSelectGeomType: (geomType: string) => void;
-  dispatchAddLayer: (settings: string, table: string) => void;
+  dispatchInputTable: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  dispatchSelectGeomType: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  dispatchAddLayer: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 const LgisToolbar = (props: ToolbarProps) => {
@@ -52,6 +53,10 @@ const LgisToolbar = (props: ToolbarProps) => {
     dispatchAddLayer,
   } = props;
 
+  const saveMapWrapper = (event: React.MouseEvent<HTMLElement>) =>
+    saveMap(settings, table, geomType);
+  const loadMapWrapper = (event: React.MouseEvent<HTMLElement>) => loadMap('');
+
   return (
     <div>
       <AppBar
@@ -62,7 +67,7 @@ const LgisToolbar = (props: ToolbarProps) => {
           <IconButton
             color="primary"
             aria-label="Open drawer"
-            onClick={(e: React.MouseEvent<HTMLElement>) => dispatchDrawerOpen()}
+            onClick={dispatchDrawerOpen}
             className={classNames(classes.menuButton, open && classes.hide)}>
             <Menu />
           </IconButton>
@@ -78,10 +83,7 @@ const LgisToolbar = (props: ToolbarProps) => {
           paper: classes.drawerPaper,
         }}>
         <div className={classes.drawerHeader}>
-          <IconButton
-            onClick={(e: React.MouseEvent<HTMLElement>) =>
-              dispatchDrawerOpen()
-            }>
+          <IconButton onClick={dispatchDrawerOpen}>
             <ChevronLeft />
           </IconButton>
         </div>
@@ -89,22 +91,18 @@ const LgisToolbar = (props: ToolbarProps) => {
           id="lgis-settings"
           className={classes.textfield}
           label="Settings"
-          defaultValue={settings}
+          value={settings}
           multiline={true}
           rows="10"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            dispatchInputSettings(e.target.value)
-          }
+          onChange={dispatchInputSettings}
         />
-        <InputLabel shrink htmlFor="geom-type-label-placeholder">
+        <InputLabel shrink={true} htmlFor="geom-type-label-placeholder">
           Geometry type
         </InputLabel>
         <Select
           value={geomType}
           className={classes.selector}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            dispatchSelectGeomType(e.target.value)
-          }
+          onChange={dispatchSelectGeomType}
           inputProps={{name: 'GeomType', id: 'geom-type'}}>
           <MenuItem value="point">Point</MenuItem>
           <MenuItem value="linestring">LineString</MenuItem>
@@ -115,20 +113,22 @@ const LgisToolbar = (props: ToolbarProps) => {
           id="lgis-table"
           className={classes.textfield}
           label="Table"
-          defaultValue={table}
+          value={table}
           multiline={true}
           rows="8"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            dispatchInputTable(e.target.value)
-          }
+          onChange={dispatchInputTable}
         />
         <Button
           variant="contained"
           className={classes.button}
-          onClick={(e: React.MouseEvent<HTMLElement>) =>
-            dispatchAddLayer(settings, table)
-          }>
+          onClick={dispatchAddLayer}>
           Show
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={saveMapWrapper}>
+          Save
         </Button>
       </Drawer>
     </div>
@@ -150,20 +150,20 @@ const mapStateToProps = (state: RootState): ToolbarState => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
-  dispatchDrawerOpen: () => {
+  dispatchDrawerOpen: (e: React.MouseEvent<HTMLElement>) => {
     dispatch(toggleDrawer());
   },
-  dispatchInputSettings: (settings: string) => {
-    dispatch(inputSettings(settings));
+  dispatchInputSettings: (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(inputSettings(e.target.value));
   },
-  dispatchInputTable: (table: string) => {
-    dispatch(inputTable(table));
+  dispatchInputTable: (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(inputTable(e.target.value));
   },
-  dispatchSelectGeomType: (geomType: string) => {
-    dispatch(selectGeomType(geomType));
+  dispatchSelectGeomType: (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(selectGeomType(e.target.value));
   },
-  dispatchAddLayer: (settings: string, table: string) => {
-    dispatch(addLayer(settings, table));
+  dispatchAddLayer: (e: React.MouseEvent<HTMLInputElement>) => {
+    dispatch(addLayer());
   },
 });
 

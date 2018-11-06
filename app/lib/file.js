@@ -1,11 +1,17 @@
 const fs = require('fs');
+const mkdirp = require('mkdirp')
+
+const baseDir = "etc/savedMaps"
 
 const getSavedMapPath = (name) => {
-  return `etc/savedMaps/${name}.json`;
+  return `${baseDir}/${name}.json`;
 } 
 
 module.exports.write = (name, settings, geomType, table) => {
 
+	if (!fs.existsSync(baseDir)) {
+			mkdirp.sync(baseDir);
+	}
   const basePath = getSavedMapPath(name);
   const stream = fs.createWriteStream(basePath, 'utf8');
 

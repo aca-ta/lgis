@@ -1,6 +1,6 @@
 const express = require('express');
 const tile = require('../app/tile');
-const saveMap = require('../app/savemap');
+const saveMap = require('../app/saveMap');
 const loadMap = require('../app/loadMap');
 
 const router = express.Router();

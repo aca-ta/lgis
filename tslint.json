@@ -8,6 +8,7 @@
     "ter-arrow-parens": false,
     "no-submodule-imports": false,
     "no-unused-variable": true,
-    "interface-name": false
+    "interface-name": false,
+    "no-console": false
   }
 }

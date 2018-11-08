@@ -11,7 +11,7 @@ const pointLayer = {
   'source-layer': 'tile',
   interactive: true,
   paint: {
-    'circle-color': '#4153f4',
+    'circle-color': ['coalesce', ['get', 'color'], '#4153f4'],
   },
 };
 
@@ -22,7 +22,7 @@ const lineStringLayer = {
   'source-layer': 'tile',
   interactive: true,
   paint: {
-    'line-color': '#176b31',
+    'line-color': ['coalesce', ['get', 'color'], '#176b31'],
     'line-width': 2,
   },
 };
@@ -34,7 +34,7 @@ const polygonLayer = {
   'source-layer': 'tile',
   interactive: true,
   paint: {
-    'fill-color': '#96a186',
+    'fill-color': ['coalesce', ['get', 'color'], '#96a186'],
     'fill-opacity': 0.8,
     'fill-outline-color': 'black',
   },
@@ -47,7 +47,7 @@ const polygon3DLayer = {
   'source-layer': 'tile',
   interactive: true,
   paint: {
-    'fill-extrusion-color': '#96a186',
+    'fill-extrusion-color': ['coalesce', ['get', 'color'], '#96a186'],
     'fill-extrusion-opacity': 0.8,
     'fill-extrusion-height': ['get', 'height'],
   },

@@ -50,14 +50,11 @@ const polygonLayer = [
       'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
       'text-transform': 'uppercase',
       'text-letter-spacing': 0.1,
-      'text-size': {
-        base: 1.4,
-        stops: [[10, 8], [20, 14]],
-      },
+      'text-size': 10,
     },
     type: 'symbol',
     source: 'lgis',
-    id: 'polygon_label',
+    id: 'label',
     paint: {
       'text-color': '#666',
       'text-halo-color': 'rgba(255,255,255,0.75)',

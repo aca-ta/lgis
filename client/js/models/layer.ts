@@ -12,7 +12,7 @@ const pointLayer = [
     'source-layer': 'tile',
     interactive: true,
     paint: {
-      'circle-color': ['coalesce', ['get', 'color'], '#4153f4'],
+      'circle-color': ['coalesce', ['get', '_color'], '#4153f4'],
     },
   },
 ];
@@ -25,7 +25,7 @@ const lineStringLayer = [
     'source-layer': 'tile',
     interactive: true,
     paint: {
-      'line-color': ['coalesce', ['get', 'color'], '#176b31'],
+      'line-color': ['coalesce', ['get', '_color'], '#176b31'],
       'line-width': 2,
     },
   },
@@ -39,14 +39,14 @@ const polygonLayer = [
     'source-layer': 'tile',
     interactive: true,
     paint: {
-      'fill-color': ['coalesce', ['get', 'color'], '#96a186'],
+      'fill-color': ['coalesce', ['get', '_color'], '#96a186'],
       'fill-opacity': 0.8,
       'fill-outline-color': 'black',
     },
   },
   {
     layout: {
-      'text-field': ['get', 'label'],
+      'text-field': ['get', '_label'],
       'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
       'text-transform': 'uppercase',
       'text-letter-spacing': 0.1,
@@ -75,9 +75,9 @@ const polygon3DLayer = [
     'source-layer': 'tile',
     interactive: true,
     paint: {
-      'fill-extrusion-color': ['coalesce', ['get', 'color'], '#96a186'],
+      'fill-extrusion-color': ['coalesce', ['get', '_color'], '#96a186'],
       'fill-extrusion-opacity': 0.8,
-      'fill-extrusion-height': ['get', 'height'],
+      'fill-extrusion-height': ['get', '_height'],
     },
   },
 ];

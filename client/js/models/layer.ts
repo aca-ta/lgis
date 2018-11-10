@@ -15,6 +15,22 @@ const pointLayer = [
       'circle-color': ['coalesce', ['get', '_color'], '#4153f4'],
     },
   },
+  {
+    layout: {
+      'text-field': ['get', '_label'],
+      'text-letter-spacing': 0.1,
+      'text-size': 10,
+    },
+    type: 'symbol',
+    source: 'lgis',
+    id: 'label',
+    paint: {
+      'text-color': '#666',
+      'text-halo-color': 'rgba(255,255,255,0.75)',
+      'text-halo-width': 2,
+    },
+    'source-layer': 'tile',
+  },
 ];
 
 const lineStringLayer = [
@@ -28,6 +44,23 @@ const lineStringLayer = [
       'line-color': ['coalesce', ['get', '_color'], '#176b31'],
       'line-width': 2,
     },
+  },
+  {
+    layout: {
+      "symbol-placement": "line",
+      'text-field': ['get', '_label'],
+      'text-letter-spacing': 0.1,
+      'text-size': 10,
+    },
+    type: 'symbol',
+    source: 'lgis',
+    id: 'label',
+    paint: {
+      'text-color': '#666',
+      'text-halo-color': 'rgba(255,255,255,0.75)',
+      'text-halo-width': 2,
+    },
+    'source-layer': 'tile',
   },
 ];
 
@@ -47,8 +80,6 @@ const polygonLayer = [
   {
     layout: {
       'text-field': ['get', '_label'],
-      'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-      'text-transform': 'uppercase',
       'text-letter-spacing': 0.1,
       'text-size': 10,
     },
@@ -77,6 +108,22 @@ const polygon3DLayer = [
       'fill-extrusion-height': ['get', '_height'],
     },
   },
+  {
+    layout: {
+      'text-field': ['get', '_label'],
+      'text-letter-spacing': 0.1,
+      'text-size': 10,
+    },
+    type: 'symbol',
+    source: 'lgis',
+    id: 'label',
+    paint: {
+      'text-color': '#666',
+      'text-halo-color': 'rgba(255,255,255,0.75)',
+      'text-halo-width': 2,
+    },
+    'source-layer': 'tile',
+  },
 ];
 
 const createSource = (
@@ -102,7 +149,9 @@ const selectLayerStyle = (geomType: string) => {
     case 'polygon3d':
       return polygon3DLayer;
     default:
-      alert('Geometry type is not choosen.');
+      const msg = 'Geometry type is not choosen.';
+      alert(msg);
+      throw new Error(msg);
   }
 };
 

@@ -117,8 +117,7 @@ const setLayer = (mapStyle: any, layer: any) => {
   const newLayers = mapStyle
     .get('layers')
     .filter((elm: any) => elm.get('source') !== 'lgis')
-    .push(fromJS(layer[0])) // TODO: ImmutableJSの形式でpushする;
-    .push(fromJS(layer[1])) // TODO: ImmutableJSの形式でpushする;
+    .concat(fromJS(layer))
   return mapStyle.mergeIn(['layers'], newLayers);
 };
 

@@ -4,54 +4,83 @@ import * as MAP_STYLE from './map-style-basic-v8.json';
 
 export const defaultLayer = fromJS((MAP_STYLE as any).default);
 
-const pointLayer = {
-  id: 'point',
-  type: 'circle',
-  source: 'lgis',
-  'source-layer': 'tile',
-  interactive: true,
-  paint: {
-    'circle-color': ['coalesce', ['get', 'color'], '#4153f4'],
+const pointLayer = [
+  {
+    id: 'point',
+    type: 'circle',
+    source: 'lgis',
+    'source-layer': 'tile',
+    interactive: true,
+    paint: {
+      'circle-color': ['coalesce', ['get', 'color'], '#4153f4'],
+    },
   },
-};
+];
 
-const lineStringLayer = {
-  id: 'linestring',
-  type: 'line',
-  source: 'lgis',
-  'source-layer': 'tile',
-  interactive: true,
-  paint: {
-    'line-color': ['coalesce', ['get', 'color'], '#176b31'],
-    'line-width': 2,
+const lineStringLayer = [
+  {
+    id: 'linestring',
+    type: 'line',
+    source: 'lgis',
+    'source-layer': 'tile',
+    interactive: true,
+    paint: {
+      'line-color': ['coalesce', ['get', 'color'], '#176b31'],
+      'line-width': 2,
+    },
   },
-};
+];
 
-const polygonLayer = {
-  id: 'polygon',
-  type: 'fill',
-  source: 'lgis',
-  'source-layer': 'tile',
-  interactive: true,
-  paint: {
-    'fill-color': ['coalesce', ['get', 'color'], '#96a186'],
-    'fill-opacity': 0.8,
-    'fill-outline-color': 'black',
+const polygonLayer = [
+  {
+    id: 'polygon',
+    type: 'fill',
+    source: 'lgis',
+    'source-layer': 'tile',
+    interactive: true,
+    paint: {
+      'fill-color': ['coalesce', ['get', 'color'], '#96a186'],
+      'fill-opacity': 0.8,
+      'fill-outline-color': 'black',
+    },
   },
-};
+  {
+    layout: {
+      'text-field': ['get', 'label'],
+      'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+      'text-transform': 'uppercase',
+      'text-letter-spacing': 0.1,
+      'text-size': {
+        base: 1.4,
+        stops: [[10, 8], [20, 14]],
+      },
+    },
+    type: 'symbol',
+    source: 'lgis',
+    id: 'polygon_label',
+    paint: {
+      'text-color': '#666',
+      'text-halo-color': 'rgba(255,255,255,0.75)',
+      'text-halo-width': 2,
+    },
+    'source-layer': 'tile',
+  },
+];
 
-const polygon3DLayer = {
-  id: 'polygon',
-  type: 'fill-extrusion',
-  source: 'lgis',
-  'source-layer': 'tile',
-  interactive: true,
-  paint: {
-    'fill-extrusion-color': ['coalesce', ['get', 'color'], '#96a186'],
-    'fill-extrusion-opacity': 0.8,
-    'fill-extrusion-height': ['get', 'height'],
+const polygon3DLayer = [
+  {
+    id: 'polygon',
+    type: 'fill-extrusion',
+    source: 'lgis',
+    'source-layer': 'tile',
+    interactive: true,
+    paint: {
+      'fill-extrusion-color': ['coalesce', ['get', 'color'], '#96a186'],
+      'fill-extrusion-opacity': 0.8,
+      'fill-extrusion-height': ['get', 'height'],
+    },
   },
-};
+];
 
 const createSource = (
   host: string,
@@ -68,13 +97,13 @@ const createSource = (
 const selectLayerStyle = (geomType: string) => {
   switch (geomType) {
     case 'point':
-      return fromJS(pointLayer);
+      return pointLayer;
     case 'linestring':
-      return fromJS(lineStringLayer);
+      return lineStringLayer;
     case 'polygon':
-      return fromJS(polygonLayer);
+      return polygonLayer;
     case 'polygon3d':
-      return fromJS(polygon3DLayer);
+      return polygon3DLayer;
     default:
       alert('Geometry type is not choosen.');
   }
@@ -88,7 +117,8 @@ const setLayer = (mapStyle: any, layer: any) => {
   const newLayers = mapStyle
     .get('layers')
     .filter((elm: any) => elm.get('source') !== 'lgis')
-    .push(layer);
+    .push(fromJS(layer[0])) // TODO: ImmutableJSの形式でpushする;
+    .push(fromJS(layer[1])) // TODO: ImmutableJSの形式でpushする;
   return mapStyle.mergeIn(['layers'], newLayers);
 };
 
@@ -141,6 +171,8 @@ interface LoadMapResponse {
 
 export const loadMap = async (name: string) => {
   const query = `name=${name}`;
-  const res: AxiosResponse<LoadMapResponse> = await axios.get(`/load_map?${query}`)
+  const res: AxiosResponse<LoadMapResponse> = await axios.get(
+    `/load_map?${query}`,
+  );
   return res.data;
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactMapGL, {MapEvent, Popup, Viewport} from 'react-map-gl';
+import ReactMapGL, {MapError, MapEvent, Popup, Viewport} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {
@@ -49,6 +49,12 @@ const Map = (props: {
     );
   }
 
+  const showErrorMsg = (evt: MapError) => {
+    if (evt.error && evt.error.status === 500) {
+      console.log(evt.error.message);
+    }
+  }
+
   return (
     <ReactMapGL
       {...viewport}
@@ -57,6 +63,7 @@ const Map = (props: {
       mapStyle={mapStyle}
       mapboxApiAccessToken={''}
       onViewportChange={dispatchChangeViewport}
+      onError={showErrorMsg}
       onClick={openPopupOrNot}>
       {Tooltip(popupLng, popupLat, properties, dispatchClosePopup)}
     </ReactMapGL>

@@ -50,8 +50,8 @@ const Map = (props: {
   }
 
   const showErrorMsg = (evt: MapError) => {
-    if (evt.error && evt.error.status === 500) {
-      console.log(evt.error.message);
+    if (evt.error && evt.error.status === 400) {
+      console.error(evt.error.message);
     }
   }
 

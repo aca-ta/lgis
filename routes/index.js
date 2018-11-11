@@ -5,18 +5,26 @@ const loadMap = require('../app/loadMap');
 
 const router = express.Router();
 
-
-router.get('/tiles/:host/:db/:table/:datum/:Z/:X/:Y/', (req, res) => {
-  tile.createMvt(req, (err, data) => {
+router.get('/tiles/:host/:db/:table/:datum/:Z/:X/:Y/', async (req, res) => {
+  const responseFunc = (err, data) => {
     if (err) {
       console.log(err);
       res.status(500);
-      res.end("error");
+      res.end();
       return;
     }
-    res.status(200).set({ 'Content-Type': 'application/x-protobuf' });
+    res.status(200).set({'Content-Type': 'application/x-protobuf'});
     res.end(data.getData());
-  });
+  };
+
+  const error = await tile.createMvt(req, responseFunc);
+  // if Postgis error, return bad request.
+  if (error.message.match(/Postgis Plugin/)) {
+    res.status(400).end();
+    return;
+  }
+  res.status(500).end();
+  return;
 });
 
 router.get('/save_map', (req, res) => {
@@ -40,8 +48,7 @@ router.get('/load_map', (req, res) => {
 });
 
 router.get('*', (req, res) => {
-  res.render('index', { title: 'Express' });
+  res.render('index', {title: 'Express'});
 });
-
 
 module.exports = router;

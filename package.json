@@ -39,7 +39,7 @@
     "motion-ui": "^1.2.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-map-gl": "^4.0.0-alpha.1",
+    "react-map-gl": "^4.0.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "reduce-reducers": "^0.4.3",

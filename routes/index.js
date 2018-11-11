@@ -19,11 +19,13 @@ router.get('/tiles/:host/:db/:table/:datum/:Z/:X/:Y/', async (req, res) => {
 
   const error = await tile.createMvt(req, responseFunc);
   // if Postgis error, return bad request.
-  if (error.message.match(/Postgis Plugin/)) {
-    res.status(400).end();
-    return;
+  if (error) {
+    if (error.message.match(/Postgis Plugin/)) {
+      res.status(400).end();
+    } else {
+      res.status(500).end();
+    }
   }
-  res.status(500).end();
   return;
 });
 

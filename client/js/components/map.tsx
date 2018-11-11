@@ -51,7 +51,7 @@ const Map = (props: {
 
   const showErrorMsg = (evt: MapError) => {
     if (evt.error && evt.error.status === 400) {
-      console.error(evt.error.message);
+      console.error(`${evt.error.message}: The table value might be wrong.`);
     }
   }
 

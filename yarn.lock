@@ -210,9 +210,9 @@
     indefinite-observable "^1.0.1"
 
 "@types/mapbox-gl@*":
-  version "0.49.0"
-  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.49.0.tgz#0ed69aee980f11f4cd58a763abf3a6ef46e34baa"
-  integrity sha512-lVcswMVPyJh/85RzYi+hKpjO/jB1VQComH/hx5HzkLSPlUjgsNAt2ZG+SPzR/EVhjTxU6/SIxJKvv+wD33MzuQ==
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.51.0.tgz#ab0bcba1d727d2c61f14f1e341016ef631bb7959"
+  integrity sha512-a3ewnAAgNGtkkPnh22M1OfDLQLULI1CXw0SLKWOova+9LBnUrm64jysuaKdymA96YdxzYCyc7fK91avMuJveFw==
   dependencies:
     "@types/geojson" "*"
 
@@ -249,10 +249,10 @@
     "@types/node" "*"
     "@types/react" "*"
 
-"@types/react-map-gl@^3.3.1":
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/@types/react-map-gl/-/react-map-gl-3.3.3.tgz#23ef1e801ba45126a6b09d4bfdd094abd8cc47bf"
-  integrity sha512-J/Ue3lgnnp7rNgZ+gxoF8ZsI7bGuwdFViXI3Fwb9Rp4VozBewPHCNmXvx2im6rGTPrjVsPggoaLPPXwwIw5WXg==
+"@types/react-map-gl@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-map-gl/-/react-map-gl-4.0.0.tgz#299a2bf712ae90d63269e47723b27ac648d9d27d"
+  integrity sha512-1hadei3kZrBKB0awi9nFY+JmELK02ei6uPo7yRBpA8E5EEj1xGq6BoPnQ16Y/58vo6i+HPefeyRlWDmfyWPFyw==
   dependencies:
     "@types/geojson" "*"
     "@types/mapbox-gl" "*"
@@ -282,9 +282,9 @@
     "@types/react" "*"
 
 "@types/react@*":
-  version "16.4.16"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.16.tgz#99f91b1200ae8c2062030402006d3b3c3a177043"
-  integrity sha512-lxyoipLWweAnLnSsV4Ho2NAZTKKmxeYgkTQ6PaDiPDU9JJBUY2zJVVGiK1smzYv8+ZgbqEmcm5xM74GCpunSEA==
+  version "16.7.7"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.7.tgz#1e5e23e7dd922968ed4b484cdec00a5402c9f31b"
+  integrity sha512-dJiq7CKxD1XJ/GqmbnsQisFnzG4z5lntKBw9X9qeSrguxFbrrhGa8cK9s0ONBp8wL1EfGfofEDVhjen26U46pw==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"

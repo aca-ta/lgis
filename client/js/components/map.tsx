@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactMapGL, {MapEvent, Popup, Viewport} from 'react-map-gl';
+import ReactMapGL, {MapError, PointerEvent, Popup, ViewState} from 'react-map-gl';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {
@@ -14,12 +14,12 @@ import {Feature} from '../types/react-map-gl.d';
 import {Tooltip} from './tooltip';
 
 const Map = (props: {
-  viewport: Viewport;
+  viewport: ViewState;
   mapStyle: any;
   popupLat: number;
   popupLng: number;
   properties: {[key: string]: string};
-  dispatchChangeViewport: (viewport: Viewport) => void;
+  dispatchChangeViewport: (viewport: ViewState) => void;
   dispatchOpenPopup: (
     lat: number,
     lng: number,
@@ -38,7 +38,7 @@ const Map = (props: {
     dispatchClosePopup,
   } = props;
 
-  const openPopupOrNot = (e: MapEvent) => {
+  const openPopupOrNot = (e: PointerEvent) => {
     if (e.features.length === 0 || (e.features[0] as Feature).source !== 'lgis'){
       return;
     }
@@ -49,6 +49,12 @@ const Map = (props: {
     );
   }
 
+  const showErrorMsg = (evt: MapError) => {
+    if (evt.error && evt.error.status === 400) {
+      console.error(`${evt.error.message}: The table value might be wrong.`);
+    }
+  }
+
   return (
     <ReactMapGL
       {...viewport}
@@ -57,6 +63,7 @@ const Map = (props: {
       mapStyle={mapStyle}
       mapboxApiAccessToken={''}
       onViewportChange={dispatchChangeViewport}
+      onError={showErrorMsg}
       onClick={openPopupOrNot}>
       {Tooltip(popupLng, popupLat, properties, dispatchClosePopup)}
     </ReactMapGL>
@@ -64,7 +71,7 @@ const Map = (props: {
 };
 
 export interface MapState {
-  viewport: Viewport;
+  viewport: ViewState;
   mapStyle: any;
   popupLat: number;
   popupLng: number;
@@ -80,7 +87,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
-  dispatchChangeViewport: (viewport: Viewport) => {
+  dispatchChangeViewport: (viewport: ViewState) => {
     dispatch(changeViewport(viewport));
   },
   dispatchOpenPopup: (

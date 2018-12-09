@@ -163,10 +163,11 @@ const setSource = (mapStyle: any, source: any) => {
 
 const setLayer = (mapStyle: any, layer: any) => {
   const newLayers = mapStyle
-    .get('layers')
-    .filter((elm: any) => elm.get('source') !== 'lgis')
+    .layers
+    .filter((elm: any) => elm.source !== 'lgis')
     .concat(layer)
-  return mapStyle.mergeIn(['layers'], newLayers);
+  mapStyle.layers = newLayers;
+  return mapStyle
 };
 
 export const addLayerStyle = (

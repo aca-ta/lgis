@@ -1,6 +1,6 @@
 import {Actions, ActionTypes} from '../actions/toolbar';
 import {ToolbarState} from '../components/toolbar';
-import {defaultLayer, addLayerStyle} from '../models/layer';
+import {addLayerStyle, defaultLayer} from '../models/layer';
 
 const initialState: ToolbarState = {
   open: false,

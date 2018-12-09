@@ -1,4 +1,4 @@
-import {Viewport} from 'react-map-gl';
+import {ViewState} from 'react-map-gl';
 import {Actions, ActionTypes} from '../actions/map';
 import {MapState} from '../components/map';
 import {defaultLayer} from '../models/layer';
@@ -15,7 +15,7 @@ const initialState: MapState = {
   properties: {},
 };
 
-const changeViewport = (state: MapState, viewport: Viewport): MapState => ({
+const changeViewport = (state: MapState, viewport: ViewState): MapState => ({
   ...state,
   viewport,
 });

@@ -1,7 +1,12 @@
-import {withStyles, createStyles} from '@material-ui/core/styles';
+import {createStyles, withStyles, WithStyles} from '@material-ui/core/styles';
 import {Theme} from '@material-ui/core/styles/createMuiTheme';
 import * as classNames from 'classnames';
+import {Location} from 'history';
 import * as React from 'react';
+import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
+import {ActionTypes, loadMap as loadMapAct} from '../actions/load';
+import {loadMap} from '../models/layer';
 import {MAP} from './map';
 import {LGISToolbar} from './toolbar';
 
@@ -83,27 +88,69 @@ const styles = (theme: Theme) =>
 
 interface AppProps {
   classes: any;
+  dispatchLoadMap: (
+    name: string,
+    table: string,
+    geomtype: string,
+    settings: any,
+  ) => void;
+  location: Location;
 }
 
-const App = (props: AppProps) => {
-  const {classes} = props;
+class App extends React.Component<AppProps, {}> {
+  public componentDidMount() {
+    const {dispatchLoadMap, location} = this.props;
+    const path = location.pathname.replace(/^\/+/g, '');
+    if (!path) {
+      return;
+    }
+    loadMap(path)
+      .then(data => {
+        const {name, table, geomType, settings} = data;
+        dispatchLoadMap(name, table, geomType, settings);
+      })
+      .catch(err => {
+        if (err.response) {
+          console.log(err.response.data);
+        } else {
+          console.log(err.message);
+        }
+      });
+  }
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.appFrame}>
-        <LGISToolbar classes={classes} />
-        <main
-          className={classNames(
-            classes.content,
-            classes['content-left'],
-            classes.contentShift,
-          )}>
-          <div className={classes.drawerHeader} />
-          <MAP />
-        </main>
+  public render() {
+    const {classes} = this.props;
+    return (
+      <div className={classes.root}>
+        <div className={classes.appFrame}>
+          <LGISToolbar classes={classes} />
+          <main
+            className={classNames(
+              classes.content,
+              classes['content-left'],
+              classes.contentShift,
+            )}>
+            <div className={classes.drawerHeader} />
+            <MAP />
+          </main>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export const Lgis = withStyles(styles, {withTheme: true})<typeof styles>(App);
+const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => ({
+  dispatchLoadMap: (
+    name: string,
+    table: string,
+    geomType: string,
+    settings: any,
+  ) => {
+    dispatch(loadMapAct(name, table, geomType, settings));
+  },
+});
+
+export const Lgis = connect(
+  null,
+  mapDispatchToProps,
+)(withStyles(styles, {withTheme: true})(App));

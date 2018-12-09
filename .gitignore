@@ -4,6 +4,7 @@ public/javascripts/*
 public/stylesheets/*
 yarn-error.log
 .awcache/
+etc/
 
 ## testing
 coverage/

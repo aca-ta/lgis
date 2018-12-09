@@ -1,4 +1,4 @@
-import {Viewport, MapEvent} from 'react-map-gl';
+import {ViewState} from 'react-map-gl';
 
 export enum Actions {
   CHANGE_VIEWPORT = 'map/changeViewport',
@@ -8,10 +8,10 @@ export enum Actions {
 
 export interface ChangeViewportAction {
   readonly type: Actions.CHANGE_VIEWPORT;
-  payload: {viewport: Viewport};
+  payload: {viewport: ViewState};
 }
 
-export const changeViewport = (viewport: Viewport): ChangeViewportAction => ({
+export const changeViewport = (viewport: ViewState): ChangeViewportAction => ({
   type: Actions.CHANGE_VIEWPORT,
   payload: {viewport},
 });

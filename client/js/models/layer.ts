@@ -1,42 +1,131 @@
-//import {fromJS} from 'immutable';
+import axios, {AxiosResponse} from 'axios';
+// import {fromJS} from 'immutable';
 import * as MAP_STYLE from './map-style-basic-v8.json';
 
-export const defaultLayer = (<any>MAP_STYLE).default;
+// export const defaultLayer = fromJS((MAP_STYLE as any).default);
+export const defaultLayer = (MAP_STYLE as any).default;
 
-const pointLayer = {
-  id: 'point',
-  type: 'circle',
-  source: 'lgis',
-  'source-layer': 'tile',
-  interactive: true,
-  paint: {
-    'circle-color': '#4153f4',
+const pointLayer = [
+  {
+    id: 'point',
+    type: 'circle',
+    source: 'lgis',
+    'source-layer': 'tile',
+    interactive: true,
+    paint: {
+      'circle-color': ['coalesce', ['get', '_color'], '#4153f4'],
+    },
   },
-};
+  {
+    layout: {
+      'text-field': ['get', '_label'],
+      'text-letter-spacing': 0.1,
+      'text-size': 10,
+    },
+    type: 'symbol',
+    source: 'lgis',
+    id: 'label',
+    paint: {
+      'text-color': '#666',
+      'text-halo-color': 'rgba(255,255,255,0.75)',
+      'text-halo-width': 2,
+    },
+    'source-layer': 'tile',
+  },
+];
 
-const lineStringLayer = {
-  id: 'linestring',
-  type: 'line',
-  source: 'lgis',
-  'source-layer': 'tile',
-  interactive: true,
-  paint: {
-    'line-color': '#176b31',
+const lineStringLayer = [
+  {
+    id: 'linestring',
+    type: 'line',
+    source: 'lgis',
+    'source-layer': 'tile',
+    interactive: true,
+    paint: {
+      'line-color': ['coalesce', ['get', '_color'], '#176b31'],
+      'line-width': 2,
+    },
   },
-};
+  {
+    layout: {
+      "symbol-placement": "line",
+      'text-field': ['get', '_label'],
+      'text-letter-spacing': 0.1,
+      'text-size': 10,
+    },
+    type: 'symbol',
+    source: 'lgis',
+    id: 'label',
+    paint: {
+      'text-color': '#666',
+      'text-halo-color': 'rgba(255,255,255,0.75)',
+      'text-halo-width': 2,
+    },
+    'source-layer': 'tile',
+  },
+];
 
-const polygonLayer = {
-  id: 'polygon',
-  type: 'fill',
-  source: 'lgis',
-  'source-layer': 'tile',
-  interactive: true,
-  paint: {
-    'fill-color': '#96a186',
-    'fill-opacity': 0.8,
-    'fill-outline-color': 'black',
+const polygonLayer = [
+  {
+    id: 'polygon',
+    type: 'fill',
+    source: 'lgis',
+    'source-layer': 'tile',
+    interactive: true,
+    paint: {
+      'fill-color': ['coalesce', ['get', '_color'], '#96a186'],
+      'fill-opacity': 0.8,
+      'fill-outline-color': 'black',
+    },
   },
-};
+  {
+    layout: {
+      'text-field': ['get', '_label'],
+      'text-letter-spacing': 0.1,
+      'text-size': 10,
+    },
+    type: 'symbol',
+    source: 'lgis',
+    id: 'label',
+    paint: {
+      'text-color': '#666',
+      'text-halo-color': 'rgba(255,255,255,0.75)',
+      'text-halo-width': 2,
+    },
+    'source-layer': 'tile',
+  },
+];
+
+const polygon3DLayer = [
+  {
+    id: 'polygon',
+    type: 'fill-extrusion',
+    source: 'lgis',
+    'source-layer': 'tile',
+    interactive: true,
+    paint: {
+      'fill-extrusion-color': ['coalesce', ['get', '_color'], '#96a186'],
+      'fill-extrusion-opacity': 0.8,
+      'fill-extrusion-height': ['get', '_height'],
+    },
+  },
+  {
+    layout: {
+      'text-field': ['get', '_label'],
+      'text-letter-spacing': 0.1,
+      'text-size': 10,
+    },
+    type: 'symbol',
+    source: 'lgis',
+    id: 'label',
+    paint: {
+      'text-color': '#666',
+      'text-halo-color': 'rgba(255,255,255,0.75)',
+      'text-halo-width': 2,
+    },
+    'source-layer': 'tile',
+  },
+];
 
 const createSource = (
   host: string,
@@ -58,8 +147,12 @@ const selectLayerStyle = (geomType: string) => {
       return lineStringLayer;
     case 'polygon':
       return polygonLayer;
+    case 'polygon3d':
+      return polygon3DLayer;
     default:
-      throw new Error('Geometry type is not choosen.');
+      const msg = 'Geometry type is not choosen.';
+      alert(msg);
+      throw new Error(msg);
   }
 };
 
@@ -69,11 +162,11 @@ const setSource = (mapStyle: any, source: any) => {
 };
 
 const setLayer = (mapStyle: any, layer: any) => {
-  let newLayers = mapStyle.layers
-    .filter((elm: any) => elm.source !== 'lgis')
-  newLayers.push(layer);
-  mapStyle.layers = newLayers;
-  return mapStyle
+  const newLayers = mapStyle
+    .get('layers')
+    .filter((elm: any) => elm.get('source') !== 'lgis')
+    .concat(layer)
+  return mapStyle.mergeIn(['layers'], newLayers);
 };
 
 export const addLayerStyle = (
@@ -94,4 +187,39 @@ export const addLayerStyle = (
   let mapStyle = setSource(prevMapStyle, source);
   mapStyle = setLayer(mapStyle, layer);
   return mapStyle;
+};
+
+export const saveMap = (
+  settingJson: string,
+  table: string,
+  geomType: string,
+) => {
+  const settings = JSON.parse(settingJson);
+
+  // FIXME: use modal dialog instead of prompt
+  const name = prompt('The map name is...', '');
+
+  const query = `name=${name}&settings=${JSON.stringify(
+    settings,
+  )}&geomType=${geomType}&table=${table}`;
+  axios.get(`/save_map?${query}`).then(response => alert('saved'));
+};
+
+interface LoadMapResponse {
+  name: string;
+  table: string;
+  geomType: string;
+  settings: {
+    host: string;
+    db: string;
+    datum: string;
+  };
+}
+
+export const loadMap = async (name: string) => {
+  const query = `name=${name}`;
+  const res: AxiosResponse<LoadMapResponse> = await axios.get(
+    `/load_map?${query}`,
+  );
+  return res.data;
 };

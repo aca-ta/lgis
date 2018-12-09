@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const mapnik = require('mapnik');
-const mercator = require('./sphericalmercator');
+const mercator = require('./lib/sphericalmercator');
 
 
 // register postgis plugin
@@ -38,7 +38,13 @@ module.exports.createMvt = (req, func) => {
 
   const map = new mapnik.Map(256, 256, mercator.proj4);
   const layer = new mapnik.Layer('tile', sridToProj4(req.params.datum));
-  const postgis = new mapnik.Datasource(postgisSettings);
+  let postgis;
+  try {
+    postgis = new mapnik.Datasource(postgisSettings);
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
   const bbox = mercator.xyz_to_envelope(x, y, z, false);
 
   layer.datasource = postgis;
@@ -49,6 +55,7 @@ module.exports.createMvt = (req, func) => {
   const vt = new mapnik.VectorTile(z, x, y);
   vt.bufferSize = 64;
 
-  return map.render(vt, func);
+  map.render(vt, func);
+  return;
 };
 
